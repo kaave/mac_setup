@@ -1,6 +1,9 @@
 ### dotfilesとansibleのセットアップファイルを持ってくる
 
-    git clone https://github.com/blastpartition/dotfiles ~/dotfiles
+```
+git clone https://github.com/blastpartition/dotfiles ~/dotfiles
+git clone https://github.com/blastpartition/mac_setup ~/mac_setup
+```
 
 ### とりあえずMac App Storeで入れられるものは全部入れておく XCodeとか
 #### XCodeのライセンスを通す
@@ -38,4 +41,4 @@ brew install ansible
 
 #### ansible実行
 
-    ansible-playbook -i ~/ansible/hosts -vv ~/ansible/macbookpro.yml
+    mac_setup-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml

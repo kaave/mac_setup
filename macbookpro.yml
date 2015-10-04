@@ -1,0 +1,531 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  sudo: no
+  vars:
+    homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
+
+    ruby_version: 2.2.3
+    nodejs_version: v4.1.1
+    python2_version: 2.7.10
+    python3_version: 3.4.3
+    go_version: 1.5
+    erlang_version: 18.0
+    elixir_version: 1.0.5
+    php_version: 5.6.13
+
+    sym_links:
+      - { src: zshrc,           dest: .zshrc }
+      - { src: zshenv,          dest: .zshenv }
+      - { src: bashrc,          dest: .bashrc }
+      - { src: bash_profile,    dest: .bash_profile }
+      - { src: tmux.conf,       dest: .tmux.conf }
+      - { src: tmuxinator,      dest: .tmuxinator }
+      - { src: vimrc,           dest: .vimrc  }
+      - { src: gvimrc,          dest: .gvimrc }
+      - { src: jshintrc,        dest: .jshintrc }
+      - { src: coffeelint.json, dest: coffeelint.json }
+      - { src: tslint.json,     dest: tslint.json }
+      - { src: tern-project,    dest: .tern-project }
+      - { src: ctags,           dest: .ctags }
+      - { src: rubocop.yml,     dest: .rubocop.yml }
+      - { src: gitconfig,       dest: .gitconfig }
+      - { src: gitignore,       dest: .gitignore }
+    app_setting_links:
+      # アプリ初回起動時までパスが存在しなくて落ちる
+      # - { src: private.xml, dest: Library/Application\ Support/Karabiner/private.xml }
+      - { src: gemrc,       dest: .gemrc }
+    brew_taps:
+      - caskroom/cask
+      - caskroom/versions
+      - caskroom/fonts
+      - homebrew/dupes
+      - homebrew/science
+      # - blastpartition/homebrew-bpcask
+    brew_cask_priority_high:
+      - { name: java }
+      - { name: java6 }
+      - { name: java7 }
+      - { name: xquartz }
+    brew_priority_high:
+      - { name: ansible }
+      - { name: direnv }
+      - { name: gnu-sed }
+      - { name: gibo }
+      - { name: qt5 }
+      - { name: wget }
+      - { name: icdiff }
+      - { name: terminal-notifier }
+      - { name: tree }
+      - { name: tmux }
+      - { name: reattach-to-user-namespace }
+      - { name: git }
+      - { name: git-flow }
+      - { name: hub }
+      - { name: tig }
+      - { name: readline }
+      - { name: nginx }
+      - { name: htop-osx }
+      - { name: zsh-completions }
+      - { name: ag }
+      - { name: ctags }
+      - { name: figlet }
+      - { name: jq }
+      - { name: gdb }
+      - { name: rmtrash }
+      - { name: gnu-tar, install_options: default-names }
+      - { name: mcrypt }
+      - { name: re2c }
+
+    brew_priority_normal:
+      - { name: ffmpeg }
+
+    brew_cask_priority_normal:
+      # browser, mailer, and apps for web services
+      #- { name: google-chrome }
+      #- { name: google-chrome-canary }
+      #- { name: firefox-ja }
+      #- { name: firefoxdeveloperedition-ja }
+      #- { name: opera }
+      #- { name: opera-mail }
+      - { name: thunderbird-ja }
+      - { name: skype }
+      - { name: bathyscaphe }
+
+      # development
+      - { name: atom }
+      # - { name: brackets }
+      - { name: cyberduck }
+      - { name: eclipse-ide }
+      - { name: flash }
+      - { name: github }
+      - { name: imageoptim }
+      - { name: iterm2-beta }
+      - { name: kobito }
+      - { name: macdown }
+      - { name: macvim-kaoriya }
+      - { name: mi }
+      - { name: pgadmin3 }
+      # - { name: scala }
+      # - { name: sbt }
+      - { name: slack }
+      - { name: rdm }
+      - { name: robomongo }
+      - { name: rstudio }
+      - { name: sourcetree }
+      #- { name: sublime-text3 }
+      - { name: vagrant }
+      - { name: virtualbox }
+      - { name: visual-studio-code }
+      - { name: wireshark }
+
+      # utility
+      - { name: alfred }
+      - { name: appcleaner }
+      - { name: bettertouchtool }
+      - { name: caffeine }
+      #- { name: clipmenu }
+      # - { name: controlplane }
+      - { name: cooviewer }
+      #- { name: duet }
+      - { name: dupscanub }
+      - { name: dropbox }
+      - { name: google-japanese-ime }
+      - { name: hosts }
+      - { name: karabiner }
+      - { name: kindle }
+      - { name: seil }
+      - { name: libreoffice }
+      - { name: nvalt }
+      - { name: onyx }
+      - { name: powerkey }
+      #- { name: shupapan }
+      #- { name: smoothmouse }
+      #- { name: tinkertool }
+      #- { name: truecrypt }
+      - { name: vlc }
+      - { name: teamviewer }
+      - { name: xtrafinder }
+
+      # for home machine
+      - { name: lastfm }
+      #- { name: korg-usb-midi-driver }
+      - { name: xld }
+      - { name: soundflower }
+      - { name: pd-extended }
+
+      # shareware
+      - { name: parallels-desktop }
+      # - { name: rubymine }
+      # - { name: webstorm }
+      # - { name: intellij-idea }
+
+      # QuickLook
+      - { name: betterzipql }
+      - { name: cert-quicklook }
+      - { name: emin-webpquicklook }
+      - { name: epubquicklook }
+      - { name: ipaql }
+      # replace this.
+      # https://github.com/BrianGilbert/QLColorCode-extra
+      #- { name: qlcolorcode }
+      #- { name: qldds }    # sha256 error
+      - { name: qlimagesize }
+      - { name: qlmarkdown }
+      - { name: qlnetcdf }
+      - { name: qlprettypatch }
+      - { name: qlrest }
+      - { name: qlstephen }
+      - { name: qlvideo }
+      - { name: quicklook-csv }
+      - { name: quicklook-json }
+      - { name: quicknfo }
+      - { name: scriptql }
+      - { name: suspicious-package }
+      - { name: webpquicklook }
+    anyenv_plugins:
+      - { name: znz/anyenv-update.git, path: anyenv-update }
+      - { name: aereal/anyenv-exec.git, path: anyenv-exec }
+    anyenv_modules:
+      - rb
+      - nd
+      - py
+      - go
+      - erl
+      - ex
+      - php
+    rbenv_plugins:
+      - { name: sstephenson/ruby-build.git, path: ruby-build }
+      - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
+      - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
+      - { name: rkh/rbenv-update.git, path: rbenv-update }
+      - { name: ianheggie/rbenv-binstubs.git, path: rbenv-binstubs }
+    ruby_gems:
+      - pry
+      - pry-doc
+      - bundler
+      - refe2
+      - slim
+      - sass
+      - compass
+      - rubocop
+      - scss-lint
+      - tmuxinator
+      - rcodetools
+      - fastri
+      - rhc
+    npm_modules:
+      - coffee-script
+      - typescript
+      - babel
+      - tsd
+      - dtsm
+      - jade
+      - gulp
+      - eslint
+      - coffeelint
+      - tslint
+      - typescript-tools
+      - csslint
+      - node-inspector
+      - karma-cli
+      - mocha
+      - power-assert
+      - sinon
+    vagrant_plugins:
+      - sahara
+      - vagrant-vbguest
+      - vagrant-vbox-snapshot
+      - vagrant-parallels
+      - vagrant-aws
+  pre_tasks:
+    - name: Get ansible_user home directory
+      shell: 'getent passwd "{{ansible_ssh_user}}" | cut -d: -f6'
+      register: ansible_home_result
+
+    - name: Set the fact for the other scripts to use
+      set_fact: home_dir='{{ansible_home_result.stdout}}'
+  tasks:
+    # sym links -------------------------------------------------
+    - name: install links
+      file: src={{ home_dir }}dotfiles/{{ item.src }} dest={{ home_dir }}{{ item.dest }} state=link force=yes
+      with_items: sym_links
+
+    - name: install /usr/include links
+      shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include
+      sudo: yes
+
+    - name: make .vim dir
+      file: dest={{ home_dir }}.vim/bundle/ state=directory
+
+    - name: install neobundle
+      git: repo=https://github.com/Shougo/neobundle.vim dest={{ home_dir }}.vim/bundle/neobundle.vim
+
+    # homebrew -------------------------------------------------
+    - name: tap repositries
+      homebrew_tap: tap={{ item }} state=present
+      with_items: brew_taps
+
+    - name: update & upgrade homebrew
+      homebrew: update_homebrew=yes upgrade_all=yes
+
+    - name: install homebrew-cask
+      homebrew: name=brew-cask state=latest
+
+    - name: check brew info directory
+      stat: path=info
+      register: is_file
+    - name: add brew info directory
+      file: path=info state=directory
+      when: is_file.stat.md5 is not defined
+
+    - name: install brew cask priority-high packages
+      homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
+      with_items: brew_cask_priority_high
+      environment:
+        HOMEBREW_CASK_OPTS: homebrew_cask_opts
+      register: cask_high_result
+    - name: save brew cask priority-high info
+      shell: brew cask info {{ item }} > info/{{ item }}.log
+      with_items: cask_high_result.results | selectattr('changed') | map(attribute='item') | map(attribute='name') | list
+
+    - name: install brew priority-high packages
+      homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}
+      with_items: brew_priority_high
+      register: brew_high_result
+    - name: save brew priority-high info
+      shell: brew info {{ item }} > info/{{ item }}.log
+      with_items: brew_high_result.results | selectattr('changed') | map(attribute='item') | map(attribute='name') | list
+
+    - name: install brew priority-normal packages
+      homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}
+      with_items: brew_priority_normal
+      register: brew_normal_result
+    - name: save brew priority-normal info
+      shell: brew info {{ item }} > info/{{ item }}.log
+      with_items: brew_normal_result.results | selectattr('changed') | map(attribute='item') | map(attribute='name') | list
+
+    - name: install brew cask priority-normal packages
+      homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
+      with_items: brew_cask_priority_normal
+      environment:
+        HOMEBREW_CASK_OPTS: homebrew_cask_opts
+      register: cask_normal_result
+    - name: save brew cask priority-normal info
+      shell: brew cask info {{ item }} > info/{{ item }}.log
+      with_items: cask_normal_result.results | selectattr('changed') | map(attribute='item') | map(attribute='name') | list
+
+    # applications setting link
+    - name: install app setting links
+      file: src={{ home_dir }}dotfiles/{{ item.src }} dest={{ home_dir }}{{ item.dest }} state=link force=yes
+      with_items: app_setting_links
+
+    # anyenv
+    - name: install anyenv
+      git: repo=https://github.com/riywo/anyenv dest={{ home_dir }}.anyenv/
+
+    - name: install anyenv-plugins
+      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/plugins/{{ item.path }}
+      with_items: anyenv_plugins
+
+    - name: install anyenv modules
+      shell: set -e && . {{ home_dir }}.bashrc && anyenv install -s {{ item }}env
+      with_items: anyenv_modules
+
+    - name: anyenv rehash
+      shell: set -e && . {{ home_dir }}.bashrc && anyenv rehash
+
+    # Ruby
+    - name: install rbenv-plugins
+      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/rbenv/plugins/{ item.path }}
+      with_items: rbenv_plugins
+
+    - name: mod default gem list
+      lineinfile: dest={{ home_dir }}.anyenv/envs/rbenv/default-gems line="{{ item }}" create=yes
+      with_items: ruby_gems
+
+    - name: check ruby {{ ruby_version }} is installed or not
+      shell: |
+        {{ home_dir }}.anyenv/envs/rbenv/bin/rbenv versions |
+        grep {{ ruby_version }} |
+        tr '*' ' ' |
+        gsed -e 's/\s\+//' |
+        cut -f1 -d' '
+      register: rbenv_version
+
+    - name: install ruby {{ ruby_version }} with rbenv
+      shell: set -e && . {{ home_dir }}.bashrc && rbenv install {{ ruby_version }}
+      when: rbenv_version.stdout != "{{ ruby_version }}"
+
+    - name: set ruby version global
+      shell: set -e && . {{ home_dir }}.bashrc && rbenv global {{ ruby_version }}
+
+    - name: rbenv rehash
+      shell: set -e && . {{ home_dir }}.bashrc && rbenv rehash
+
+    - name: install bitclust
+      shell: set -e && . {{ home_dir }}.bashrc && bitclust setup
+
+    # Node.js
+    - name: check node.js {{ nodejs_version }} is installed or not
+      shell: |
+        {{ home_dir }}.anyenv/envs/ndenv/bin/ndenv versions |
+        grep {{ nodejs_version }} |
+        tr '*' ' ' |
+        gsed -e 's/\s\+//' |
+        cut -f1 -d' '
+      register: ndenv_version
+
+    - name: install node.js with ndenv
+      shell: set -e && . {{ home_dir }}.bashrc && ndenv install {{ nodejs_version }}
+      when: ndenv_version.stdout != "{{ nodejs_version }}"
+
+    - name: set node version global
+      shell: set -e && . {{ home_dir }}.bashrc && ndenv global {{ nodejs_version }}
+
+    - name: install npm plugins
+      npm: name={{ item }} global=yes executable={{ home_dir }}.anyenv/envs/ndenv/shims/npm
+      with_items: npm_modules
+
+    - name: install jsctags plugins
+      shell: set -e && . {{ home_dir }}.bashrc && npm i -g git://github.com/ramitos/jsctags.git
+
+    - name: ndenv rehash
+      shell: set -e && . {{ home_dir }}.bashrc && ndenv rehash
+
+    # Python
+    - name: install pyenv
+      git: repo=https://github.com/yyuu/pyenv.git dest={{ home_dir }}.pyenv
+
+    - name: install pyenv-plugins
+      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
+      with_items:
+        - { name: 'yyuu/pyenv-virtualenv.git', path: 'pyenv-virtualenv' }
+
+    # 2.7.x install
+    - name: check python {{ python2_version }} is installed or not
+      shell: |
+        {{ home_dir }}.anyenv/envs/pyenv/bin/pyenv versions |
+        grep {{ python2_version }} |
+        tr '*' ' ' |
+        gsed -e 's/\s\+//' |
+        cut -f1 -d' '
+      register: pyenv_version
+
+    - name: install python {{ python2_version }} with pyenv
+      shell: set -e && . {{ home_dir }}.bashrc && pyenv install {{ python2_version }}
+      when: pyenv_version.stdout != "{{ python2_version }}"
+
+    # 3.4.x install
+    - name: check python {{ python3_version }} is installed or not
+      shell: |
+        {{ home_dir }}.anyenv/envs/pyenv/bin/pyenv versions |
+        grep {{ python3_version }} |
+        tr '*' ' ' |
+        gsed -e 's/\s\+//' |
+        cut -f1 -d' '
+      register: pyenv_version
+
+    - name: install python with pyenv
+      shell: set -e && . {{ home_dir }}.bashrc && pyenv install {{ python3_version }}
+      when: pyenv_version.stdout != "{{ python3_version }}"
+
+    # global use python2_version
+    - name: set python version global
+      shell: set -e && . {{ home_dir }}.bashrc && pyenv global {{ python2_version }}
+
+    - name: pyenv rehash
+      shell: set -e && . {{ home_dir }}.bashrc && pyenv rehash
+
+    # go
+    - name: check whether a specific version of golang is installed or not
+      shell: |
+        {{ home_dir }}.anyenv/envs/goenv/bin/goenv versions |
+        grep {{ go_version }} |
+        tr '*' ' ' |
+        gsed -e 's/\s\+//' |
+        cut -f1 -d' '
+      register: goenv_version
+
+    - name: install golang with goenv
+      shell: set -e && . {{ home_dir }}.bashrc && goenv install {{ go_version }}
+      when: goenv_version.stdout != "{{ go_version }}"
+
+    - name: set golang version global
+      shell: set -e && . {{ home_dir }}.bashrc && goenv global {{ go_version }}
+
+    - name: goenv rehash
+      shell: set -e && . {{ home_dir }}.bashrc && goenv rehash
+
+    # erlang
+    - stat: path={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }}
+      register: erlenv_dir
+
+    - name: download Erlang source
+      get_url: url=http://www.erlang.org/download/otp_src_{{ erlang_version }}.tar.gz dest=/tmp/{{ erlang_version }}.tar.gz
+      sudo_user: vagrant
+      when: erlenv_dir.stat.md5 is not defined
+
+    - name: extract Erlang source
+      # unarchiveでやると文字コードの都合かエラーになるのでshell
+      shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz
+      when: erlenv_dir.stat.md5 is not defined
+
+    - name: install Erlang
+      shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/otp_src_{{ erlang_version }} && make && make install
+      when: erlenv_dir.stat.md5 is not defined
+
+    - name: set Erlang version global
+      shell: set -e && . {{ home_dir }}.bashrc && erlenv global otp_src_{{ erlang_version }}
+
+    - name: erlenv rehash
+      shell: set -e && . {{ home_dir }}.bashrc && erlenv rehash
+
+    # elixir
+    - name: check whether a specific version of Elixir is installed or not
+      shell: |
+        {{ home_dir }}.anyenv/envs/exenv/bin/exenv versions |
+        grep {{ elixir_version }} |
+        tr '*' ' ' |
+        gsed -e 's/\s\+//' |
+        cut -f1 -d' '
+      register: exenv_version
+
+    - name: install Elixir with exenv
+      shell: set -e && . {{ home_dir }}.bashrc && exenv install {{ elixir_version }}
+      when: exenv_version.stdout != "{{ elixir_version }}"
+
+    - name: set Elixir version global
+      shell: set -e && . {{ home_dir }}.bashrc && exenv global {{ elixir_version }}
+
+    - name: exenv rehash
+      shell: set -e && . {{ home_dir }}.bashrc && exenv rehash
+
+    # php
+    - name: check whether a specific version of PHP is installed or not
+      shell: |
+        {{ home_dir }}.anyenv/envs/phpenv/bin/phpenv versions |
+        grep {{ php_version }} |
+        tr '*' ' ' |
+        gsed -e 's/\s\+//' |
+        cut -f1 -d' '
+      register: phpenv_version
+
+    - name: install PHP with phpenv
+      shell: set -e && . {{ home_dir }}.bashrc && phpenv install {{ php_version }}
+      when: phpenv_version.stdout != "{{ php_version }}"
+
+    - name: set PHP version global
+      shell: set -e && . {{ home_dir }}.bashrc && phpenv global {{ php_version }}
+
+    - name: phpenv rehash
+      shell: set -e && . {{ home_dir }}.bashrc && phpenv rehash
+
+    # Vagrant
+    - name: install vagrant plugins
+      command: vagrant plugin install {{ item }}
+      with_items: vagrant_plugins
+
+    # nginx
+    - name: autorun nginx
+      file: src=/usr/local/opt/nginx/*.plist dest={{ home_dir  }}/Library/LaunchAgents state=link

@@ -10,9 +10,6 @@
     python2_version: 2.7.10
     python3_version: 3.4.3
     go_version: 1.5
-    erlang_version: 18.0
-    elixir_version: 1.0.5
-    php_version: 5.6.13
 
     sym_links:
       - { src: zshrc,           dest: .zshrc }
@@ -98,7 +95,7 @@
       - { name: cyberduck }
       - { name: eclipse-ide }
       - { name: flash }
-      - { name: github }
+      # - { name: github-desktop }
       - { name: imageoptim }
       - { name: iterm2-beta }
       - { name: kobito }
@@ -195,11 +192,9 @@
       - ex
       - php
     rbenv_plugins:
-      - { name: sstephenson/ruby-build.git, path: ruby-build }
       - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
       - { name: rkh/rbenv-update.git, path: rbenv-update }
-      - { name: ianheggie/rbenv-binstubs.git, path: rbenv-binstubs }
     ruby_gems:
       - pry
       - pry-doc
@@ -236,15 +231,10 @@
       - sahara
       - vagrant-vbguest
       - vagrant-vbox-snapshot
-      - vagrant-parallels
       - vagrant-aws
   pre_tasks:
-    - name: Get ansible_user home directory
-      shell: 'getent passwd "{{ansible_ssh_user}}" | cut -d: -f6'
-      register: ansible_home_result
-
     - name: Set the fact for the other scripts to use
-      set_fact: home_dir='{{ansible_home_result.stdout}}'
+      set_fact: home_dir='~/'
   tasks:
     # sym links -------------------------------------------------
     - name: install links
@@ -329,47 +319,47 @@
       with_items: anyenv_plugins
 
     - name: install anyenv modules
-      shell: set -e && . {{ home_dir }}.bashrc && anyenv install -s {{ item }}env
+      shell: anyenv install -s {{ item }}env
       with_items: anyenv_modules
 
-    - name: anyenv rehash
-      shell: set -e && . {{ home_dir }}.bashrc && anyenv rehash
+    - name: anyenv reload
+      shell: exec $SHELL -l
 
     # Ruby
     - name: install rbenv-plugins
-      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/rbenv/plugins/{ item.path }}
+      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/rbenv/plugins/{{ item.path }}
       with_items: rbenv_plugins
 
     - name: mod default gem list
       lineinfile: dest={{ home_dir }}.anyenv/envs/rbenv/default-gems line="{{ item }}" create=yes
       with_items: ruby_gems
 
-    - name: check ruby {{ ruby_version }} is installed or not
+    - name: check ruby is installed or not
       shell: |
-        {{ home_dir }}.anyenv/envs/rbenv/bin/rbenv versions |
+        rbenv versions |
         grep {{ ruby_version }} |
         tr '*' ' ' |
         gsed -e 's/\s\+//' |
         cut -f1 -d' '
       register: rbenv_version
 
-    - name: install ruby {{ ruby_version }} with rbenv
-      shell: set -e && . {{ home_dir }}.bashrc && rbenv install {{ ruby_version }}
+    - name: install ruby with rbenv
+      shell: rbenv install {{ ruby_version }}
       when: rbenv_version.stdout != "{{ ruby_version }}"
 
     - name: set ruby version global
-      shell: set -e && . {{ home_dir }}.bashrc && rbenv global {{ ruby_version }}
+      shell: rbenv global {{ ruby_version }}
 
     - name: rbenv rehash
-      shell: set -e && . {{ home_dir }}.bashrc && rbenv rehash
+      shell: rbenv rehash
 
     - name: install bitclust
-      shell: set -e && . {{ home_dir }}.bashrc && bitclust setup
+      shell: bitclust setup
 
     # Node.js
     - name: check node.js {{ nodejs_version }} is installed or not
       shell: |
-        {{ home_dir }}.anyenv/envs/ndenv/bin/ndenv versions |
+        ndenv versions |
         grep {{ nodejs_version }} |
         tr '*' ' ' |
         gsed -e 's/\s\+//' |
@@ -377,21 +367,21 @@
       register: ndenv_version
 
     - name: install node.js with ndenv
-      shell: set -e && . {{ home_dir }}.bashrc && ndenv install {{ nodejs_version }}
+      shell: ndenv install {{ nodejs_version }}
       when: ndenv_version.stdout != "{{ nodejs_version }}"
 
     - name: set node version global
-      shell: set -e && . {{ home_dir }}.bashrc && ndenv global {{ nodejs_version }}
+      shell: ndenv global {{ nodejs_version }}
 
     - name: install npm plugins
       npm: name={{ item }} global=yes executable={{ home_dir }}.anyenv/envs/ndenv/shims/npm
       with_items: npm_modules
 
     - name: install jsctags plugins
-      shell: set -e && . {{ home_dir }}.bashrc && npm i -g git://github.com/ramitos/jsctags.git
+      shell: npm i -g git://github.com/ramitos/jsctags.git
 
     - name: ndenv rehash
-      shell: set -e && . {{ home_dir }}.bashrc && ndenv rehash
+      shell: ndenv rehash
 
     # Python
     - name: install pyenv
@@ -405,7 +395,7 @@
     # 2.7.x install
     - name: check python {{ python2_version }} is installed or not
       shell: |
-        {{ home_dir }}.anyenv/envs/pyenv/bin/pyenv versions |
+        pyenv versions |
         grep {{ python2_version }} |
         tr '*' ' ' |
         gsed -e 's/\s\+//' |
@@ -413,13 +403,13 @@
       register: pyenv_version
 
     - name: install python {{ python2_version }} with pyenv
-      shell: set -e && . {{ home_dir }}.bashrc && pyenv install {{ python2_version }}
+      shell: pyenv install {{ python2_version }}
       when: pyenv_version.stdout != "{{ python2_version }}"
 
     # 3.4.x install
     - name: check python {{ python3_version }} is installed or not
       shell: |
-        {{ home_dir }}.anyenv/envs/pyenv/bin/pyenv versions |
+        pyenv versions |
         grep {{ python3_version }} |
         tr '*' ' ' |
         gsed -e 's/\s\+//' |
@@ -427,20 +417,20 @@
       register: pyenv_version
 
     - name: install python with pyenv
-      shell: set -e && . {{ home_dir }}.bashrc && pyenv install {{ python3_version }}
+      shell: pyenv install {{ python3_version }}
       when: pyenv_version.stdout != "{{ python3_version }}"
 
     # global use python2_version
-    - name: set python version global
-      shell: set -e && . {{ home_dir }}.bashrc && pyenv global {{ python2_version }}
-
-    - name: pyenv rehash
-      shell: set -e && . {{ home_dir }}.bashrc && pyenv rehash
+    # - name: set python version global
+    #   shell: set -e && . {{ home_dir }}.bashrc && pyenv global {{ python2_version }}
+    #
+    # - name: pyenv rehash
+    #   shell: set -e && . {{ home_dir }}.bashrc && pyenv rehash
 
     # go
     - name: check whether a specific version of golang is installed or not
       shell: |
-        {{ home_dir }}.anyenv/envs/goenv/bin/goenv versions |
+        goenv versions |
         grep {{ go_version }} |
         tr '*' ' ' |
         gsed -e 's/\s\+//' |
@@ -448,78 +438,14 @@
       register: goenv_version
 
     - name: install golang with goenv
-      shell: set -e && . {{ home_dir }}.bashrc && goenv install {{ go_version }}
+      shell: goenv install {{ go_version }}
       when: goenv_version.stdout != "{{ go_version }}"
 
     - name: set golang version global
-      shell: set -e && . {{ home_dir }}.bashrc && goenv global {{ go_version }}
+      shell: goenv global {{ go_version }}
 
     - name: goenv rehash
-      shell: set -e && . {{ home_dir }}.bashrc && goenv rehash
-
-    # erlang
-    - stat: path={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }}
-      register: erlenv_dir
-
-    - name: download Erlang source
-      get_url: url=http://www.erlang.org/download/otp_src_{{ erlang_version }}.tar.gz dest=/tmp/{{ erlang_version }}.tar.gz
-      sudo_user: vagrant
-      when: erlenv_dir.stat.md5 is not defined
-
-    - name: extract Erlang source
-      # unarchiveでやると文字コードの都合かエラーになるのでshell
-      shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz
-      when: erlenv_dir.stat.md5 is not defined
-
-    - name: install Erlang
-      shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/otp_src_{{ erlang_version }} && make && make install
-      when: erlenv_dir.stat.md5 is not defined
-
-    - name: set Erlang version global
-      shell: set -e && . {{ home_dir }}.bashrc && erlenv global otp_src_{{ erlang_version }}
-
-    - name: erlenv rehash
-      shell: set -e && . {{ home_dir }}.bashrc && erlenv rehash
-
-    # elixir
-    - name: check whether a specific version of Elixir is installed or not
-      shell: |
-        {{ home_dir }}.anyenv/envs/exenv/bin/exenv versions |
-        grep {{ elixir_version }} |
-        tr '*' ' ' |
-        gsed -e 's/\s\+//' |
-        cut -f1 -d' '
-      register: exenv_version
-
-    - name: install Elixir with exenv
-      shell: set -e && . {{ home_dir }}.bashrc && exenv install {{ elixir_version }}
-      when: exenv_version.stdout != "{{ elixir_version }}"
-
-    - name: set Elixir version global
-      shell: set -e && . {{ home_dir }}.bashrc && exenv global {{ elixir_version }}
-
-    - name: exenv rehash
-      shell: set -e && . {{ home_dir }}.bashrc && exenv rehash
-
-    # php
-    - name: check whether a specific version of PHP is installed or not
-      shell: |
-        {{ home_dir }}.anyenv/envs/phpenv/bin/phpenv versions |
-        grep {{ php_version }} |
-        tr '*' ' ' |
-        gsed -e 's/\s\+//' |
-        cut -f1 -d' '
-      register: phpenv_version
-
-    - name: install PHP with phpenv
-      shell: set -e && . {{ home_dir }}.bashrc && phpenv install {{ php_version }}
-      when: phpenv_version.stdout != "{{ php_version }}"
-
-    - name: set PHP version global
-      shell: set -e && . {{ home_dir }}.bashrc && phpenv global {{ php_version }}
-
-    - name: phpenv rehash
-      shell: set -e && . {{ home_dir }}.bashrc && phpenv rehash
+      shell: goenv rehash
 
     # Vagrant
     - name: install vagrant plugins
@@ -527,5 +453,14 @@
       with_items: vagrant_plugins
 
     # nginx
-    - name: autorun nginx
-      file: src=/usr/local/opt/nginx/*.plist dest={{ home_dir  }}/Library/LaunchAgents state=link
+    - name: set nginx plist
+      shell: ln -sfv /usr/local/opt/nginx/*.plist ~/Library/LaunchAgents
+
+    - name: fix nginx permittion
+      shell: sudo chmod 600 ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+
+    - name: fix nginx ownership
+      shell: sudo chown root ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+
+    - name: autoload nginx
+      shell: sudo launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist

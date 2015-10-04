@@ -41,4 +41,4 @@ brew install ansible
 
 #### ansible実行
 
-    mac_setup-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
+    ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml

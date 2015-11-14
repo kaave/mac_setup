@@ -190,7 +190,7 @@
       - go
       - erl
       - ex
-      - php
+      # - php
     rbenv_plugins:
       - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
@@ -255,6 +255,9 @@
 
     - name: preview text copy
       shell: defaults write com.apple.finder QLEnableTextSelection -bool TRUE; killall Finder
+
+    - name: DS_Store file don't write on Network stores
+      shell: defaults write com.apple.desktopservices DSDontWriteNetworkStores true; killall Finder
 
     # homebrew -------------------------------------------------
     - name: tap repositries

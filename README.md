@@ -1,24 +1,24 @@
-### dotfilesとansibleのセットアップファイルを持ってくる
+### sudoでパスワードをはしょれるようにする
 
-```
-git clone https://github.com/blastpartition/dotfiles ~/dotfiles
-git clone https://github.com/blastpartition/mac_setup ~/mac_setup
-```
+    sudo visudo
+
+    abe all={ALL} NOPASSED: ALL
 
 ### とりあえずMac App Storeで入れられるものは全部入れておく XCodeとか
 #### XCodeのライセンスを通す
 
     sudo xcodebuild -license
 
+#### dotfilesとansibleのセットアップファイルを持ってくる
+
+```
+git clone https://github.com/blastpartition/dotfiles ~/dotfiles
+git clone https://github.com/blastpartition/mac_setup ~/mac_setup
+```
+
 #### コマンドラインツールを入れる
 
     xcode-select --install
-
-#### sudoでパスワードをはしょれるようにする
-
-    sudo visudo
-
-    abe all={ALL} NOPASSED: ALL
 
 #### homebrewを入れる(なかったら)
 

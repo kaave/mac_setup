@@ -6,10 +6,14 @@
     homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
 
     ruby_version: 2.2.3
-    nodejs_version: v4.1.1
+    nodejs_version: v4.2.2
     python2_version: 2.7.10
     python3_version: 3.4.3
-    go_version: 1.5
+    go_version: 1.5.1
+    erlang_version: 18.1
+    elixir_version: 1.1.1
+    # php_version: 5.6.15
+    home_dir: "{{ lookup('env','HOME') }}/"
 
     sym_links:
       - { src: zshrc,           dest: .zshrc }
@@ -20,7 +24,7 @@
       - { src: tmuxinator,      dest: .tmuxinator }
       - { src: vimrc,           dest: .vimrc  }
       - { src: gvimrc,          dest: .gvimrc }
-      - { src: jshintrc,        dest: .jshintrc }
+      - { src: eslintrc,        dest: .eslintrc }
       - { src: coffeelint.json, dest: coffeelint.json }
       - { src: tslint.json,     dest: tslint.json }
       - { src: tern-project,    dest: .tern-project }
@@ -38,7 +42,6 @@
       - caskroom/fonts
       - homebrew/dupes
       - homebrew/science
-      # - blastpartition/homebrew-bpcask
     brew_cask_priority_high:
       - { name: java }
       - { name: java6 }
@@ -73,7 +76,10 @@
       - { name: gnu-tar, install_options: default-names }
       - { name: mcrypt }
       - { name: re2c }
-
+      - { name: jpeg }
+      - { name: libxml2 }
+      - { name: libxslt }
+      - { name: libiconv }
     brew_priority_normal:
       - { name: ffmpeg }
 
@@ -91,26 +97,21 @@
 
       # development
       - { name: atom }
-      # - { name: brackets }
       - { name: cyberduck }
       - { name: eclipse-ide }
       - { name: flash }
       # - { name: github-desktop }
       - { name: imageoptim }
       - { name: iterm2-beta }
-      - { name: kobito }
       - { name: macdown }
       - { name: macvim-kaoriya }
       - { name: mi }
       - { name: pgadmin3 }
-      # - { name: scala }
-      # - { name: sbt }
       - { name: slack }
       - { name: rdm }
       - { name: robomongo }
       - { name: rstudio }
       - { name: sourcetree }
-      #- { name: sublime-text3 }
       - { name: vagrant }
       - { name: virtualbox }
       - { name: visual-studio-code }
@@ -122,7 +123,6 @@
       - { name: bettertouchtool }
       - { name: caffeine }
       #- { name: clipmenu }
-      # - { name: controlplane }
       - { name: cooviewer }
       #- { name: duet }
       - { name: dupscanub }
@@ -131,6 +131,7 @@
       - { name: hosts }
       - { name: karabiner }
       - { name: kindle }
+      - { name: path-finder }
       - { name: seil }
       - { name: libreoffice }
       - { name: nvalt }
@@ -146,14 +147,13 @@
 
       # for home machine
       - { name: lastfm }
-      #- { name: korg-usb-midi-driver }
       - { name: xld }
-      - { name: soundflower }
+      # - { name: soundflower }
       - { name: pd-extended }
 
       # shareware
       - { name: parallels-desktop }
-      # - { name: rubymine }
+      - { name: rubymine }
       # - { name: webstorm }
       # - { name: intellij-idea }
 
@@ -178,7 +178,7 @@
       - { name: quicklook-json }
       - { name: quicknfo }
       - { name: scriptql }
-      - { name: suspicious-package }
+      # - { name: suspicious-package }
       - { name: webpquicklook }
     anyenv_plugins:
       - { name: znz/anyenv-update.git, path: anyenv-update }
@@ -212,11 +212,12 @@
     npm_modules:
       - coffee-script
       - typescript
-      - babel
+      - babel-cli
       - tsd
       - dtsm
       - jade
       - gulp
+      - jspm
       - eslint
       - coffeelint
       - tslint
@@ -227,29 +228,33 @@
       - mocha
       - power-assert
       - sinon
+      - phantomjs
+      - nightmare
     vagrant_plugins:
       - sahara
+      - dotenv
       - vagrant-vbguest
       - vagrant-vbox-snapshot
       - vagrant-aws
-  pre_tasks:
-    - name: Set the fact for the other scripts to use
-      set_fact: home_dir='~/'
+      - vagrant-digitalocean
   tasks:
     # sym links -------------------------------------------------
     - name: install links
       file: src={{ home_dir }}dotfiles/{{ item.src }} dest={{ home_dir }}{{ item.dest }} state=link force=yes
       with_items: sym_links
 
-    - name: install /usr/include links
-      shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include
-      sudo: yes
+    # - name: install /usr/include links
+    #   shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include
+    #   sudo: yes
 
     - name: make .vim dir
       file: dest={{ home_dir }}.vim/bundle/ state=directory
 
     - name: install neobundle
       git: repo=https://github.com/Shougo/neobundle.vim dest={{ home_dir }}.vim/bundle/neobundle.vim
+
+    - name: preview text copy
+      shell: defaults write com.apple.finder QLEnableTextSelection -bool TRUE; killall Finder
 
     # homebrew -------------------------------------------------
     - name: tap repositries
@@ -319,11 +324,8 @@
       with_items: anyenv_plugins
 
     - name: install anyenv modules
-      shell: anyenv install -s {{ item }}env
+      shell: /bin/bash -lc "anyenv install -s {{ item }}env"
       with_items: anyenv_modules
-
-    - name: anyenv reload
-      shell: exec $SHELL -l
 
     # Ruby
     - name: install rbenv-plugins
@@ -336,7 +338,7 @@
 
     - name: check ruby is installed or not
       shell: |
-        rbenv versions |
+        /bin/bash -lc "rbenv versions" |
         grep {{ ruby_version }} |
         tr '*' ' ' |
         gsed -e 's/\s\+//' |
@@ -344,22 +346,22 @@
       register: rbenv_version
 
     - name: install ruby with rbenv
-      shell: rbenv install {{ ruby_version }}
+      shell: /bin/bash -lc "rbenv install {{ ruby_version }}"
       when: rbenv_version.stdout != "{{ ruby_version }}"
 
     - name: set ruby version global
-      shell: rbenv global {{ ruby_version }}
+      shell: /bin/bash -lc "rbenv global {{ ruby_version }}"
 
     - name: rbenv rehash
-      shell: rbenv rehash
+      shell: /bin/bash -lc "rbenv rehash"
 
     - name: install bitclust
-      shell: bitclust setup
+      shell: /bin/bash -lc "rbenv rehash && bitclust setup"
 
     # Node.js
     - name: check node.js {{ nodejs_version }} is installed or not
       shell: |
-        ndenv versions |
+        /bin/bash -lc "ndenv versions" |
         grep {{ nodejs_version }} |
         tr '*' ' ' |
         gsed -e 's/\s\+//' |
@@ -367,21 +369,24 @@
       register: ndenv_version
 
     - name: install node.js with ndenv
-      shell: ndenv install {{ nodejs_version }}
+      shell: /bin/bash -lc "ndenv install {{ nodejs_version }}"
       when: ndenv_version.stdout != "{{ nodejs_version }}"
 
     - name: set node version global
-      shell: ndenv global {{ nodejs_version }}
+      shell: /bin/bash -lc "ndenv global {{ nodejs_version }}"
 
     - name: install npm plugins
       npm: name={{ item }} global=yes executable={{ home_dir }}.anyenv/envs/ndenv/shims/npm
       with_items: npm_modules
 
+    - name: ndenv rehash
+      shell: /bin/bash -lc "ndenv rehash"
+
     - name: install jsctags plugins
-      shell: npm i -g git://github.com/ramitos/jsctags.git
+      shell: /bin/bash -lc "npm i -g git://github.com/ramitos/jsctags.git"
 
     - name: ndenv rehash
-      shell: ndenv rehash
+      shell: /bin/bash -lc "ndenv rehash"
 
     # Python
     - name: install pyenv
@@ -395,7 +400,7 @@
     # 2.7.x install
     - name: check python {{ python2_version }} is installed or not
       shell: |
-        pyenv versions |
+        /bin/bash -lc "pyenv versions" |
         grep {{ python2_version }} |
         tr '*' ' ' |
         gsed -e 's/\s\+//' |
@@ -403,13 +408,13 @@
       register: pyenv_version
 
     - name: install python {{ python2_version }} with pyenv
-      shell: pyenv install {{ python2_version }}
+      shell: /bin/bash -lc "pyenv install {{ python2_version }}"
       when: pyenv_version.stdout != "{{ python2_version }}"
 
     # 3.4.x install
     - name: check python {{ python3_version }} is installed or not
       shell: |
-        pyenv versions |
+        /bin/bash -lc "pyenv versions" |
         grep {{ python3_version }} |
         tr '*' ' ' |
         gsed -e 's/\s\+//' |
@@ -417,7 +422,7 @@
       register: pyenv_version
 
     - name: install python with pyenv
-      shell: pyenv install {{ python3_version }}
+      shell: /bin/bash -lc "pyenv install {{ python3_version }}"
       when: pyenv_version.stdout != "{{ python3_version }}"
 
     # global use python2_version
@@ -430,7 +435,7 @@
     # go
     - name: check whether a specific version of golang is installed or not
       shell: |
-        goenv versions |
+        /bin/bash -lc "goenv versions" |
         grep {{ go_version }} |
         tr '*' ' ' |
         gsed -e 's/\s\+//' |
@@ -438,14 +443,72 @@
       register: goenv_version
 
     - name: install golang with goenv
-      shell: goenv install {{ go_version }}
+      shell: /bin/bash -lc "goenv install {{ go_version }}"
       when: goenv_version.stdout != "{{ go_version }}"
 
     - name: set golang version global
-      shell: goenv global {{ go_version }}
+      shell: /bin/bash -lc "goenv global {{ go_version }}"
 
     - name: goenv rehash
-      shell: goenv rehash
+      shell: /bin/bash -lc "goenv rehash"
+
+    # Erlang
+    - stat: path={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }}
+      register: is_dir
+
+    - name: download Erlang source
+      get_url: url=http://www.erlang.org/download/otp_src_{{ erlang_version }}.tar.gz dest=/tmp/{{ erlang_version }}.tar.gz
+      when: is_dir.stat.md5 is not defined
+
+    - name: extract Erlang source
+      # unarchiveでやると文字コードの都合かエラーになるのでshell
+      shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz
+      when: is_dir.stat.md5 is not defined
+
+    - name: install Erlang
+      shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/otp_src_{{ erlang_version }} && make && make install
+      when: is_dir.stat.md5 is not defined
+
+    - name: set Erlang version global
+      shell: /bin/bash -lc "erlenv global otp_src_{{ erlang_version }}"
+
+    # Elixir
+    - name: install Elixir with Homebrew
+      homebrew: name=elixir state='latest'
+
+    - name: check whether a specific version of Elixir is installed or not
+      shell: |
+        /bin/bash -lc "exenv versions" |
+        grep {{ elixir_version }} |
+        tr '*' ' ' |
+        gsed -e 's/\s\+//' |
+        cut -f1 -d' '
+      register: exenv_version
+
+    - name: install Elixir with exenv
+      shell: /bin/bash -lc "exenv install {{ elixir_version }}"
+      when: exenv_version.stdout != "{{ elixir_version }}"
+
+    - name: set Elixir version global
+      shell: /bin/bash -lc "exenv global {{ elixir_version }}"
+
+    # PHP install
+    # TODO: OpenSSL error.
+    # - name: check whether a specific version of PHP is installed or not
+    #   shell: |
+    #     /bin/bash -lc "phpenv versions" |
+    #     grep {{ php_version }} |
+    #     tr '*' ' ' |
+    #     gsed -e 's/\s\+//' |
+    #     cut -f1 -d' '
+    #   register: phpenv_version
+    #
+    # - name: install PHP with phpenv
+    #   shell: /bin/bash -lc "phpenv install {{ php_version }}"
+    #   when: phpenv_version.stdout != "{{ php_version }}"
+    #
+    # - name: set PHP version global
+    #   shell: /bin/bash -lc "phpenv global {{ php_version }}"
 
     # Vagrant
     - name: install vagrant plugins
@@ -453,14 +516,14 @@
       with_items: vagrant_plugins
 
     # nginx
-    - name: set nginx plist
-      shell: ln -sfv /usr/local/opt/nginx/*.plist ~/Library/LaunchAgents
-
-    - name: fix nginx permittion
-      shell: sudo chmod 600 ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
-
-    - name: fix nginx ownership
-      shell: sudo chown root ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
-
-    - name: autoload nginx
-      shell: sudo launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+    # - name: set nginx plist
+    #   shell: sudo ln -sfv /usr/local/opt/nginx/*.plist ~/Library/LaunchAgents
+    #
+    # - name: fix nginx permittion
+    #   shell: sudo chmod 600 ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+    #
+    # - name: fix nginx ownership
+    #   shell: sudo chown root ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+    #
+    # - name: autoload nginx
+    #   shell: sudo launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist

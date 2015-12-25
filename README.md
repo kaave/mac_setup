@@ -2,7 +2,7 @@
 
     sudo visudo
 
-    abe all={ALL} NOPASSED: ALL
+    USER_NAME all={ALL} NOPASSED: ALL
 
 ### とりあえずMac App Storeで入れられるものは全部入れておく XCodeとか
 #### XCodeのライセンスを通す

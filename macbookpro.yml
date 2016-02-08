@@ -10,8 +10,8 @@
     python2_version: 2.7.11
     python3_version: 3.5.1
     go_version: 1.5.2
-    erlang_version: 18.1
-    elixir_version: 1.1.1
+    erlang_version: 18.2.1
+    elixir_version: 1.2.2
     # php_version: 5.6.15
     home_dir: "{{ lookup('env','HOME') }}/"
 
@@ -54,6 +54,7 @@
       - { name: gibo }
       - { name: qt5 }
       - { name: wget }
+      - { name: openssl, state: linked, install_options: force }
       - { name: icdiff }
       - { name: terminal-notifier }
       - { name: tree }
@@ -120,12 +121,14 @@
 
       # utility
       - { name: alfred }
+      - { name: anki }
       - { name: appcleaner }
       - { name: bettertouchtool }
       - { name: caffeine }
       #- { name: clipmenu }
       - { name: cooviewer }
       #- { name: duet }
+      - { name: day-o }
       - { name: dupscanub }
       - { name: dropbox }
       - { name: google-japanese-ime }
@@ -137,11 +140,11 @@
       - { name: libreoffice }
       - { name: nvalt }
       - { name: onyx }
-      - { name: powerkey }
-      #- { name: shupapan }
-      #- { name: smoothmouse }
-      #- { name: tinkertool }
-      #- { name: truecrypt }
+      # - { name: powerkey }
+      # - { name: shupapan }
+      # - { name: smoothmouse }
+      # - { name: tinkertool }
+      # - { name: truecrypt }
       - { name: vlc }
       - { name: teamviewer }
       - { name: xtrafinder }
@@ -154,8 +157,8 @@
 
       # shareware
       - { name: parallels-desktop }
-      - { name: rubymine }
-      # - { name: webstorm }
+      # - { name: rubymine }
+      - { name: webstorm }
       # - { name: intellij-idea }
 
       # QuickLook
@@ -214,23 +217,15 @@
       - coffee-script
       - typescript
       - babel-cli
-      - tsd
       - dtsm
-      - jade
-      - gulp
-      - jspm
       - eslint
+      - eslint-plugin-babel
+      - eslint-plugin-mocha
+      - eslint-plugin-react
       - coffeelint
       - tslint
       - typescript-tools
       - csslint
-      - node-inspector
-      - karma-cli
-      - mocha
-      - power-assert
-      - sinon
-      - phantomjs
-      - nightmare
     vagrant_plugins:
       - sahara
       - dotenv
@@ -470,11 +465,11 @@
       when: is_dir.stat.md5 is not defined
 
     - name: install Erlang
-      shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/otp_src_{{ erlang_version }} && make && make install
+      shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }} && make && make install
       when: is_dir.stat.md5 is not defined
 
     - name: set Erlang version global
-      shell: /bin/bash -lc "erlenv global otp_src_{{ erlang_version }}"
+      shell: /bin/bash -lc "erlenv global {{ erlang_version }}"
 
     # Elixir
     - name: install Elixir with Homebrew

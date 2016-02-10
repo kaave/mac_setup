@@ -131,6 +131,7 @@
       - { name: day-o }
       - { name: dupscanub }
       - { name: dropbox }
+      - { name: flux }
       - { name: google-japanese-ime }
       - { name: hosts }
       - { name: karabiner }

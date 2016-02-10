@@ -93,7 +93,7 @@
       #- { name: opera }
       #- { name: opera-mail }
       # - { name: airmail-beta }
-      - { name: thunderbird-ja }
+      # - { name: thunderbird-ja }
       - { name: skype }
       - { name: bathyscaphe }
 

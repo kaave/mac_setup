@@ -6,13 +6,13 @@
     homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
 
     ruby_version: 2.3.0
-    nodejs_version: v4.2.4
+    nodejs_version: v4.3.1
     python2_version: 2.7.11
     python3_version: 3.5.1
-    go_version: 1.5.2
+    go_version: 1.6
     erlang_version: 18.2.1
-    elixir_version: 1.2.2
-    # php_version: 5.6.15
+    elixir_version: 1.2.3
+    # php_version: 7.0.3
     home_dir: "{{ lookup('env','HOME') }}/"
 
     sym_links:
@@ -49,6 +49,7 @@
       - { name: xquartz }
     brew_priority_high:
       - { name: ansible }
+      - { name: 'argon/mas/mas' }
       - { name: direnv }
       - { name: gnu-sed }
       - { name: gibo }
@@ -185,6 +186,25 @@
       - { name: scriptql }
       # - { name: suspicious-package }
       - { name: webpquicklook }
+    mas_apps:
+      # - { id: 497799835, name: "Xcode" }
+      - { id: 973134470, name: "Pomodoro Time" }
+      - { id: 467939042, name: "Growl" }
+      - { id: 425424353, name: "The Unarchiver" }
+      # - { id: 715768417, name: "Microsoft Remote Desktop" }
+      - { id: 414855915, name: "WinArchiver Lite" }
+      - { id: 443987910, name: "1Password" }
+      - { id: 425955336, name: "Skitch" }
+      - { id: 451732904, name: "App Language Chooser" }
+      - { id: 430207028, name: "ClamXav" }
+      - { id: 451444120, name: "Memory Clean" }
+      - { id: 890031187, name: "Marked 2" }
+      - { id: 489844081, name: "Audio Plugin Player" }
+      - { id: 449589707, name: "Dash" }
+      - { id: 539883307, name: "LINE" }
+      - { id: 896624060, name: "Kobito" }
+      - { id: 970432740, name: "Right Click Booster" }
+      - { id: 445189367, name: "PopClip" }
     anyenv_plugins:
       - { name: znz/anyenv-update.git, path: anyenv-update }
       - { name: aereal/anyenv-exec.git, path: anyenv-exec }
@@ -309,6 +329,11 @@
     - name: save brew cask priority-normal info
       shell: brew cask info {{ item }} > info/{{ item }}.log
       with_items: cask_normal_result.results | selectattr('changed') | map(attribute='item') | map(attribute='name') | list
+
+    # Mac store
+    - name: install appstore applications
+      command: mas install "{{ item.id }}"
+      with_items: mas_apps
 
     # applications setting link
     - name: install app setting links

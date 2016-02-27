@@ -1,7 +1,7 @@
 - hosts: localhost
   connection: local
   gather_facts: no
-  sudo: no
+  become: no
   vars:
     homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
 
@@ -113,7 +113,7 @@
       - { name: macvim-kaoriya }
       - { name: mi }
       - { name: pgadmin3 }
-      - { name: slack }
+      # - { name: slack }
       - { name: rdm }
       - { name: robomongo }
       - { name: rstudio }
@@ -168,7 +168,6 @@
 
       # QuickLook
       - { name: betterzipql }
-      - { name: cert-quicklook }
       - { name: emin-webpquicklook }
       - { name: epubquicklook }
       - { name: ipaql }
@@ -195,6 +194,7 @@
       - { id: 467939042, name: "Growl" }
       - { id: 425424353, name: "The Unarchiver" }
       # - { id: 715768417, name: "Microsoft Remote Desktop" }
+      - { id: 803453959, name: "Slack" }
       - { id: 414855915, name: "WinArchiver Lite" }
       - { id: 443987910, name: "1Password" }
       - { id: 425955336, name: "Skitch" }
@@ -269,7 +269,7 @@
 
     # - name: install /usr/include links
     #   shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include
-    #   sudo: yes
+    #   become: yes
 
     - name: make .vim dir
       file: dest={{ home_dir }}.vim/bundle/ state=directory

@@ -44,6 +44,7 @@
       - caskroom/fonts
       - homebrew/dupes
       - homebrew/science
+      - argon/mas
     brew_cask_priority_high:
       - { name: java }
       - { name: java6 }
@@ -51,7 +52,7 @@
       - { name: xquartz }
     brew_priority_high:
       - { name: ansible }
-      - { name: 'argon/mas/mas' }
+      - { name: mas }
       - { name: direnv }
       - { name: gnu-sed }
       - { name: gibo }
@@ -162,7 +163,7 @@
       # shareware
       - { name: parallels-desktop }
       # - { name: rubymine }
-      - { name: webstorm }
+      # - { name: webstorm }
       # - { name: intellij-idea }
 
       # QuickLook
@@ -260,11 +261,11 @@
     # sym links -------------------------------------------------
     - name: install links
       file: src={{ home_dir }}dotfiles/{{ item.src }} dest={{ home_dir }}{{ item.dest }} state=link force=yes
-      with_items: sym_links
+      with_items: '{{sym_links}}'
 
     - name: install lint links
       file: src={{ home_dir }}lint_configs/{{ item }} dest={{ home_dir }}{{ item }} state=link force=yes
-      with_items: lint_links
+      with_items: '{{lint_links}}'
 
     # - name: install /usr/include links
     #   shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include
@@ -285,7 +286,7 @@
     # homebrew -------------------------------------------------
     - name: tap repositries
       homebrew_tap: tap={{ item }} state=present
-      with_items: brew_taps
+      with_items: '{{brew_taps}}'
 
     - name: update & upgrade homebrew
       homebrew: update_homebrew=yes upgrade_all=yes
@@ -293,58 +294,35 @@
     - name: install homebrew-cask
       homebrew: name=brew-cask state=latest
 
-    - name: check brew info directory
-      stat: path=info
-      register: is_file
-    - name: add brew info directory
-      file: path=info state=directory
-      when: is_file.stat.md5 is not defined
-
     - name: install brew cask priority-high packages
       homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
-      with_items: brew_cask_priority_high
+      with_items: '{{brew_cask_priority_high}}'
       environment:
-        HOMEBREW_CASK_OPTS: homebrew_cask_opts
-      register: cask_high_result
-    - name: save brew cask priority-high info
-      shell: brew cask info {{ item }} > info/{{ item }}.log
-      with_items: cask_high_result.results | selectattr('changed') | map(attribute='item') | map(attribute='name') | list
+        HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
 
     - name: install brew priority-high packages
       homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}
-      with_items: brew_priority_high
-      register: brew_high_result
-    - name: save brew priority-high info
-      shell: brew info {{ item }} > info/{{ item }}.log
-      with_items: brew_high_result.results | selectattr('changed') | map(attribute='item') | map(attribute='name') | list
+      with_items: '{{brew_priority_high}}'
 
     - name: install brew priority-normal packages
       homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}
-      with_items: brew_priority_normal
-      register: brew_normal_result
-    - name: save brew priority-normal info
-      shell: brew info {{ item }} > info/{{ item }}.log
-      with_items: brew_normal_result.results | selectattr('changed') | map(attribute='item') | map(attribute='name') | list
+      with_items: '{{brew_priority_normal}}'
 
     - name: install brew cask priority-normal packages
       homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
-      with_items: brew_cask_priority_normal
+      with_items: '{{brew_cask_priority_normal}}'
       environment:
-        HOMEBREW_CASK_OPTS: homebrew_cask_opts
-      register: cask_normal_result
-    - name: save brew cask priority-normal info
-      shell: brew cask info {{ item }} > info/{{ item }}.log
-      with_items: cask_normal_result.results | selectattr('changed') | map(attribute='item') | map(attribute='name') | list
+        HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
 
     # Mac store
     - name: install appstore applications
       command: mas install "{{ item.id }}"
-      with_items: mas_apps
+      with_items: '{{mas_apps}}'
 
     # applications setting link
     - name: install app setting links
       file: src={{ home_dir }}dotfiles/{{ item.src }} dest={{ home_dir }}{{ item.dest }} state=link force=yes
-      with_items: app_setting_links
+      with_items: '{{app_setting_links}}'
 
     # anyenv
     - name: install anyenv
@@ -352,20 +330,20 @@
 
     - name: install anyenv-plugins
       git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/plugins/{{ item.path }}
-      with_items: anyenv_plugins
+      with_items: '{{anyenv_plugins}}'
 
     - name: install anyenv modules
       shell: /bin/bash -lc "anyenv install -s {{ item }}env"
-      with_items: anyenv_modules
+      with_items: '{{anyenv_modules}}'
 
     # Ruby
     - name: install rbenv-plugins
       git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/rbenv/plugins/{{ item.path }}
-      with_items: rbenv_plugins
+      with_items: '{{rbenv_plugins}}'
 
     - name: mod default gem list
       lineinfile: dest={{ home_dir }}.anyenv/envs/rbenv/default-gems line="{{ item }}" create=yes
-      with_items: ruby_gems
+      with_items: '{{ruby_gems}}'
 
     - name: check ruby is installed or not
       shell: |
@@ -408,7 +386,7 @@
 
     - name: install npm plugins
       npm: name={{ item }} global=yes executable={{ home_dir }}.anyenv/envs/ndenv/shims/npm
-      with_items: npm_modules
+      with_items: '{{npm_modules}}'
 
     - name: ndenv rehash
       shell: /bin/bash -lc "ndenv rehash"
@@ -544,7 +522,7 @@
     # Vagrant
     - name: install vagrant plugins
       command: vagrant plugin install {{ item }}
-      with_items: vagrant_plugins
+      with_items: '{{vagrant_plugins}}'
 
     # nginx
     # - name: set nginx plist

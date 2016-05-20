@@ -5,13 +5,13 @@
   vars:
     homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
 
-    ruby_version: 2.3.0
-    nodejs_version: v4.3.1
+    ruby_version: 2.3.1
+    nodejs_version: v4.4.3
     python2_version: 2.7.11
     python3_version: 3.5.1
     go_version: 1.6
-    erlang_version: 18.2.1
-    elixir_version: 1.2.3
+    erlang_version: 18.3
+    elixir_version: 1.2.4
     # php_version: 7.0.3
     home_dir: "{{ lookup('env','HOME') }}/"
 
@@ -242,6 +242,7 @@
       - typescript
       - babel-cli
       - dtsm
+      - typings
       - eslint
       - eslint-plugin-babel
       - eslint-plugin-mocha
@@ -250,6 +251,7 @@
       - tslint
       - typescript-tools
       - csslint
+      - stylelint
     vagrant_plugins:
       - sahara
       - dotenv
@@ -315,9 +317,9 @@
         HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
 
     # Mac store
-    - name: install appstore applications
-      command: mas install "{{ item.id }}"
-      with_items: '{{mas_apps}}'
+    # - name: install appstore applications
+    #   command: mas install "{{ item.id }}"
+    #   with_items: '{{mas_apps}}'
 
     # applications setting link
     - name: install app setting links

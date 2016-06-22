@@ -6,13 +6,13 @@
     homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
 
     ruby_version: 2.3.1
-    nodejs_version: v4.4.3
+    nodejs_version: v6.2.2
     python2_version: 2.7.11
     python3_version: 3.5.1
-    go_version: 1.6
+    go_version: 1.6.2
     erlang_version: 18.3
-    elixir_version: 1.2.4
-    # php_version: 7.0.3
+    elixir_version: 1.3.0
+    # php_version: 7.0.7
     home_dir: "{{ lookup('env','HOME') }}/"
 
     sym_links:
@@ -52,7 +52,6 @@
       - { name: xquartz }
     brew_priority_high:
       - { name: ansible }
-      - { name: mas }
       - { name: direnv }
       - { name: gnu-sed }
       - { name: gibo }
@@ -90,12 +89,11 @@
 
     brew_cask_priority_normal:
       # browser, mailer, and apps for web services
-      #- { name: google-chrome }
-      #- { name: google-chrome-canary }
-      #- { name: firefox-ja }
-      #- { name: firefoxdeveloperedition-ja }
-      #- { name: opera }
-      #- { name: opera-mail }
+      # - { name: google-chrome }
+      # - { name: google-chrome-canary }
+      # - { name: firefox-ja }
+      # - { name: firefoxdeveloperedition-ja }
+      # - { name: vivaldi }
       # - { name: airmail-beta }
       # - { name: thunderbird-ja }
       - { name: skype }
@@ -188,26 +186,6 @@
       - { name: scriptql }
       # - { name: suspicious-package }
       - { name: webpquicklook }
-    mas_apps:
-      # - { id: 497799835, name: "Xcode" }
-      - { id: 973134470, name: "Pomodoro Time" }
-      - { id: 467939042, name: "Growl" }
-      - { id: 425424353, name: "The Unarchiver" }
-      # - { id: 715768417, name: "Microsoft Remote Desktop" }
-      - { id: 803453959, name: "Slack" }
-      - { id: 414855915, name: "WinArchiver Lite" }
-      - { id: 443987910, name: "1Password" }
-      - { id: 425955336, name: "Skitch" }
-      - { id: 451732904, name: "App Language Chooser" }
-      - { id: 430207028, name: "ClamXav" }
-      - { id: 451444120, name: "Memory Clean" }
-      - { id: 890031187, name: "Marked 2" }
-      - { id: 489844081, name: "Audio Plugin Player" }
-      - { id: 449589707, name: "Dash" }
-      - { id: 539883307, name: "LINE" }
-      - { id: 896624060, name: "Kobito" }
-      - { id: 970432740, name: "Right Click Booster" }
-      - { id: 445189367, name: "PopClip" }
     anyenv_plugins:
       - { name: znz/anyenv-update.git, path: anyenv-update }
       - { name: aereal/anyenv-exec.git, path: anyenv-exec }
@@ -241,17 +219,20 @@
       - coffee-script
       - typescript
       - babel-cli
-      - dtsm
       - typings
       - eslint
+      - babel-eslint
       - eslint-plugin-babel
-      - eslint-plugin-mocha
       - eslint-plugin-react
+      - eslint-plugin-jsx-a11y
+      - eslint-plugin-import
       - coffeelint
       - tslint
       - typescript-tools
       - csslint
       - stylelint
+      - electron-prebuilt
+      - nativefier
     vagrant_plugins:
       - sahara
       - dotenv
@@ -315,11 +296,6 @@
       with_items: '{{brew_cask_priority_normal}}'
       environment:
         HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
-
-    # Mac store
-    # - name: install appstore applications
-    #   command: mas install "{{ item.id }}"
-    #   with_items: '{{mas_apps}}'
 
     # applications setting link
     - name: install app setting links
@@ -422,7 +398,7 @@
       shell: /bin/bash -lc "pyenv install {{ python2_version }}"
       when: pyenv_version.stdout != "{{ python2_version }}"
 
-    # 3.4.x install
+    # 3.x.x install
     - name: check python {{ python3_version }} is installed or not
       shell: |
         /bin/bash -lc "pyenv versions" |
@@ -527,14 +503,8 @@
       with_items: '{{vagrant_plugins}}'
 
     # nginx
-    # - name: set nginx plist
-    #   shell: sudo ln -sfv /usr/local/opt/nginx/*.plist ~/Library/LaunchAgents
-    #
-    # - name: fix nginx permittion
-    #   shell: sudo chmod 600 ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
-    #
-    # - name: fix nginx ownership
-    #   shell: sudo chown root ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
-    #
-    # - name: autoload nginx
-    #   shell: sudo launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+    - name: set nginx plist
+      shell: cp /usr/local/opt/nginx/*.plist /Library/LaunchDaemons
+
+    - name: set nginx plist
+      shell: sudo launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist

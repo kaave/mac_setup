@@ -130,6 +130,7 @@
       - { name: cooviewer }
       #- { name: duet }
       - { name: day-o }
+      - { name: diskwave }
       - { name: dupscanub }
       - { name: dropbox }
       - { name: flux }

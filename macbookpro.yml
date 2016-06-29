@@ -185,35 +185,6 @@
       - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
       - { name: rkh/rbenv-update.git, path: rbenv-update }
-    ruby_gems:
-      - pry
-      - pry-doc
-      - bundler
-      - refe2
-      - slim
-      - sass
-      - rubocop
-      - scss_lint
-      - tmuxinator
-      - rcodetools
-      - fastri
-      - rhc
-    npm_modules:
-      - coffee-script
-      - coffeelint
-      - typescript
-      - typings
-      - tslint
-      - babel-cli
-      - babel-eslint
-      - eslint
-      - eslint-plugin-babel
-      - eslint-plugin-import
-      - eslint-plugin-jsx-a11y
-      - eslint-plugin-react
-      - electron-prebuilt
-      - nativefier
-      - npm-check-updates
   tasks:
     # sym links -------------------------------------------------
     - name: install links
@@ -293,8 +264,7 @@
       with_items: '{{rbenv_plugins}}'
 
     - name: mod default gem list
-      lineinfile: dest={{ home_dir }}.anyenv/envs/rbenv/default-gems line="{{ item }}" create=yes
-      with_items: '{{ruby_gems}}'
+      file: src={{ home_dir }}dotfiles/default_libraries/default-gems dest={{ home_dir }}.anyenv/envs/rbenv/default-gems state=link force=yes
 
     - name: check ruby is installed or not
       shell: |
@@ -334,8 +304,7 @@
         - { name: 'kaave/ndenv-default-npms.git', path: 'ndenv-default-npms' }
 
     - name: mod default npm list
-      lineinfile: dest={{ home_dir }}.anyenv/envs/ndenv/default-npms line="{{ item }}" create=yes
-      with_items: '{{npm_modules}}'
+      file: src={{ home_dir }}dotfiles/default_libraries/default-npms dest={{ home_dir }}.anyenv/envs/ndenv/default-npms state=link force=yes
 
     - name: install node.js with ndenv
       shell: /bin/bash -lc "ndenv install {{ nodejs_version }}"

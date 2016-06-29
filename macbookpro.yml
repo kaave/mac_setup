@@ -14,21 +14,6 @@
     elixir_version: 1.3.1
     home_dir: "{{ lookup('env','HOME') }}/"
 
-    sym_links:
-      - { src: zshrc,           dest: .zshrc }
-      - { src: zshenv,          dest: .zshenv }
-      - { src: tmux.conf,       dest: .tmux.conf }
-      - { src: tmuxinator,      dest: .tmuxinator }
-      - { src: vimrc,           dest: .vimrc  }
-      - { src: npmrc,           dest: .npmrc  }
-      - { src: gvimrc,          dest: .gvimrc }
-      - { src: coffeelint.json, dest: coffeelint.json }
-      - { src: tslint.json,     dest: tslint.json }
-      - { src: tern-project,    dest: .tern-project }
-      - { src: ctags,           dest: .ctags }
-      - { src: rubocop.yml,     dest: .rubocop.yml }
-      - { src: gitconfig,       dest: .gitconfig }
-      - { src: gitignore,       dest: .gitignore }
     lint_links:
       - .eslintrc
       - .scss-lint.yml
@@ -232,8 +217,7 @@
   tasks:
     # sym links -------------------------------------------------
     - name: install links
-      file: src={{ home_dir }}dotfiles/{{ item.src }} dest={{ home_dir }}{{ item.dest }} state=link force=yes
-      with_items: '{{sym_links}}'
+      shell: {{ home_dir }}/dotfiles/_setup.bash
 
     - name: install lint links
       file: src={{ home_dir }}lint_configs/{{ item }} dest={{ home_dir }}{{ item }} state=link force=yes

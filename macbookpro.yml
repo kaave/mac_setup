@@ -66,6 +66,7 @@
       - { name: libxml2 }
       - { name: libxslt }
       - { name: libiconv }
+      - { name: vim }
     brew_priority_normal:
       - { name: ffmpeg }
 
@@ -180,7 +181,6 @@
       - go
       - erl
       - ex
-      # - php
     rbenv_plugins:
       - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
@@ -396,7 +396,7 @@
 
     - name: extract Erlang source
       # unarchiveでやると文字コードの都合かエラーになるのでshell
-      shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz
+      shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz && rm -rf {{ erlang_version }}.tar.gz
       when: is_dir.stat.md5 is not defined
 
     - name: install Erlang

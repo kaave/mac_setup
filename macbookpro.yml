@@ -52,6 +52,7 @@
       - { name: readline }
       - { name: nginx }
       - { name: htop-osx }
+      - { name: rsync }
       - { name: zsh-completions }
       - { name: ag }
       - { name: ctags }

@@ -34,9 +34,9 @@
       - { name: xquartz }
     brew_priority_high:
       - { name: ansible }
+      - { name: curl }
       - { name: direnv }
       - { name: gnu-sed }
-      - { name: gibo }
       - { name: qt5 }
       - { name: wget }
       - { name: openssl, state: linked, install_options: force }

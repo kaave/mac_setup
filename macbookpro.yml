@@ -78,6 +78,7 @@
       # - { name: firefox-ja }
       # - { name: firefoxdeveloperedition-ja }
       # - { name: vivaldi }
+      # - { name: blisk }
       # - { name: airmail-beta }
       # - { name: thunderbird-ja }
       - { name: skype }
@@ -85,7 +86,7 @@
 
       # development
       - { name: atom }
-      - { name: cyberduck }
+      # - { name: cyberduck }
       - { name: docker }
       - { name: eclipse-ide }
       - { name: flash }
@@ -116,6 +117,7 @@
       - { name: cooviewer }
       #- { name: duet }
       - { name: day-o }
+      - { name: diskmaker-x }
       - { name: diskwave }
       - { name: dupscanub }
       - { name: dropbox }

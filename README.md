@@ -2,19 +2,12 @@
 
     sudo visudo
 
-    USER_NAME all={ALL} NOPASSED: ALL
+    USER_NAME ALL=(ALL) NOPASSED: ALL
 
 ### とりあえずMac App Storeで入れられるものは全部入れておく XCodeとか
 #### XCodeのライセンスを通す
 
     sudo xcodebuild -license
-
-#### dotfilesとansibleのセットアップファイルを持ってくる
-
-```
-git clone https://github.com/blastpartition/dotfiles ~/dotfiles
-git clone https://github.com/blastpartition/mac_setup ~/mac_setup
-```
 
 #### コマンドラインツールを入れる
 
@@ -37,6 +30,13 @@ git clone https://github.com/blastpartition/mac_setup ~/mac_setup
 ```
 brew install python
 brew install ansible
+```
+
+#### dotfilesとansibleのセットアップファイルを持ってくる
+
+```
+git clone https://github.com/kaave/dotfiles ~/dotfiles
+git clone https://github.com/kaave/mac_setup ~/mac_setup
 ```
 
 #### ansible実行

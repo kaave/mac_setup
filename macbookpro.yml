@@ -12,6 +12,7 @@
     go_version: 1.6.2
     erlang_version: 19.0
     elixir_version: 1.3.1
+    php_version: 7.0.8
     home_dir: "{{ lookup('env','HOME') }}/"
 
     lint_links:
@@ -27,6 +28,8 @@
       - caskroom/fonts
       - homebrew/dupes
       - homebrew/science
+      # for Ergodox profile
+      - osx-cross/avr
     brew_cask_priority_high:
       - { name: java }
       - { name: java6 }
@@ -64,10 +67,15 @@
       - { name: mcrypt }
       - { name: re2c }
       - { name: jpeg }
-      - { name: libxml2 }
+      - { name: libxml2, state: linked, install_options: force }
       - { name: libxslt }
       - { name: libiconv }
       - { name: vim }
+      - { name: autoconf }
+      - { name: automake }
+      # for Ergodox profile
+      - { name: teensy_loader_cli }
+      - { name: avr-libc }
     brew_priority_normal:
       - { name: ffmpeg }
 
@@ -184,6 +192,7 @@
       - go
       - erl
       - ex
+      - php
     rbenv_plugins:
       - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
@@ -428,6 +437,32 @@
 
     - name: set Elixir version global
       shell: /bin/bash -lc "exenv global {{ elixir_version }}"
+
+    # PHP
+    - name: check whether a specific version of PHP is installed or not
+      shell: |
+        /bin/bash -lc "phpenv versions" |
+        grep {{ php_version }} |
+        tr '*' ' ' |
+        gsed -e 's/\s\+//' |
+        cut -f1 -d' '
+      register: phpenv_version
+
+    - name: Fix default-conf
+      replace: >
+        dest='{{ home_dir }}.anyenv/envs/phpenv/plugins/php-build/share/php-build/default_configure_options'
+        regexp='--with-mysql=\n$'
+        replace=''
+
+    - name: install PHP with phpenv
+      shell: /bin/bash -lc "phpenv install {{ php_version }}"
+      when: phpenv_version.stdout != "{{ php_version }}"
+
+    - name: set php version global
+      shell: /bin/bash -lc "phpenv global {{ php_version }}"
+
+    - name: rehash PHP
+      shell: /bin/bash -lc "phpenv rehash"
 
     # nginx
     - name: set nginx plist

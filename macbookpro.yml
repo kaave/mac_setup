@@ -32,8 +32,6 @@
       - osx-cross/avr
     brew_cask_priority_high:
       - { name: java }
-      - { name: java6 }
-      - { name: java7 }
       - { name: xquartz }
     brew_priority_high:
       - { name: ansible }
@@ -42,6 +40,7 @@
       - { name: gnu-sed }
       - { name: qt5 }
       - { name: wget }
+      - { name: openssl }
       - { name: openssl, state: linked, install_options: force }
       - { name: icdiff }
       - { name: terminal-notifier }
@@ -67,6 +66,7 @@
       - { name: mcrypt }
       - { name: re2c }
       - { name: jpeg }
+      - { name: libxml2 }
       - { name: libxml2, state: linked, install_options: force }
       - { name: libxslt }
       - { name: libiconv }

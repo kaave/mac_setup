@@ -197,6 +197,15 @@
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
       - { name: rkh/rbenv-update.git, path: rbenv-update }
   tasks:
+    # Mac setting
+    - name: preview text copy
+      osx_defaults: domain=com.apple.finder key=QLEnableTextSelection type=bool value=true
+      notify: Restart Finder
+
+    - name: DS_Store file don't write on Network stores
+      osx_defaults: domain=com.apple.desktopservices key=DSDontWriteNetworkStores type=bool value=true
+      notify: Restart Finder
+
     # homebrew -------------------------------------------------
     - name: tap repositries
       homebrew_tap: tap={{ item }} state=present
@@ -235,12 +244,6 @@
     # - name: install /usr/include links
     #   shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include
     #   become: yes
-
-    - name: preview text copy
-      shell: defaults write com.apple.finder QLEnableTextSelection -bool TRUE; killall Finder
-
-    - name: DS_Store file don't write on Network stores
-      shell: defaults write com.apple.desktopservices DSDontWriteNetworkStores true; killall Finder
 
     # applications setting link
     - name: install app setting links

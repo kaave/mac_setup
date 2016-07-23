@@ -42,3 +42,14 @@ git clone https://github.com/kaave/mac_setup ~/mac_setup
 #### ansible実行
 
     ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
+
+#### 終了後
+
+- atom
+  - `apm`インストール
+  - `apm install --stars`
+  - Syncronize settings > いろいろ
+
+- visual-studio-code
+  - install `Visual Studio Code Settings Sync`
+  - コマンドラインから起動可能に

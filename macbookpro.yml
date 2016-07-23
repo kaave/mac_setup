@@ -197,30 +197,6 @@
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
       - { name: rkh/rbenv-update.git, path: rbenv-update }
   tasks:
-    # sym links -------------------------------------------------
-    - name: install links
-      shell: "{{ home_dir }}/dotfiles/_setup.bash"
-
-    - name: install lint links
-      file: src={{ home_dir }}lint_configs/{{ item }} dest={{ home_dir }}{{ item }} state=link force=yes
-      with_items: '{{lint_links}}'
-
-    # - name: install /usr/include links
-    #   shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include
-    #   become: yes
-
-    - name: make .vim dir
-      file: dest={{ home_dir }}.vim/bundle/ state=directory
-
-    - name: install neobundle
-      git: repo=https://github.com/Shougo/neobundle.vim dest={{ home_dir }}.vim/bundle/neobundle.vim
-
-    - name: preview text copy
-      shell: defaults write com.apple.finder QLEnableTextSelection -bool TRUE; killall Finder
-
-    - name: DS_Store file don't write on Network stores
-      shell: defaults write com.apple.desktopservices DSDontWriteNetworkStores true; killall Finder
-
     # homebrew -------------------------------------------------
     - name: tap repositries
       homebrew_tap: tap={{ item }} state=present
@@ -251,6 +227,20 @@
       with_items: '{{brew_cask_priority_normal}}'
       environment:
         HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
+
+    # sym links -------------------------------------------------
+    - name: install links
+      shell: "{{ home_dir }}/dotfiles/_setup.bash"
+
+    # - name: install /usr/include links
+    #   shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include
+    #   become: yes
+
+    - name: preview text copy
+      shell: defaults write com.apple.finder QLEnableTextSelection -bool TRUE; killall Finder
+
+    - name: DS_Store file don't write on Network stores
+      shell: defaults write com.apple.desktopservices DSDontWriteNetworkStores true; killall Finder
 
     # applications setting link
     - name: install app setting links
@@ -465,4 +455,3 @@
     - name: set nginx plist
       shell: launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
       become: yes
-

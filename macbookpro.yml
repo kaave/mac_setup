@@ -35,6 +35,7 @@
       - { name: xquartz }
     brew_priority_high:
       - { name: ansible }
+      - { name: haskell-stack }
       - { name: curl }
       - { name: direnv }
       - { name: gnu-sed }

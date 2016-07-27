@@ -53,7 +53,7 @@
       - { name: hub }
       - { name: tig }
       - { name: readline }
-      - { name: nginx }
+      # - { name: nginx }
       - { name: htop-osx }
       - { name: rsync }
       - { name: lsyncd }
@@ -452,11 +452,3 @@
     - name: rehash PHP
       shell: /bin/bash -lc "phpenv rehash"
 
-    # nginx
-    - name: set nginx plist
-      shell: cp /usr/local/opt/nginx/*.plist /Library/LaunchDaemons
-      become: yes
-
-    - name: set nginx plist
-      shell: launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
-      become: yes

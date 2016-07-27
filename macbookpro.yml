@@ -272,38 +272,16 @@
     - name: mod default gem list
       file: src={{ home_dir }}dotfiles/default_libraries/default-gems dest={{ home_dir }}.anyenv/envs/rbenv/default-gems state=link force=yes
 
-    - name: check ruby is installed or not
-      shell: |
-        /bin/bash -lc "rbenv versions" |
-        grep {{ ruby_version }} |
-        tr '*' ' ' |
-        gsed -e 's/\s\+//' |
-        cut -f1 -d' '
-      register: rbenv_version
-
     - name: install ruby with rbenv
       shell: /bin/bash -lc "rbenv install {{ ruby_version }}"
-      when: rbenv_version.stdout != "{{ ruby_version }}"
 
     - name: set ruby version global
       shell: /bin/bash -lc "rbenv global {{ ruby_version }}"
-
-    - name: rbenv rehash
-      shell: /bin/bash -lc "rbenv rehash"
 
     - name: install bitclust
       shell: /bin/bash -lc "rbenv rehash && bitclust setup"
 
     # Node.js
-    - name: check node.js {{ nodejs_version }} is installed or not
-      shell: |
-        /bin/bash -lc "ndenv versions" |
-        grep {{ nodejs_version }} |
-        tr '*' ' ' |
-        gsed -e 's/\s\+//' |
-        cut -f1 -d' '
-      register: ndenv_version
-
     - name: install ndenv-plugins
       git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
       with_items:
@@ -314,16 +292,9 @@
 
     - name: install node.js with ndenv
       shell: /bin/bash -lc "ndenv install {{ nodejs_version }}"
-      when: ndenv_version.stdout != "{{ nodejs_version }}"
 
     - name: set node version global
       shell: /bin/bash -lc "ndenv global {{ nodejs_version }}"
-
-    - name: ndenv rehash
-      shell: /bin/bash -lc "ndenv rehash"
-
-    - name: install jsctags plugins
-      shell: /bin/bash -lc "npm i -g git://github.com/ramitos/jsctags.git"
 
     - name: ndenv rehash
       shell: /bin/bash -lc "ndenv rehash"
@@ -338,32 +309,12 @@
         - { name: 'yyuu/pyenv-virtualenv.git', path: 'pyenv-virtualenv' }
 
     # 2.7.x install
-    - name: check python {{ python2_version }} is installed or not
-      shell: |
-        /bin/bash -lc "pyenv versions" |
-        grep {{ python2_version }} |
-        tr '*' ' ' |
-        gsed -e 's/\s\+//' |
-        cut -f1 -d' '
-      register: pyenv_version
-
     - name: install python {{ python2_version }} with pyenv
       shell: /bin/bash -lc "pyenv install {{ python2_version }}"
-      when: pyenv_version.stdout != "{{ python2_version }}"
 
     # 3.x.x install
-    - name: check python {{ python3_version }} is installed or not
-      shell: |
-        /bin/bash -lc "pyenv versions" |
-        grep {{ python3_version }} |
-        tr '*' ' ' |
-        gsed -e 's/\s\+//' |
-        cut -f1 -d' '
-      register: pyenv_version
-
     - name: install python with pyenv
       shell: /bin/bash -lc "pyenv install {{ python3_version }}"
-      when: pyenv_version.stdout != "{{ python3_version }}"
 
     # global use python2_version
     - name: set python version global
@@ -373,18 +324,8 @@
       shell: /bin/bash -lc "pyenv rehash"
 
     # go
-    - name: check whether a specific version of golang is installed or not
-      shell: |
-        /bin/bash -lc "goenv versions" |
-        grep {{ go_version }} |
-        tr '*' ' ' |
-        gsed -e 's/\s\+//' |
-        cut -f1 -d' '
-      register: goenv_version
-
     - name: install golang with goenv
       shell: /bin/bash -lc "goenv install {{ go_version }}"
-      when: goenv_version.stdout != "{{ go_version }}"
 
     - name: set golang version global
       shell: /bin/bash -lc "goenv global {{ go_version }}"
@@ -393,21 +334,12 @@
       shell: /bin/bash -lc "goenv rehash"
 
     # Erlang
-    - stat: path={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }}
-      register: is_dir
-
-    - name: download Erlang source
-      get_url: url=http://www.erlang.org/download/otp_src_{{ erlang_version }}.tar.gz dest=/tmp/{{ erlang_version }}.tar.gz
-      when: is_dir.stat.md5 is not defined
-
     - name: extract Erlang source
       # unarchiveでやると文字コードの都合かエラーになるのでshell
       shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz && rm -rf {{ erlang_version }}.tar.gz
-      when: is_dir.stat.md5 is not defined
 
     - name: install Erlang
       shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }} && make && make install
-      when: is_dir.stat.md5 is not defined
 
     - name: set Erlang version global
       shell: /bin/bash -lc "erlenv global {{ erlang_version }}"
@@ -416,35 +348,15 @@
     - name: install Elixir with Homebrew
       homebrew: name=elixir state='latest'
 
-    - name: check whether a specific version of Elixir is installed or not
-      shell: |
-        /bin/bash -lc "exenv versions" |
-        grep {{ elixir_version }} |
-        tr '*' ' ' |
-        gsed -e 's/\s\+//' |
-        cut -f1 -d' '
-      register: exenv_version
-
     - name: install Elixir with exenv
       shell: /bin/bash -lc "exenv install {{ elixir_version }}"
-      when: exenv_version.stdout != "{{ elixir_version }}"
 
     - name: set Elixir version global
       shell: /bin/bash -lc "exenv global {{ elixir_version }}"
 
     # PHP
-    - name: check whether a specific version of PHP is installed or not
-      shell: |
-        /bin/bash -lc "phpenv versions" |
-        grep {{ php_version }} |
-        tr '*' ' ' |
-        gsed -e 's/\s\+//' |
-        cut -f1 -d' '
-      register: phpenv_version
-
     - name: install PHP with phpenv
       shell: /bin/bash -lc "phpenv install {{ php_version }}"
-      when: phpenv_version.stdout != "{{ php_version }}"
 
     - name: set php version global
       shell: /bin/bash -lc "phpenv global {{ php_version }}"

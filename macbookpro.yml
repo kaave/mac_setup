@@ -53,7 +53,7 @@
       - { name: hub }
       - { name: tig }
       - { name: readline }
-      # - { name: nginx }
+      - { name: nginx }
       - { name: htop-osx }
       - { name: rsync }
       - { name: lsyncd }
@@ -313,7 +313,7 @@
       shell: /bin/bash -lc "pyenv install {{ python2_version }}"
 
     # 3.x.x install
-    - name: install python with pyenv
+    - name: install python {{ python3_version }} with pyenv
       shell: /bin/bash -lc "pyenv install {{ python3_version }}"
 
     # global use python2_version
@@ -334,6 +334,9 @@
       shell: /bin/bash -lc "goenv rehash"
 
     # Erlang
+    - name: download Erlang source
+      get_url: url=http://www.erlang.org/download/otp_src_{{ erlang_version }}.tar.gz dest=/tmp/{{ erlang_version }}.tar.gz
+
     - name: extract Erlang source
       # unarchiveでやると文字コードの都合かエラーになるのでshell
       shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz && rm -rf {{ erlang_version }}.tar.gz
@@ -363,4 +366,13 @@
 
     - name: rehash PHP
       shell: /bin/bash -lc "phpenv rehash"
+
+    # nginx
+    - name: set nginx plist
+      shell: cp /usr/local/opt/nginx/*.plist /Library/LaunchDaemons
+      become: yes
+
+    - name: set nginx plist
+      shell: launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
+      become: yes
 

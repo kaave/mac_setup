@@ -75,9 +75,6 @@
       - { name: vim }
       - { name: autoconf }
       - { name: automake }
-      # for Ergodox profile
-      - { name: teensy_loader_cli }
-      - { name: avr-libc }
     brew_priority_normal:
       - { name: ffmpeg }
 
@@ -111,6 +108,7 @@
       - { name: rdm }
       - { name: robomongo }
       - { name: rstudio }
+      - { name: sequel-pro }
       - { name: sourcetree }
       # - { name: vagrant }
       # - { name: virtualbox }

@@ -47,6 +47,7 @@
       - { name: terminal-notifier }
       - { name: tree }
       - { name: tmux }
+      - { name: peco }
       - { name: reattach-to-user-namespace }
       - { name: git }
       - { name: git-flow }
@@ -57,7 +58,6 @@
       - { name: htop-osx }
       - { name: rsync }
       - { name: lsyncd }
-      - { name: zsh-completions }
       - { name: ag }
       - { name: ctags }
       - { name: figlet }

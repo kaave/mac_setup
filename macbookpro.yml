@@ -15,9 +15,6 @@
     php_version: 7.0.9
     home_dir: "{{ lookup('env','HOME') }}/"
 
-    lint_links:
-      - .eslintrc
-      - .scss-lint.yml
     app_setting_links:
       # アプリ初回起動時までパスが存在しなくて落ちる
       # - { src: private.xml, dest: Library/Application\ Support/Karabiner/private.xml }
@@ -241,8 +238,8 @@
         HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
 
     # sym links -------------------------------------------------
-    - name: install links
-      shell: "{{ home_dir }}/dotfiles/_setup.bash"
+    - name: install links & some plugins
+      shell: "{{ home_dir }}/dotfiles/_setup.zsh"
 
     # - name: install /usr/include links
     #   shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include

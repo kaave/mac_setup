@@ -9,7 +9,7 @@
     nodejs_version: v6.3.1
     python2_version: 2.7.12
     python3_version: 3.5.2
-    go_version: 1.6.2
+    go_version: 1.6.3
     erlang_version: 19.0
     elixir_version: 1.3.2
     php_version: 7.0.9
@@ -196,6 +196,9 @@
       - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
       - { name: rkh/rbenv-update.git, path: rbenv-update }
+    composer_modules:
+      - squizlabs/php_codesniffer=*
+      - phpmd/phpmd=*
   tasks:
     # Mac setting
     - name: preview text copy
@@ -364,6 +367,10 @@
 
     - name: rehash PHP
       shell: /bin/bash -lc "phpenv rehash"
+
+    - name: install global composer modules
+      shell: /bin/bash -lc 'composer global require "{{ item }}"'
+      with_items: '{{composer_modules}}'
 
     # nginx
     - name: set nginx plist

@@ -25,8 +25,6 @@
       - caskroom/fonts
       - homebrew/dupes
       - homebrew/science
-      # for Ergodox profile
-      - osx-cross/avr
     brew_cask_priority_high:
       - { name: java }
       - { name: xquartz }
@@ -39,7 +37,7 @@
       - { name: qt5 }
       - { name: wget }
       - { name: openssl }
-      - { name: openssl, state: linked, install_options: force }
+      # - { name: openssl, state: linked, install_options: force }  # can't make link with brew's openssl
       - { name: icdiff }
       - { name: terminal-notifier }
       - { name: tree }
@@ -56,6 +54,7 @@
       - { name: rsync }
       - { name: lsyncd }
       - { name: ag }
+      - { name: bison }
       - { name: ctags }
       - { name: figlet }
       - { name: jq }
@@ -77,38 +76,28 @@
 
     brew_cask_priority_normal:
       # browser, mailer, and apps for web services
-      # - { name: google-chrome }
-      # - { name: google-chrome-canary }
-      # - { name: firefox-ja }
-      # - { name: firefoxdeveloperedition-ja }
-      # - { name: vivaldi }
-      # - { name: blisk }
-      # - { name: airmail-beta }
-      # - { name: thunderbird-ja }
       - { name: skype }
       - { name: bathyscaphe }
 
       # development
       - { name: atom }
-      # - { name: cyberduck }
       - { name: docker }
-      - { name: eclipse-ide }
+      # - { name: eclipse-ide }
       - { name: flash }
+      - { name: genymotion }
       # - { name: github-desktop }
       - { name: imageoptim }
-      - { name: iterm2-beta }
-      # - { name: macdown }
+      - { name: iterm2 }
       - { name: macvim-kaoriya }
       - { name: mi }
       - { name: pgadmin3 }
-      # - { name: slack }
       - { name: rdm }
       - { name: robomongo }
       - { name: rstudio }
       - { name: sequel-pro }
       - { name: sourcetree }
-      # - { name: vagrant }
-      # - { name: virtualbox }
+      - { name: vagrant }
+      - { name: virtualbox }
       - { name: visual-studio-code }
       - { name: wireshark }
 
@@ -118,12 +107,10 @@
       - { name: appcleaner }
       - { name: bettertouchtool }
       - { name: caffeine }
-      #- { name: clipmenu }
       - { name: cooviewer }
-      #- { name: duet }
       - { name: day-o }
       - { name: diskmaker-x }
-      - { name: diskwave }
+      # - { name: diskwave }  # ssl error: 2016/08/14
       - { name: dupscanub }
       - { name: dropbox }
       - { name: flux }
@@ -134,13 +121,7 @@
       - { name: path-finder }
       - { name: seil }
       - { name: libreoffice }
-      # - { name: nvalt }
       - { name: onyx }
-      # - { name: powerkey }
-      # - { name: shupapan }
-      # - { name: smoothmouse }
-      # - { name: tinkertool }
-      # - { name: truecrypt }
       - { name: vlc }
       - { name: teamviewer }
       - { name: xtrafinder }
@@ -153,9 +134,10 @@
 
       # shareware
       - { name: parallels-desktop }
+      # - { name: intellij-idea }
+      # - { name: phpstorm }
       # - { name: rubymine }
       # - { name: webstorm }
-      # - { name: intellij-idea }
 
       # QuickLook
       - { name: betterzipql }
@@ -176,19 +158,10 @@
       - { name: quicklook-json }
       - { name: quicknfo }
       - { name: scriptql }
-      # - { name: suspicious-package }
       - { name: webpquicklook }
     anyenv_plugins:
       - { name: znz/anyenv-update.git, path: anyenv-update }
       - { name: aereal/anyenv-exec.git, path: anyenv-exec }
-    anyenv_modules:
-      - rb
-      - nd
-      - py
-      - go
-      - erl
-      - ex
-      - php
     rbenv_plugins:
       - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
@@ -200,11 +173,9 @@
     # Mac setting
     - name: preview text copy
       osx_defaults: domain=com.apple.finder key=QLEnableTextSelection type=bool value=true
-      notify: Restart Finder
 
-    - name: DS_Store file don't write on Network stores
+    - name: don't write DS_Store files on Network stores
       osx_defaults: domain=com.apple.desktopservices key=DSDontWriteNetworkStores type=bool value=true
-      notify: Restart Finder
 
     # homebrew -------------------------------------------------
     - name: tap repositries
@@ -258,11 +229,10 @@
       git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/plugins/{{ item.path }}
       with_items: '{{anyenv_plugins}}'
 
-    - name: install anyenv modules
-      shell: /bin/bash -lc "anyenv install -s {{ item }}env"
-      with_items: '{{anyenv_modules}}'
-
     # Ruby
+    - name: install rbenv
+      shell: /bin/bash -lc "anyenv install -s rbenv"
+
     - name: install rbenv-plugins
       git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/rbenv/plugins/{{ item.path }}
       with_items: '{{rbenv_plugins}}'
@@ -280,6 +250,9 @@
       shell: /bin/bash -lc "rbenv rehash && bitclust setup"
 
     # Node.js
+    - name: install ndenv
+      shell: /bin/bash -lc "anyenv install -s ndenv"
+
     - name: install ndenv-plugins
       git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
       with_items:
@@ -299,7 +272,7 @@
 
     # Python
     - name: install pyenv
-      git: repo=https://github.com/yyuu/pyenv.git dest={{ home_dir }}.pyenv
+      shell: /bin/bash -lc "anyenv install -s pyenv"
 
     - name: install pyenv-plugins
       git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
@@ -322,6 +295,9 @@
       shell: /bin/bash -lc "pyenv rehash"
 
     # go
+    - name: install goenv
+      shell: /bin/bash -lc "anyenv install -s goenv"
+
     - name: install golang with goenv
       shell: /bin/bash -lc "goenv install {{ go_version }}"
 
@@ -332,6 +308,9 @@
       shell: /bin/bash -lc "goenv rehash"
 
     # Erlang
+    - name: install erlenv
+      shell: /bin/bash -lc "anyenv install -s erlenv"
+
     - name: download Erlang source
       get_url: url=http://www.erlang.org/download/otp_src_{{ erlang_version }}.tar.gz dest=/tmp/{{ erlang_version }}.tar.gz
 
@@ -340,12 +319,15 @@
       shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz && rm -rf {{ erlang_version }}.tar.gz
 
     - name: install Erlang
-      shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }} && make && make install
+      shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --with-ssl=$(brew --prefix openssl) --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }} && make && make install
 
     - name: set Erlang version global
       shell: /bin/bash -lc "erlenv global {{ erlang_version }}"
 
     # Elixir
+    - name: install exenv
+      shell: /bin/bash -lc "anyenv install -s exenv"
+
     - name: install Elixir with Homebrew
       homebrew: name=elixir state='latest'
 
@@ -356,8 +338,14 @@
       shell: /bin/bash -lc "exenv global {{ elixir_version }}"
 
     # PHP
+    - name: install phpenv
+      shell: /bin/bash -lc "anyenv install -s phpenv"
+
+    - name: fix default install option
+      lineinfile: dest={{ home_dir }}.anyenv/envs/phpenv/plugins/php-build/share/php-build/default_configure_options regexp=^--with-mysql=.* line=
+
     - name: install PHP with phpenv
-      shell: /bin/bash -lc "phpenv install {{ php_version }}"
+      shell: /bin/bash -lc "PHP_BUILD_CONFIGURE_OPTS=\"--with-openssl=$(brew --prefix openssl) --with-libxml-dir=$(brew --prefix libxml2)\" phpenv install {{ php_version }}"
 
     - name: set php version global
       shell: /bin/bash -lc "phpenv global {{ php_version }}"

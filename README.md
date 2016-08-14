@@ -1,55 +1,78 @@
-### sudoでパスワードをはしょれるようにする
+### through input pass on sudo
 
     sudo visudo
 
     USER_NAME ALL=(ALL) NOPASSED: ALL
 
-### とりあえずMac App Storeで入れられるものは全部入れておく XCodeとか
-#### XCodeのライセンスを通す
+### (install Mac App Store's apps before run ansible)
+#### authorize XCode
 
     sudo xcodebuild -license
 
-#### コマンドラインツールを入れる
+#### install xcode commandline tools
 
-    xcode-select --install
+```
+xcode-select --install
+```
 
-#### homebrewを入れる(なかったら)
+#### install homebrew
 
-    which brew > /dev/null 2>&1 || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+# install
+which brew > /dev/null 2>&1 || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# check
+brew doctor
+# update
+brew update
+```
 
-#### 動くか確認
-
-    brew doctor
-
-#### とりあえず更新
-
-    brew update
-
-#### 何はともあれansibleを仕込む
-
+#### install ansible
+ansibleのセットアップファイルを持ってくる
 ```
 brew install python
 brew install ansible
 ```
 
-#### dotfilesとansibleのセットアップファイルを持ってくる
+#### get dotfiles and setup files
 
 ```
+# use your dotfiles
 git clone https://github.com/kaave/dotfiles ~/dotfiles
 git clone https://github.com/kaave/mac_setup ~/mac_setup
 ```
 
-#### ansible実行
+#### run ansible
 
     ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
 
-#### 終了後
+#### after ansible
+
+- commandline
+    - create key & regist GitHub: `ssh-keygen`
+    - install `tpm` packages: `run tmux & prefix + I`
+    - install `zplug` packages: run terminal & hit `Y`
 
 - atom
-  - `apm`インストール
-  - `apm install --stars`
-  - Syncronize settings > いろいろ
+    - run atom & install `apm`
+    - `apm install --stars`
+    - Syncronize settings > something...
 
 - visual-studio-code
-  - install `Visual Studio Code Settings Sync`
-  - コマンドラインから起動可能に
+    - install `Visual Studio Code Settings Sync`
+    - use commandline tools
+
+- install other apps
+    - [Duet display](http://www.duetdisplay.com/jp/)
+    - [MOTU Audio driver](http://motu.com/download)
+    - [Google Chrome](https://www.google.co.jp/chrome/browser/desktop/)
+    - [Google Chrome Canary](https://www.google.co.jp/chrome/browser/canary.html)
+    - [Firefox](https://www.mozilla.org/ja/firefox/new/)
+    - [Firefox Developer Edition](https://www.mozilla.org/ja/firefox/developer/)
+    - [blisk](https://blisk.io/)
+    - [Vivaldi](https://vivaldi.com/download/?lang=ja_JP)
+
+- build Workspace
+    - `git clone https://github.com/kaave/workspace ~/workspace`
+    - `cd ~/workspace`
+    - `./_setup.bash`
+

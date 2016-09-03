@@ -92,7 +92,7 @@
       - { name: pgadmin3 }
       - { name: rdm }
       - { name: robomongo }
-      - { name: rstudio }
+      # - { name: rstudio }
       - { name: sequel-pro }
       - { name: sourcetree }
       - { name: vagrant }
@@ -108,7 +108,7 @@
       - { name: caffeine }
       - { name: cooviewer }
       - { name: day-o }
-      - { name: diskmaker-x }
+      # - { name: diskmaker-x }
       # - { name: diskwave }  # ssl error: 2016/08/14
       - { name: dupscanub }
       - { name: dropbox }
@@ -122,14 +122,14 @@
       - { name: libreoffice }
       - { name: onyx }
       - { name: vlc }
-      - { name: teamviewer }
+      # - { name: teamviewer }
       - { name: xtrafinder }
 
       # for home machine
       - { name: lastfm }
       - { name: xld }
       # - { name: soundflower }
-      - { name: pd-extended }
+      # - { name: pd-extended }
 
       # shareware
       - { name: parallels-desktop }
@@ -184,8 +184,8 @@
     - name: update & upgrade homebrew
       homebrew: update_homebrew=yes upgrade_all=yes
 
-    - name: install homebrew-cask
-      homebrew: name=brew-cask state=latest
+    # - name: install homebrew-cask
+    #   homebrew: name=brew-cask state=latest
 
     - name: install brew cask priority-high packages
       homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
@@ -216,9 +216,9 @@
     #   become: yes
 
     # applications setting link
-    - name: install app setting links
-      file: src={{ home_dir }}dotfiles/{{ item.src }} dest={{ home_dir }}{{ item.dest }} state=link force=yes
-      with_items: '{{app_setting_links}}'
+    # - name: install app setting links
+    #   file: src={{ home_dir }}dotfiles/{{ item.src }} dest={{ home_dir }}{{ item.dest }} state=link force=yes
+    #   with_items: '{{app_setting_links}}'
 
     # anyenv
     - name: install anyenv

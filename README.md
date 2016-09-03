@@ -84,3 +84,6 @@ git clone https://github.com/kaave/mac_setup ~/mac_setup
         - `cd ~/workspace`
         - `vagrant up`
 
+- Start `Karabiner` and create private.xml link
+    - `ln -sf ~/dotfiles/private.xml ~/Library/Application\ Support/Karabiner/private.xml`
+

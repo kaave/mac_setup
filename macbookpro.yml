@@ -127,7 +127,7 @@
 
       # for home machine
       - { name: lastfm }
-      - { name: xld }
+      # - { name: xld }
       # - { name: soundflower }
       # - { name: pd-extended }
 
@@ -170,32 +170,32 @@
       - phpmd/phpmd=*
   tasks:
     # Mac setting
-    - name: preview text copy
-      osx_defaults: domain=com.apple.finder key=QLEnableTextSelection type=bool value=true
-
-    - name: don't write DS_Store files on Network stores
-      osx_defaults: domain=com.apple.desktopservices key=DSDontWriteNetworkStores type=bool value=true
-
-    # homebrew -------------------------------------------------
-    - name: tap repositries
-      homebrew_tap: tap={{ item }} state=present
-      with_items: '{{brew_taps}}'
-
-    - name: update & upgrade homebrew
-      homebrew: update_homebrew=yes upgrade_all=yes
-
-    # - name: install homebrew-cask
-    #   homebrew: name=brew-cask state=latest
-
-    - name: install brew cask priority-high packages
-      homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
-      with_items: '{{brew_cask_priority_high}}'
-      environment:
-        HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
-
-    - name: install brew priority-high packages
-      homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}
-      with_items: '{{brew_priority_high}}'
+#    - name: preview text copy
+#      osx_defaults: domain=com.apple.finder key=QLEnableTextSelection type=bool value=true
+#
+#    - name: don't write DS_Store files on Network stores
+#      osx_defaults: domain=com.apple.desktopservices key=DSDontWriteNetworkStores type=bool value=true
+#
+#    # homebrew -------------------------------------------------
+#    - name: tap repositries
+#      homebrew_tap: tap={{ item }} state=present
+#      with_items: '{{brew_taps}}'
+#
+#    - name: update & upgrade homebrew
+#      homebrew: update_homebrew=yes upgrade_all=yes
+#
+#    # - name: install homebrew-cask
+#    #   homebrew: name=brew-cask state=latest
+#
+#    - name: install brew cask priority-high packages
+#      homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
+#      with_items: '{{brew_cask_priority_high}}'
+#      environment:
+#        HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
+#
+#    - name: install brew priority-high packages
+#      homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}
+#      with_items: '{{brew_priority_high}}'
 
     - name: install brew priority-normal packages
       homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}
@@ -253,7 +253,7 @@
       shell: /bin/bash -lc "anyenv install -s ndenv"
 
     - name: install ndenv-plugins
-      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
+      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/ndenv/plugins/{{ item.path }}
       with_items:
         - { name: 'kaave/ndenv-default-npms.git', path: 'ndenv-default-npms' }
 

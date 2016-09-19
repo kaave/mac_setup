@@ -168,6 +168,11 @@
     composer_modules:
       - squizlabs/php_codesniffer=*
       - phpmd/phpmd=*
+    vagrant_plugins:
+      - sahara
+      - dotenv
+      - vagrant-vbguest
+      - vagrant-vbox-snapshot
   tasks:
     # Mac setting
 #    - name: preview text copy
@@ -355,6 +360,11 @@
     - name: install global composer modules
       shell: /bin/bash -lc 'composer global require "{{ item }}"'
       with_items: '{{composer_modules}}'
+
+    # Vagrant
+    - name: install vagrant plugins
+      command: vagrant plugin install {{ item }}
+      with_items: '{{vagrant_plugins}}'
 
     # nginx
     - name: set nginx plist

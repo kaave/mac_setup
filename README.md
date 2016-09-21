@@ -1,11 +1,11 @@
 ### through input pass on sudo
 
-'''bash
+```bash
 sudo visudo
 
 # add
 USER_NAME ALL=(ALL) NOPASSED: ALL
-'''
+```
 
 ### kill Gatekeeper
 

@@ -62,6 +62,11 @@ git clone https://github.com/kaave/mac_setup ~/mac_setup
         - GistID: [9f4a74a7c814a9036fb1db5a5d70e04d](https://gist.github.com/kaave/9f4a74a7c814a9036fb1db5a5d70e04d)
     - use commandline tools
 
+- install vagrant boxes(TODO: add task?)
+    - `vagrant box add win7-ie9 http://aka.ms/vagrant-win7-ie9`
+    - `vagrant box add win7-ie11 http://aka.ms/vagrant-win7-ie11`
+    - `vagrant box add win10-edge modernIE/w10-edge`
+
 - install other apps
     - [SOPHOS](https://www.sophos.com/ja-jp/lp/sophos-home.aspx)
     - [Duet display](http://www.duetdisplay.com/jp/)

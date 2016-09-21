@@ -1,23 +1,43 @@
 ### through input pass on sudo
 
-    sudo visudo
+'''bash
+sudo visudo
 
-    USER_NAME ALL=(ALL) NOPASSED: ALL
+# add
+USER_NAME ALL=(ALL) NOPASSED: ALL
+'''
+
+### kill Gatekeeper
+
+```bash
+sudo spctl --master-disable
+```
+
+### SIP guard off (Debug level only)
+
+reboot with pressing `⌘ + r` keys, and run terminal.
+
+```bash
+csrutil enable --without debug
+```
 
 ### (install Mac App Store's apps before run ansible)
+
 #### authorize XCode
 
-    sudo xcodebuild -license
+```bash
+sudo xcodebuild -license
+```
 
 #### install xcode commandline tools
 
-```
+```bash
 xcode-select --install
 ```
 
 #### install homebrew
 
-```
+```bash
 # install
 which brew > /dev/null 2>&1 || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 # check
@@ -27,14 +47,15 @@ brew update
 ```
 
 #### install ansible
-```
+
+```bash
 brew install python
 brew install ansible
 ```
 
 #### get dotfiles and setup files
 
-```
+```bash
 # use your dotfiles
 git clone https://github.com/kaave/dotfiles ~/dotfiles
 git clone https://github.com/kaave/mac_setup ~/mac_setup
@@ -42,7 +63,9 @@ git clone https://github.com/kaave/mac_setup ~/mac_setup
 
 #### run ansible
 
-    ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
+```bash
+ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
+```
 
 #### after ansible
 
@@ -50,6 +73,11 @@ git clone https://github.com/kaave/mac_setup ~/mac_setup
     - create key & regist GitHub: `ssh-keygen`
     - install `tpm` packages: `run tmux & prefix + I`
     - install `zplug` packages: run terminal & hit `Y`
+
+- key settings on web service
+    - GitHub
+    - Bitbucket
+    - Office tools
 
 - atom
     - run atom & install `apm`
@@ -61,11 +89,6 @@ git clone https://github.com/kaave/mac_setup ~/mac_setup
     - install `Visual Studio Code Settings Sync`
         - GistID: [9f4a74a7c814a9036fb1db5a5d70e04d](https://gist.github.com/kaave/9f4a74a7c814a9036fb1db5a5d70e04d)
     - use commandline tools
-
-- install vagrant boxes(TODO: add task?)
-    - `vagrant box add win7-ie9 http://aka.ms/vagrant-win7-ie9`
-    - `vagrant box add win7-ie11 http://aka.ms/vagrant-win7-ie11`
-    - `vagrant box add win10-edge modernIE/w10-edge`
 
 - install other apps
     - [SOPHOS](https://www.sophos.com/ja-jp/lp/sophos-home.aspx)
@@ -79,7 +102,7 @@ git clone https://github.com/kaave/mac_setup ~/mac_setup
     - [blisk](https://blisk.io/)
     - [Vivaldi](https://vivaldi.com/download/?lang=ja_JP)
 
-- build Workspace
+- build Workspaces
     - Docker
         - `git clone https://github.com/kaave/workspace ~/workspace`
         - `cd ~/workspace`
@@ -88,6 +111,20 @@ git clone https://github.com/kaave/mac_setup ~/mac_setup
         - `git clone https://github.com/kaave/workspace-vagrant ~/workspace`
         - `cd ~/workspace`
         - `vagrant up`
+
+- install emulators
+    - iOS
+        - run Xcode and run Simulator
+            - 8.4
+            - 9.3
+    - Android
+        - 
+
+- Windows
+    - add Vagrant boxes (TODO: add on Ansible task)
+        - `vagrant box add win7-ie9 http://aka.ms/vagrant-win7-ie9`
+        - `vagrant box add win7-ie11 http://aka.ms/vagrant-win7-ie11`
+        - `vagrant box add win10-edge modernIE/w10-edge`
 
 - Start `Karabiner` and create private.xml link
     - `ln -sf ~/dotfiles/private.xml ~/Library/Application\ Support/Karabiner/private.xml`

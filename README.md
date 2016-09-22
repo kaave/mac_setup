@@ -4,7 +4,7 @@
 sudo visudo
 
 # add
-USER_NAME ALL=(ALL) NOPASSED: ALL
+USER_NAME ALL = (ALL) NOPASSWD: ALL
 ```
 
 ### kill Gatekeeper
@@ -69,6 +69,19 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
 
 #### after ansible
 
+- install other apps
+    - [SOPHOS](https://www.sophos.com/ja-jp/lp/sophos-home.aspx)
+    - [Duet display](http://www.duetdisplay.com/jp/)
+    - [MOTU Audio driver](http://motu.com/download)
+    - [Google Chrome](https://www.google.co.jp/chrome/browser/desktop/)
+    - [Google Chrome Canary](https://www.google.co.jp/chrome/browser/canary.html)
+    - [Firefox](https://www.mozilla.org/ja/firefox/new/)
+    - [Firefox Developer Edition](https://www.mozilla.org/ja/firefox/developer/)
+    - [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
+    - [blisk](https://blisk.io/)
+    - [Vivaldi](https://vivaldi.com/download/?lang=ja_JP)
+    - [IntelliJ IDEA](https://www.jetbrains.com/idea/#chooseYourEdition)
+
 - commandline
     - create key & regist GitHub: `ssh-keygen`
     - install `tpm` packages: `run tmux & prefix + I`
@@ -90,17 +103,79 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
         - GistID: [9f4a74a7c814a9036fb1db5a5d70e04d](https://gist.github.com/kaave/9f4a74a7c814a9036fb1db5a5d70e04d)
     - use commandline tools
 
-- install other apps
-    - [SOPHOS](https://www.sophos.com/ja-jp/lp/sophos-home.aspx)
-    - [Duet display](http://www.duetdisplay.com/jp/)
-    - [MOTU Audio driver](http://motu.com/download)
-    - [Google Chrome](https://www.google.co.jp/chrome/browser/desktop/)
-    - [Google Chrome Canary](https://www.google.co.jp/chrome/browser/canary.html)
-    - [Firefox](https://www.mozilla.org/ja/firefox/new/)
-    - [Firefox Developer Edition](https://www.mozilla.org/ja/firefox/developer/)
-    - [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
-    - [blisk](https://blisk.io/)
-    - [Vivaldi](https://vivaldi.com/download/?lang=ja_JP)
+- IntelliJ IDEA
+    - install plugins: Jetbrains officials
+        - AngularJS
+        - Apache config (.htaccess) support
+        - Blade Support
+        - Chef integration
+        - Command Line Tool Support
+        - Docker integration
+        - EJS
+        - File Watchers
+        - Handlerbars/Mustache
+        - IdeaVim
+        - Ini4idea
+        - Karma
+        - LiveEdit
+        - NodeJS
+        - PHP
+        - PHP Remote Interpreter
+        - Pug (ex-Jade)
+        - Python
+        - Ruby
+        - Slim
+        - Twig Support
+        - Vagrant
+        - WordPress Support
+        - XmlSearchAndReplace2
+    - install plugins: Jetbrains Unofficials
+        - .ignore
+        - A prevent pinned tabs from closing plugin
+        - Awesome Console
+        - BashSupport
+        - BEM Support
+        - Bitbucket
+        - CakeStorm
+        - CamelCase
+        - Code Outline 2
+        - CodeGlance
+        - Codota
+        - Compare Directories
+        - Dash
+        - Database Navigator
+        - Dummy Text Generator
+        - Elixir
+        - Elm language plugin
+        - Emmet Everywhere
+        - Erlang
+        - File Info
+        - gfm
+        - GitLab Projects
+        - GitToolBox
+        - Go
+        - Grep Console
+        - Haskell
+        - Laravel plugin
+        - Lua
+        - Mongo Plugin
+        - Native Neighbourhood
+        - nginx Support
+        - PHP Annotations
+        - PHP composer.json support
+        - Quick Notes
+        - RegexpTester
+        - Save Actions
+        - Scratch
+        - scss-lint
+        - Silex/Pimple Plugin
+        - Slack Storm
+        - String Manipulation
+        - SVG2VectorDrawable
+        - SvgViewer 2
+        - Symfony Plugin
+        - Websocket Client
+        - YAML/Ansible support
 
 - build Workspaces
     - Docker
@@ -118,7 +193,7 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
             - 8.4
             - 9.3
     - Android
-        - 
+        - run Genymotion and run Simulator
 
 - Windows
     - add Vagrant boxes (TODO: add on Ansible task)

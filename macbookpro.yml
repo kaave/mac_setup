@@ -120,7 +120,7 @@
       - { name: path-finder }
       - { name: seil }
       - { name: libreoffice }
-      - { name: onyx }
+      # - { name: onyx }
       - { name: vlc }
       # - { name: teamviewer }
       - { name: xtrafinder }
@@ -134,9 +134,6 @@
       # shareware
       - { name: parallels-desktop }
       # - { name: intellij-idea }
-      # - { name: phpstorm }
-      # - { name: rubymine }
-      # - { name: webstorm }
 
       # QuickLook
       - { name: betterzipql }
@@ -175,32 +172,32 @@
       - vagrant-vbox-snapshot
   tasks:
     # Mac setting
-#    - name: preview text copy
-#      osx_defaults: domain=com.apple.finder key=QLEnableTextSelection type=bool value=true
-#
-#    - name: don't write DS_Store files on Network stores
-#      osx_defaults: domain=com.apple.desktopservices key=DSDontWriteNetworkStores type=bool value=true
-#
-#    # homebrew -------------------------------------------------
-#    - name: tap repositries
-#      homebrew_tap: tap={{ item }} state=present
-#      with_items: '{{brew_taps}}'
-#
-#    - name: update & upgrade homebrew
-#      homebrew: update_homebrew=yes upgrade_all=yes
-#
-#    # - name: install homebrew-cask
-#    #   homebrew: name=brew-cask state=latest
-#
-#    - name: install brew cask priority-high packages
-#      homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
-#      with_items: '{{brew_cask_priority_high}}'
-#      environment:
-#        HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
-#
-#    - name: install brew priority-high packages
-#      homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}
-#      with_items: '{{brew_priority_high}}'
+    - name: preview text copy
+      osx_defaults: domain=com.apple.finder key=QLEnableTextSelection type=bool value=true
+
+    - name: don't write DS_Store files on Network stores
+      osx_defaults: domain=com.apple.desktopservices key=DSDontWriteNetworkStores type=bool value=true
+
+    # homebrew -------------------------------------------------
+    - name: tap repositries
+      homebrew_tap: tap={{ item }} state=present
+      with_items: '{{brew_taps}}'
+
+    - name: update & upgrade homebrew
+      homebrew: update_homebrew=yes upgrade_all=yes
+
+    # - name: install homebrew-cask
+    #   homebrew: name=brew-cask state=latest
+
+    - name: install brew cask priority-high packages
+      homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
+      with_items: '{{brew_cask_priority_high}}'
+      environment:
+        HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
+
+    - name: install brew priority-high packages
+      homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}
+      with_items: '{{brew_priority_high}}'
 
     - name: install brew priority-normal packages
       homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}

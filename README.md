@@ -187,13 +187,22 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
         - `cd ~/workspace`
         - `vagrant up`
 
+- Setup Xcode
+    - CocoaPods setup: `pod setup`
+    - Unsigned Xcode: `update_xcode_plugins --unsafe-unsign`
+    - Install Alcatraz: `curl -fsSL https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh | sh`
+    - Add UUID to Alcatraz: `update_xcode_plugins`
+
 - install emulators
     - iOS
-        - run Xcode and run Simulator
+        - run Xcode and install Simulator
             - 8.4
             - 9.3
     - Android
-        - run Genymotion and run Simulator
+        - run Genymotion and install Simulator
+            - Android 4.4.4
+            - Android 5.1
+            - Android 6.0
 
 - Windows
     - add Vagrant boxes (TODO: add on Ansible task)

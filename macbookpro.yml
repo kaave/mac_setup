@@ -6,10 +6,10 @@
     homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
 
     ruby_version: 2.3.1
-    nodejs_version: v6.8.0
-    python2_version: 2.7.12
-    python3_version: 3.5.2
-    go_version: 1.7
+    nodejs_version: v6.9.1
+    # python2_version: 2.7.12
+    # python3_version: 3.5.2
+    go_version: 1.7.3
     erlang_version: 19.1
     elixir_version: 1.3.3
     php_version: 7.0.9
@@ -22,12 +22,16 @@
       - caskroom/cask
       - caskroom/versions
       - caskroom/fonts
+      - codekitchen/dinghy
+      - neovim/neovim
       - homebrew/dupes
       - homebrew/science
     brew_cask_priority_high:
       - { name: java }
       - { name: xquartz }
     brew_priority_high:
+      - { name: python }
+      - { name: python3 }
       - { name: ansible }
       # - { name: haskell-stack  # can't install 10.12
       - { name: curl }
@@ -68,6 +72,9 @@
       - { name: libxslt }
       - { name: libiconv }
       - { name: vim }
+      - { name: neovim }
+      - { name: dinghy }
+      - { name: docker-machine-driver-xhyve }
       - { name: autoconf }
       - { name: automake }
     brew_priority_normal:
@@ -88,6 +95,7 @@
       - { name: imageoptim }
       - { name: iterm2 }
       - { name: macvim-kaoriya }
+      - { name: vimr }
       - { name: mi }
       - { name: pgadmin3 }
       - { name: rdm }
@@ -213,6 +221,11 @@
     - name: install links & some plugins
       shell: "{{ home_dir }}/dotfiles/_setup.zsh"
 
+    # Docker
+    - name: chown & chmod docker-machine-driver-xhyve
+      file: path=/usr/local/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve owner=root group=wheel mode="u+s"
+      become: yes
+
     # - name: install /usr/include links
     #   shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include
     #   become: yes
@@ -271,29 +284,30 @@
     - name: ndenv rehash
       shell: /bin/bash -lc "ndenv rehash"
 
-    # Python
-    - name: install pyenv
-      shell: /bin/bash -lc "anyenv install -s pyenv"
-
-    - name: install pyenv-plugins
-      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
-      with_items:
-        - { name: 'yyuu/pyenv-virtualenv.git', path: 'pyenv-virtualenv' }
-
-    # 2.7.x install
-    - name: install python {{ python2_version }} with pyenv
-      shell: /bin/bash -lc "pyenv install {{ python2_version }}"
-
-    # 3.x.x install
-    - name: install python {{ python3_version }} with pyenv
-      shell: /bin/bash -lc "pyenv install {{ python3_version }}"
-
-    # global use python2_version
-    - name: set python version global
-      shell: /bin/bash -lc "pyenv global {{ python2_version }}"
-
-    - name: pyenv rehash
-      shell: /bin/bash -lc "pyenv rehash"
+    # # Python
+    # # use homebrew packages
+    # - name: install pyenv
+    #   shell: /bin/bash -lc "anyenv install -s pyenv"
+    #
+    # - name: install pyenv-plugins
+    #   git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
+    #   with_items:
+    #     - { name: 'yyuu/pyenv-virtualenv.git', path: 'pyenv-virtualenv' }
+    #
+    # # 2.7.x install
+    # - name: install python {{ python2_version }} with pyenv
+    #   shell: /bin/bash -lc "pyenv install {{ python2_version }}"
+    #
+    # # 3.x.x install
+    # - name: install python {{ python3_version }} with pyenv
+    #   shell: /bin/bash -lc "pyenv install {{ python3_version }}"
+    #
+    # # global use python2_version
+    # - name: set python version global
+    #   shell: /bin/bash -lc "pyenv global {{ python2_version }}"
+    #
+    # - name: pyenv rehash
+    #   shell: /bin/bash -lc "pyenv rehash"
 
     # go
     - name: install goenv

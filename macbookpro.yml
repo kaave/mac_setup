@@ -73,6 +73,7 @@
       - { name: libiconv }
       - { name: vim }
       - { name: neovim }
+      - { name: swiftlint }
       - { name: dinghy }
       - { name: docker-machine-driver-xhyve }
       - { name: autoconf }

@@ -69,6 +69,9 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
 
 #### after ansible
 
+- install homebrew (manual)
+    - swiftlint
+
 - install other apps
     - [SOPHOS](https://www.sophos.com/ja-jp/lp/sophos-home.aspx)
     - [Duet display](http://www.duetdisplay.com/jp/)

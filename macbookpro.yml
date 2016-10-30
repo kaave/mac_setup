@@ -33,7 +33,7 @@
       - { name: python }
       - { name: python3 }
       - { name: ansible }
-      # - { name: haskell-stack  # can't install 10.12
+      - { name: haskell-stack  # can't install 10.12
       - { name: curl }
       - { name: direnv }
       - { name: gnu-sed }
@@ -117,8 +117,8 @@
       - { name: caffeine }
       - { name: cooviewer }
       - { name: day-o }
-      # - { name: diskmaker-x }
-      - { name: diskwave }  # ssl error: 2016/08/14
+      - { name: diskmaker-x }
+      - { name: diskwave }
       - { name: dupscanub }
       - { name: dropbox }
       - { name: flux }
@@ -129,14 +129,14 @@
       - { name: path-finder }
       - { name: seil }
       - { name: libreoffice }
-      # - { name: onyx }
+      - { name: onyx }
       - { name: vlc }
       # - { name: teamviewer }
       - { name: xtrafinder }
 
       # for home machine
       - { name: lastfm }
-      # - { name: xld }
+      - { name: xld }
       # - { name: soundflower }
       # - { name: pd-extended }
 

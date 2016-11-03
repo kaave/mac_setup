@@ -33,9 +33,10 @@
       - { name: python }
       - { name: python3 }
       - { name: ansible }
-      - { name: haskell-stack  # can't install 10.12
+      - { name: haskell-stack } # can't install 10.12
       - { name: curl }
       - { name: direnv }
+      - { name: fswatch }
       - { name: gnu-sed }
       # - { name: qt5 } # can't install 10.12
       - { name: wget }
@@ -56,6 +57,7 @@
       - { name: htop-osx }
       - { name: rsync }
       - { name: lsyncd }
+      - { name: unison }
       - { name: ag }
       - { name: bison }
       - { name: ctags }
@@ -74,7 +76,6 @@
       - { name: vim }
       - { name: neovim }
       # - { name: swiftlint }   # exit not 0 why?
-      - { name: dinghy }
       - { name: docker-machine-driver-xhyve }
       - { name: autoconf }
       - { name: automake }
@@ -89,6 +90,7 @@
       # development
       - { name: atom }
       - { name: docker }
+      - { name: dash }
       # - { name: eclipse-ide }
       # - { name: flash }   # Error on 10.12.1
       - { name: genymotion }
@@ -103,6 +105,7 @@
       - { name: robomongo }
       # - { name: rstudio }
       - { name: sequel-pro }
+      - { name: slack-beta }
       - { name: sourcetree }
       - { name: vagrant }
       - { name: virtualbox }
@@ -128,6 +131,7 @@
       - { name: kindle }
       - { name: path-finder }
       - { name: seil }
+      - { name: totalspaces }
       - { name: libreoffice }
       - { name: onyx }
       - { name: vlc }

@@ -13,6 +13,10 @@ USER_NAME ALL = (ALL) NOPASSWD: ALL
 sudo spctl --master-disable
 ```
 
+### kill sleep
+
+System configuration > Low energy
+
 ### SIP guard off (Debug level only)
 
 reboot with pressing `⌘ + r` keys, and run terminal.
@@ -71,6 +75,9 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
 
 - install homebrew (manual)
     - swiftlint
+- install homebrew cask for work PC (manual)
+    - adobe-creative-cloud
+    - owncloud
 
 - install other apps
     - [SOPHOS](https://www.sophos.com/ja-jp/lp/sophos-home.aspx)
@@ -83,7 +90,6 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
     - [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
     - [blisk](https://blisk.io/)
     - [Vivaldi](https://vivaldi.com/download/?lang=ja_JP)
-    - [IntelliJ IDEA](https://www.jetbrains.com/idea/#chooseYourEdition)
 
 - commandline
     - create key & regist GitHub: `ssh-keygen`
@@ -97,7 +103,7 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
 
 - atom
     - run atom & install `apm`
-    - `apm install --stars`
+    - `apm stars --install`
     - Syncronize settings > something...
         - GistID: [7c9a416cb1934c28a453](https://gist.github.com/kaave/7c9a416cb1934c28a453)
 
@@ -120,13 +126,16 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
         - IdeaVim
         - Ini4idea
         - Karma
+        - Kotlin
         - LiveEdit
         - NodeJS
         - PHP
         - PHP Remote Interpreter
+        - PHPSpec BDD Framework
         - Pug (ex-Jade)
         - Python
         - Ruby
+        - Scala
         - Slim
         - Twig Support
         - Vagrant
@@ -138,7 +147,7 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
         - Awesome Console
         - BashSupport
         - BEM Support
-        - Bitbucket
+        - Bitbucket Linky
         - CakeStorm
         - CamelCase
         - Code Outline 2
@@ -166,11 +175,11 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
         - nginx Support
         - PHP Annotations
         - PHP composer.json support
+        - PostCSS support
         - Quick Notes
         - RegexpTester
         - Save Actions
         - Scratch
-        - scss-lint
         - Silex/Pimple Plugin
         - Slack Storm
         - String Manipulation
@@ -181,14 +190,14 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
         - YAML/Ansible support
 
 - build Workspaces
-    - Docker
-        - `git clone https://github.com/kaave/workspace ~/workspace`
-        - `cd ~/workspace`
-        - `./_setup.bash`
-    - Vagrant
+    - Vagrant (Recommend)
         - `git clone https://github.com/kaave/workspace-vagrant ~/workspace`
         - `cd ~/workspace`
         - `vagrant up`
+    - Docker (Big problem: very slowly sync)
+        - `git clone https://github.com/kaave/workspace ~/workspace`
+        - `cd ~/workspace`
+        - `./_setup.bash`
 
 - Setup Xcode
     - CocoaPods setup: `pod setup`

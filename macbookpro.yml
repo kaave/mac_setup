@@ -6,7 +6,7 @@
     homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
 
     ruby_version: 2.3.3
-    nodejs_version: v6.9.3
+    nodejs_version: v6.9.2
     # python2_version: 2.7.12
     # python3_version: 3.5.2
     go_version: 1.7.4
@@ -84,13 +84,15 @@
 
     brew_cask_priority_normal:
       # browser, mailer, and apps for web services
-      - { name: skype }
       - { name: bathyscaphe }
+      - { name: skype }
+      - { name: slack-beta }
 
       # development
       - { name: atom }
-      - { name: docker }
       - { name: dash }
+      - { name: diffmerge }
+      - { name: docker }
       # - { name: eclipse-ide }
       # - { name: flash }   # Error on 10.12.1
       - { name: genymotion }
@@ -105,7 +107,6 @@
       - { name: robomongo }
       # - { name: rstudio }
       - { name: sequel-pro }
-      - { name: slack-beta }
       - { name: sourcetree }
       - { name: vagrant }
       - { name: virtualbox }
@@ -146,7 +147,7 @@
 
       # shareware
       - { name: parallels-desktop }
-      # - { name: intellij-idea }
+      - { name: jetbrains-toolbox }
 
       # QuickLook
       - { name: betterzipql }

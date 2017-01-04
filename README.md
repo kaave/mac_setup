@@ -4,7 +4,7 @@
 sudo visudo
 
 # add
-USER_NAME ALL = (ALL) NOPASSWD: ALL
+[USER_NAME] ALL=NOPASSWD: ALL
 ```
 
 ### kill Gatekeeper
@@ -92,7 +92,8 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
     - [Vivaldi](https://vivaldi.com/download/?lang=ja_JP)
 
 - commandline
-    - create key & regist GitHub: `ssh-keygen`
+    - create key: `ssh-keygen`
+    - add `Host * UseKeychain yes` to `~/.ssh/config`
     - install `tpm` packages: `run tmux & prefix + I`
     - install `zplug` packages: run terminal & hit `Y`
 

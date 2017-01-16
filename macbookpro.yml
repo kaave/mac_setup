@@ -108,6 +108,7 @@
       # - { name: rstudio }
       - { name: sequel-pro }
       - { name: sourcetree }
+      - { name: swiftybeaver }
       - { name: vagrant }
       - { name: virtualbox }
       - { name: visual-studio-code }

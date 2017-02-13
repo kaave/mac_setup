@@ -139,6 +139,7 @@
       - { name: vlc }
       # - { name: teamviewer }
       # - { name: xtrafinder }
+      - { name: zoomus }
 
       # for home machine
       - { name: lastfm }

@@ -164,6 +164,7 @@
       - { name: qlmarkdown }
       - { name: qlnetcdf }
       - { name: qlprettypatch }
+      - { name: qlswift }
       - { name: qlrest }
       - { name: qlstephen }
       - { name: qlvideo }

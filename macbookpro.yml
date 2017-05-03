@@ -5,14 +5,14 @@
   vars:
     homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
 
-    ruby_version: 2.3.3
-    nodejs_version: v6.9.4
+    ruby_version: 2.4.1
+    nodejs_version: v6.10.3
     # python2_version: 2.7.12
     # python3_version: 3.5.2
-    go_version: 1.7.4
-    erlang_version: 19.2
-    elixir_version: 1.4.0
-    php_version: 7.0.13
+    go_version: 1.8.1
+    erlang_version: 19.3
+    elixir_version: 1.4.2
+    php_version: 7.1.2
     home_dir: "{{ lookup('env','HOME') }}/"
 
     app_setting_links:
@@ -76,8 +76,6 @@
       - { name: libiconv }
       - { name: vim }
       - { name: neovim }
-      # - { name: swiftlint }   # exit not 0 why?
-      - { name: docker-machine-driver-xhyve }
       - { name: autoconf }
       - { name: automake }
     brew_priority_normal:
@@ -139,7 +137,6 @@
       - { name: onyx }
       - { name: vlc }
       # - { name: teamviewer }
-      # - { name: xtrafinder }
       - { name: zoomus }
 
       # for home machine

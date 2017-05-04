@@ -12,7 +12,7 @@
     go_version: 1.8.1
     erlang_version: 19.3
     elixir_version: 1.4.2
-    php_version: 7.1.2
+    php_version: 7.1.3
     home_dir: "{{ lookup('env','HOME') }}/"
 
     app_setting_links:
@@ -93,21 +93,18 @@
       - { name: diffmerge }
       - { name: docker }
       # - { name: eclipse-ide }
-      # - { name: flash }   # Error on 10.12.1
       - { name: genymotion }
-      # - { name: github-desktop }
       - { name: imageoptim }
       - { name: iterm2 }
-      - { name: macvim-kaoriya }
+      # - { name: macvim-kaoriya }
       - { name: vimr }
       - { name: mi }
       - { name: pgadmin3 }
       - { name: rdm }
       - { name: robomongo }
-      # - { name: rstudio }
       - { name: sequel-pro }
       - { name: sourcetree }
-      - { name: swiftybeaver }
+      # - { name: swiftybeaver }
       - { name: vagrant }
       - { name: virtualbox }
       - { name: visual-studio-code }
@@ -120,20 +117,19 @@
       - { name: bettertouchtool }
       - { name: caffeine }
       - { name: cooviewer }
-      - { name: day-o }
       - { name: diskmaker-x }
       - { name: diskwave }
-      # - { name: dupscanub }
       - { name: dropbox }
       - { name: flux }
       - { name: google-japanese-ime }
       - { name: hosts }
       # - { name: karabiner }
       - { name: kindle }
+      - { name: itsycal }
       - { name: path-finder }
       # - { name: seil }
-      - { name: totalspaces }
-      - { name: libreoffice }
+      # - { name: totalspaces }
+      # - { name: libreoffice }
       - { name: onyx }
       - { name: vlc }
       # - { name: teamviewer }
@@ -146,7 +142,7 @@
       # - { name: pd-extended }
 
       # shareware
-      - { name: parallels-desktop }
+      # - { name: parallels-desktop }
       - { name: jetbrains-toolbox }
 
       # QuickLook
@@ -224,11 +220,6 @@
     # sym links -------------------------------------------------
     - name: install links & some plugins
       shell: "{{ home_dir }}/dotfiles/_setup.zsh"
-
-    # Docker
-    - name: chown & chmod docker-machine-driver-xhyve
-      file: path=/usr/local/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve owner=root group=wheel mode="u+s"
-      become: yes
 
     # - name: install /usr/include links
     #   shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include

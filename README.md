@@ -73,11 +73,14 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
 
 #### after ansible
 
-- install homebrew (manual)
-    - swiftlint
-- install homebrew cask for work PC (manual)
+- manual install homebrew cask (Private)
+    - libreoffice
+    - parallels-desktop
+
+- manual install homebrew cask (Work)
     - adobe-creative-cloud
     - owncloud
+    - microsoft-office
 
 - install other apps
     - [SOPHOS](https://www.sophos.com/ja-jp/lp/sophos-home.aspx)
@@ -88,7 +91,7 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
     - [Firefox](https://www.mozilla.org/ja/firefox/new/)
     - [Firefox Developer Edition](https://www.mozilla.org/ja/firefox/developer/)
     - [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
-    - [blisk](https://blisk.io/)
+    - [WebKit Nightly](https://webkit.org/downloads/)
     - [Vivaldi](https://vivaldi.com/download/?lang=ja_JP)
 
 - commandline
@@ -128,7 +131,7 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
 
 - Setup Xcode
     - CocoaPods setup: `pod setup`
-    - Unsigned Xcode: `update_xcode_plugins --unsafe-unsign`
+    - Unsigned Xcode: `update_xcode_plugins --unsign`
     - Install Alcatraz: `curl -fsSL https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh | sh`
     - Add UUID to Alcatraz: `update_xcode_plugins`
 

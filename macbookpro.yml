@@ -101,7 +101,7 @@
       - { name: iterm2 }
       # - { name: macvim-kaoriya }
       - { name: vimr }
-      - { name: mi }
+      - { name: coteditor }
       - { name: pgadmin3 }
       - { name: rdm }
       - { name: robomongo }

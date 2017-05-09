@@ -78,6 +78,8 @@
       - { name: neovim }
       - { name: autoconf }
       - { name: automake }
+      - { name: chromedriver }
+      - { name: geckodriver }
     brew_priority_normal:
       - { name: ffmpeg }
 
@@ -89,6 +91,7 @@
 
       # development
       - { name: atom }
+      - { name: cool-retro-term }
       - { name: dash }
       - { name: diffmerge }
       - { name: docker }

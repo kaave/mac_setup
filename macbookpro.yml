@@ -6,13 +6,13 @@
     homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
 
     ruby_version: 2.4.1
-    nodejs_version: v6.10.3
+    nodejs_version: v6.11.0
     # python2_version: 2.7.12
     # python3_version: 3.5.2
-    go_version: 1.8.1
+    go_version: 1.8.3
     erlang_version: 19.3
-    elixir_version: 1.4.2
-    php_version: 7.1.3
+    elixir_version: 1.4.4
+    php_version: 7.1.6
     home_dir: "{{ lookup('env','HOME') }}/"
 
     app_setting_links:
@@ -22,7 +22,6 @@
       - caskroom/cask
       - caskroom/versions
       - caskroom/fonts
-      - codekitchen/dinghy
       - neovim/neovim
       - homebrew/dupes
       - homebrew/science
@@ -92,7 +91,7 @@
       # development
       - { name: atom }
       - { name: cool-retro-term }
-      - { name: dash }
+      # - { name: dash }
       - { name: diffmerge }
       - { name: docker }
       # - { name: eclipse-ide }
@@ -186,8 +185,8 @@
       - vagrant-vbox-snapshot
   tasks:
     # Mac setting
-    - name: preview text copy
-      osx_defaults: domain=com.apple.finder key=QLEnableTextSelection type=bool value=true
+    # - name: preview text copy
+    #   osx_defaults: domain=com.apple.finder key=QLEnableTextSelection type=bool value=true
 
     - name: don't write DS_Store files on Network stores
       osx_defaults: domain=com.apple.desktopservices key=DSDontWriteNetworkStores type=bool value=true

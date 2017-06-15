@@ -133,6 +133,7 @@
       # - { name: totalspaces }
       # - { name: libreoffice }
       - { name: onyx }
+      - { name: teensy }
       - { name: vlc }
       # - { name: teamviewer }
       - { name: zoomus }

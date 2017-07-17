@@ -6,13 +6,14 @@
     homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
 
     ruby_version: 2.4.1
-    nodejs_version: v6.11.0
-    # python2_version: 2.7.12
-    # python3_version: 3.5.2
+    nodejs_version: v6.11.1
+    python2_version: 2.7.13
+    python3_version: 3.6.2
+    python_anaconda_version: anaconda3-4.4.0
     go_version: 1.8.3
-    erlang_version: 19.3
-    elixir_version: 1.4.4
-    php_version: 7.1.6
+    erlang_version: 20.0
+    elixir_version: 1.4.5
+    php_version: 7.1.7
     home_dir: "{{ lookup('env','HOME') }}/"
 
     app_setting_links:
@@ -176,6 +177,11 @@
       - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
       - { name: rkh/rbenv-update.git, path: rbenv-update }
+    pyenv_plugins:
+      - { name: yyuu/pyenv-virtualenv.git, path: pyenv-virtualenv }
+      - { name: pyenv/pyenv-update.git, path: pyenv-update }
+      - { name: jawshooah/pyenv-default-packages.git, path: pyenv-default-packages }
+
     composer_modules:
       - squizlabs/php_codesniffer=*
       - phpmd/phpmd=*
@@ -282,30 +288,33 @@
     - name: ndenv rehash
       shell: /bin/bash -lc "ndenv rehash"
 
-    # # Python
-    # # use homebrew packages
-    # - name: install pyenv
-    #   shell: /bin/bash -lc "anyenv install -s pyenv"
-    #
-    # - name: install pyenv-plugins
-    #   git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
-    #   with_items:
-    #     - { name: 'yyuu/pyenv-virtualenv.git', path: 'pyenv-virtualenv' }
-    #
-    # # 2.7.x install
-    # - name: install python {{ python2_version }} with pyenv
-    #   shell: /bin/bash -lc "pyenv install {{ python2_version }}"
-    #
-    # # 3.x.x install
-    # - name: install python {{ python3_version }} with pyenv
-    #   shell: /bin/bash -lc "pyenv install {{ python3_version }}"
-    #
-    # # global use python2_version
-    # - name: set python version global
-    #   shell: /bin/bash -lc "pyenv global {{ python2_version }}"
-    #
-    # - name: pyenv rehash
-    #   shell: /bin/bash -lc "pyenv rehash"
+    # Python
+    # use homebrew packages
+    - name: install pyenv
+      shell: /bin/bash -lc "anyenv install -s pyenv"
+
+    - name: install pyenv-plugins
+      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
+      with_items: '{{pyenv_plugins}}'
+
+    # 2.7.x install
+    - name: install python {{ python2_version }} with pyenv
+      shell: /bin/bash -lc "pyenv install {{ python2_version }}"
+
+    # 3.x.x install
+    - name: install python {{ python3_version }} with pyenv
+      shell: /bin/bash -lc "pyenv install {{ python3_version }}"
+
+    # anaconda install
+    - name: install python {{ python_anaconda_version }} with pyenv
+      shell: /bin/bash -lc "pyenv install {{ python_anaconda_version }}"
+
+    # global use python2_version
+    - name: set python version global
+      shell: /bin/bash -lc "pyenv global {{ python2_version }}"
+
+    - name: pyenv rehash
+      shell: /bin/bash -lc "pyenv rehash"
 
     # go
     - name: install goenv

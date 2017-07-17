@@ -76,6 +76,8 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
 - manual install homebrew cask (Private)
     - libreoffice
     - parallels-desktop
+    - pd-extended
+    - supercollider
 
 - manual install homebrew cask (Work)
     - adobe-creative-cloud

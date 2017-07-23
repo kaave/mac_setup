@@ -104,7 +104,7 @@
       - { name: coteditor }
       - { name: pgadmin3 }
       - { name: rdm }
-      - { name: robomongo }
+      # - { name: robomongo }
       - { name: sequel-pro }
       - { name: sourcetree }
       # - { name: swiftybeaver }
@@ -119,6 +119,7 @@
       - { name: appcleaner }
       - { name: bettertouchtool }
       - { name: caffeine }
+      - { name: cmd-eikana }
       - { name: cooviewer }
       - { name: diskmaker-x }
       - { name: diskwave }
@@ -309,9 +310,9 @@
     - name: install python {{ python_anaconda_version }} with pyenv
       shell: /bin/bash -lc "pyenv install {{ python_anaconda_version }}"
 
-    # global use python2_version
+    # global set
     - name: set python version global
-      shell: /bin/bash -lc "pyenv global {{ python2_version }}"
+      shell: /bin/bash -lc "pyenv global {{ python2_version }} {{ python3_version }}"
 
     - name: pyenv rehash
       shell: /bin/bash -lc "pyenv rehash"

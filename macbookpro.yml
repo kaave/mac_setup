@@ -33,6 +33,7 @@
       - { name: python }
       - { name: python3 }
       - { name: ansible }
+      - { name: carthage }
       - { name: haskell-stack }
       - { name: curl }
       - { name: direnv }
@@ -45,6 +46,7 @@
       - { name: icdiff }
       - { name: terminal-notifier }
       - { name: tree }
+      - { name: exa }
       - { name: tmux }
       - { name: peco }
       - { name: reattach-to-user-namespace }

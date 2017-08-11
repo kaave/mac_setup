@@ -26,6 +26,7 @@
       - neovim/neovim
       - homebrew/dupes
       - homebrew/science
+      - mono0926/license-plist
     brew_cask_priority_high:
       - { name: java }
       - { name: xquartz }
@@ -34,6 +35,7 @@
       - { name: python3 }
       - { name: ansible }
       - { name: carthage }
+      - { name: license-plist }
       - { name: haskell-stack }
       - { name: curl }
       - { name: direnv }

@@ -87,6 +87,7 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
 - install other apps
     - [SOPHOS](https://www.sophos.com/ja-jp/lp/sophos-home.aspx)
     - [Duet display](http://www.duetdisplay.com/jp/)
+    - [HHKB Driver](http://www.pfu.fujitsu.com/hhkeyboard/macdownload.html)
     - [MOTU Audio driver](http://motu.com/download)
     - [Google Chrome](https://www.google.co.jp/chrome/browser/desktop/)
     - [Google Chrome Canary](https://www.google.co.jp/chrome/browser/canary.html)

@@ -3,8 +3,6 @@
   gather_facts: no
   become: no
   vars:
-    homebrew_cask_opts: "--appdir=/Applications --caskroom=/usr/local/Caskroom"
-
     ruby_version: 2.4.2
     nodejs_version: v6.11.3
     python2_version: 2.7.14
@@ -13,7 +11,7 @@
     go_version: 1.9
     erlang_version: 20.1
     elixir_version: 1.5.2
-    php_version: 7.1.7
+    php_version: 7.1.9
     home_dir: "{{ lookup('env','HOME') }}/"
 
     app_setting_links:
@@ -26,16 +24,15 @@
       - neovim/neovim
       - homebrew/dupes
       - homebrew/science
-      - mono0926/license-plist
     brew_cask_priority_high:
       - { name: java }
       - { name: xquartz }
     brew_priority_high:
+      - { name: fish }
       - { name: python }
       - { name: python3 }
       - { name: ansible }
       - { name: carthage }
-      - { name: license-plist }
       - { name: haskell-stack }
       - { name: curl }
       - { name: direnv }
@@ -61,7 +58,6 @@
       - { name: nginx }
       - { name: htop-osx }
       - { name: rsync }
-      - { name: lsyncd }
       - { name: unison }
       - { name: ag }
       - { name: bison }
@@ -107,7 +103,7 @@
       - { name: vimr }
       - { name: pgadmin3 }
       - { name: rdm }
-      # - { name: robomongo }
+      - { name: robo-3t }
       - { name: sequel-pro }
       - { name: sourcetree }
       # - { name: swiftybeaver }
@@ -213,8 +209,6 @@
     - name: install brew cask priority-high packages
       homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
       with_items: '{{brew_cask_priority_high}}'
-      environment:
-        HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
 
     - name: install brew priority-high packages
       homebrew: name={{ item.name }} state={{ item.state|default('latest') }} install_options={{ item.install_options|default() }}
@@ -227,8 +221,6 @@
     - name: install brew cask priority-normal packages
       homebrew_cask: name={{ item.name }} state={{ item.state|default('present') }}
       with_items: '{{brew_cask_priority_normal}}'
-      environment:
-        HOMEBREW_CASK_OPTS: '{{homebrew_cask_opts}}'
 
     # sym links -------------------------------------------------
     - name: install links & some plugins
@@ -293,32 +285,33 @@
       shell: /bin/bash -lc "ndenv rehash"
 
     # Python
-    # use homebrew packages
-    - name: install pyenv
-      shell: /bin/bash -lc "anyenv install -s pyenv"
+    # error with High Sierra
+    # # use homebrew packages
+    # - name: install pyenv
+    #   shell: /bin/bash -lc "anyenv install -s pyenv"
 
-    - name: install pyenv-plugins
-      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
-      with_items: '{{pyenv_plugins}}'
+    # - name: install pyenv-plugins
+    #   git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
+    #   with_items: '{{pyenv_plugins}}'
 
-    # 2.7.x install
-    - name: install python {{ python2_version }} with pyenv
-      shell: /bin/bash -lc "pyenv install {{ python2_version }}"
+    # # 2.7.x install
+    # - name: install python {{ python2_version }} with pyenv
+    #   shell: /bin/bash -lc "pyenv install {{ python2_version }}"
 
-    # 3.x.x install
-    - name: install python {{ python3_version }} with pyenv
-      shell: /bin/bash -lc "pyenv install {{ python3_version }}"
+    # # 3.x.x install
+    # - name: install python {{ python3_version }} with pyenv
+    #   shell: /bin/bash -lc "pyenv install {{ python3_version }}"
 
-    # anaconda install
-    - name: install python {{ python_anaconda_version }} with pyenv
-      shell: /bin/bash -lc "pyenv install {{ python_anaconda_version }}"
+    # # anaconda install
+    # - name: install python {{ python_anaconda_version }} with pyenv
+    #   shell: /bin/bash -lc "pyenv install {{ python_anaconda_version }}"
 
-    # global set
-    - name: set python version global
-      shell: /bin/bash -lc "pyenv global {{ python2_version }} {{ python3_version }}"
+    # # global set
+    # - name: set python version global
+    #   shell: /bin/bash -lc "pyenv global {{ python2_version }} {{ python3_version }}"
 
-    - name: pyenv rehash
-      shell: /bin/bash -lc "pyenv rehash"
+    # - name: pyenv rehash
+    #   shell: /bin/bash -lc "pyenv rehash"
 
     # go
     - name: install goenv
@@ -364,24 +357,25 @@
       shell: /bin/bash -lc "exenv global {{ elixir_version }}"
 
     # PHP
-    - name: install phpenv
-      shell: /bin/bash -lc "anyenv install -s phpenv"
+    # error with High Sierra
+    # - name: install phpenv
+    #   shell: /bin/bash -lc "anyenv install -s phpenv"
 
-    - name: fix default install option
-      lineinfile: dest={{ home_dir }}.anyenv/envs/phpenv/plugins/php-build/share/php-build/default_configure_options regexp=^--with-mysql=.* line=
+    # - name: fix default install option
+    #   lineinfile: dest={{ home_dir }}.anyenv/envs/phpenv/plugins/php-build/share/php-build/default_configure_options regexp=^--with-mysql=.* line=
 
-    - name: install PHP with phpenv
-      shell: /bin/bash -lc "PHP_BUILD_CONFIGURE_OPTS=\"--with-openssl=$(brew --prefix openssl) --with-libxml-dir=$(brew --prefix libxml2)\" phpenv install {{ php_version }}"
+    # - name: install PHP with phpenv
+    #   shell: /bin/bash -lc "PHP_BUILD_CONFIGURE_OPTS=\"--with-openssl=$(brew --prefix openssl) --with-libxml-dir=$(brew --prefix libxml2)\" phpenv install {{ php_version }}"
 
-    - name: set php version global
-      shell: /bin/bash -lc "phpenv global {{ php_version }}"
+    # - name: set php version global
+    #   shell: /bin/bash -lc "phpenv global {{ php_version }}"
 
-    - name: rehash PHP
-      shell: /bin/bash -lc "phpenv rehash"
+    # - name: rehash PHP
+    #   shell: /bin/bash -lc "phpenv rehash"
 
-    - name: install global composer modules
-      shell: /bin/bash -lc 'composer global require "{{ item }}"'
-      with_items: '{{composer_modules}}'
+    # - name: install global composer modules
+    #   shell: /bin/bash -lc 'composer global require "{{ item }}"'
+    #   with_items: '{{composer_modules}}'
 
     # Vagrant
     - name: install vagrant plugins

@@ -63,6 +63,7 @@
       - { name: unison }
       - { name: ag }
       - { name: bison }
+      - { name: icu4c }
       - { name: ctags }
       - { name: figlet }
       - { name: jq }
@@ -179,10 +180,15 @@
       - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
       - { name: rkh/rbenv-update.git, path: rbenv-update }
-    pyenv_plugins:
-      - { name: yyuu/pyenv-virtualenv.git, path: pyenv-virtualenv }
-      - { name: pyenv/pyenv-update.git, path: pyenv-update }
-      - { name: jawshooah/pyenv-default-packages.git, path: pyenv-default-packages }
+    # pyenv_plugins:
+    #   - { name: yyuu/pyenv-virtualenv.git, path: pyenv-virtualenv }
+    #   - { name: pyenv/pyenv-update.git, path: pyenv-update }
+    #   - { name: jawshooah/pyenv-default-packages.git, path: pyenv-default-packages }
+    pips:
+      - neovim
+      - flake8
+      - jedi
+      - powerline-status
 
     composer_modules:
       - squizlabs/php_codesniffer=*
@@ -324,6 +330,14 @@
     # - name: pyenv rehash
     #   shell: /bin/bash -lc "pyenv rehash"
 
+    - name: install pips(2)
+      shell: pip2 install {{ item }}
+      with_items: '{{pips}}'
+
+    - name: install pips(3)
+      shell: pip3 install {{ item }}
+      with_items: '{{pips}}'
+
     # go
     - name: install goenv
       shell: /bin/bash -lc "anyenv install -s goenv"
@@ -368,25 +382,24 @@
       shell: /bin/bash -lc "exenv global {{ elixir_version }}"
 
     # PHP
-    # error with High Sierra
-    # - name: install phpenv
-    #   shell: /bin/bash -lc "anyenv install -s phpenv"
+    - name: install phpenv
+      shell: /bin/bash -lc "anyenv install -s phpenv"
 
-    # - name: fix default install option
-    #   lineinfile: dest={{ home_dir }}.anyenv/envs/phpenv/plugins/php-build/share/php-build/default_configure_options regexp=^--with-mysql=.* line=
+    - name: fix default install option
+      lineinfile: dest={{ home_dir }}.anyenv/envs/phpenv/plugins/php-build/share/php-build/default_configure_options regexp=^--with-mysql=.* line=
 
-    # - name: install PHP with phpenv
-    #   shell: /bin/bash -lc "PHP_BUILD_CONFIGURE_OPTS=\"--with-openssl=$(brew --prefix openssl) --with-libxml-dir=$(brew --prefix libxml2)\" phpenv install {{ php_version }}"
+    - name: install PHP with phpenv
+      shell: /bin/bash -lc "PHP_BUILD_CONFIGURE_OPTS=\"--with-openssl=$(brew --prefix openssl) --with-libxml-dir=$(brew --prefix libxml2)\" LDFLAGS=-L$(brew --prefix icu4c)/lib CPPFLAGS=-I$(brew --prefix icu4c)/include phpenv install {{ php_version }}"
 
-    # - name: set php version global
-    #   shell: /bin/bash -lc "phpenv global {{ php_version }}"
+    - name: set php version global
+      shell: /bin/bash -lc "phpenv global {{ php_version }}"
 
-    # - name: rehash PHP
-    #   shell: /bin/bash -lc "phpenv rehash"
+    - name: rehash PHP
+      shell: /bin/bash -lc "phpenv rehash"
 
-    # - name: install global composer modules
-    #   shell: /bin/bash -lc 'composer global require "{{ item }}"'
-    #   with_items: '{{composer_modules}}'
+    - name: install global composer modules
+      shell: /bin/bash -lc 'composer global require "{{ item }}"'
+      with_items: '{{composer_modules}}'
 
     # Vagrant
     - name: install vagrant plugins

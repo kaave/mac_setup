@@ -28,6 +28,8 @@
       - { name: java }
       - { name: xquartz }
     brew_priority_high:
+      - { name: bash }
+      - { name: zsh }
       - { name: fish }
       - { name: python }
       - { name: python3 }
@@ -234,6 +236,15 @@
     # - name: install app setting links
     #   file: src={{ home_dir }}dotfiles/{{ item.src }} dest={{ home_dir }}{{ item.dest }} state=link force=yes
     #   with_items: '{{app_setting_links}}'
+
+    # add shell
+    - name: add shells path
+      lineinfile: path=/etc/shells line=/usr/local/bin/{{ item }}
+      become: yes
+      with_items:
+        - bash
+        - zsh
+        - fish
 
     # anyenv
     - name: install anyenv

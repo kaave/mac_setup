@@ -8,7 +8,7 @@
     python2_version: 2.7.14
     python3_version: 3.6.2
     python_anaconda_version: anaconda3-5.0.0
-    go_version: 1.9
+    go_version: 1.9.1
     erlang_version: 20.1
     elixir_version: 1.5.2
     php_version: 7.1.9
@@ -99,7 +99,7 @@
       - { name: diffmerge }
       - { name: docker }
       # - { name: eclipse-ide }
-      - { name: genymotion }
+      # - { name: genymotion }
       - { name: imageoptim }
       - { name: iterm2 }
       # - { name: macvim-kaoriya }
@@ -111,7 +111,7 @@
       - { name: sourcetree }
       # - { name: swiftybeaver }
       - { name: vagrant }
-      - { name: virtualbox }
+      # - { name: virtualbox }
       - { name: visual-studio-code }
       - { name: wireshark }
 
@@ -128,7 +128,7 @@
       - { name: dropbox }
       - { name: flux }
       - { name: google-japanese-ime }
-      - { name: hosts }
+      # - { name: hosts }
       # - { name: karabiner }
       - { name: kindle }
       - { name: itsycal }
@@ -136,7 +136,7 @@
       # - { name: seil }
       # - { name: totalspaces }
       # - { name: libreoffice }
-      - { name: onyx }
+      # - { name: onyx }
       - { name: teensy }
       - { name: vlc }
       # - { name: teamviewer }
@@ -189,6 +189,7 @@
       - flake8
       - jedi
       - powerline-status
+      - psutil
 
     composer_modules:
       - squizlabs/php_codesniffer=*

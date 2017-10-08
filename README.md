@@ -78,6 +78,7 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
     - parallels-desktop
     - pd-extended
     - supercollider
+    - bitwig-studio
 
 - manual install homebrew cask (Work)
     - adobe-creative-cloud

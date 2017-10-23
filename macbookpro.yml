@@ -24,6 +24,7 @@
       - neovim/neovim
       - homebrew/dupes
       - homebrew/science
+      - laurent22/massren
     brew_cask_priority_high:
       - { name: java }
       - { name: xquartz }
@@ -67,6 +68,7 @@
       - { name: ctags }
       - { name: figlet }
       - { name: jq }
+      - { name: massren }
       - { name: gdb }
       - { name: rmtrash }
       - { name: gnu-tar, install_options: default-names }

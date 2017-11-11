@@ -192,6 +192,7 @@
       - jedi
       - powerline-status
       - psutil
+      - pylint
 
     composer_modules:
       - squizlabs/php_codesniffer=*

@@ -182,10 +182,10 @@
       - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
       - { name: rkh/rbenv-update.git, path: rbenv-update }
-    # pyenv_plugins:
-    #   - { name: yyuu/pyenv-virtualenv.git, path: pyenv-virtualenv }
-    #   - { name: pyenv/pyenv-update.git, path: pyenv-update }
-    #   - { name: jawshooah/pyenv-default-packages.git, path: pyenv-default-packages }
+    pyenv_plugins:
+      - { name: yyuu/pyenv-virtualenv.git, path: pyenv-virtualenv }
+      - { name: pyenv/pyenv-update.git, path: pyenv-update }
+      - { name: jawshooah/pyenv-default-packages.git, path: pyenv-default-packages }
     pips:
       - neovim
       - flake8
@@ -305,33 +305,32 @@
       shell: /bin/bash -lc "ndenv rehash"
 
     # Python
-    # error with High Sierra
-    # # use homebrew packages
-    # - name: install pyenv
-    #   shell: /bin/bash -lc "anyenv install -s pyenv"
+    # use homebrew packages
+    - name: install pyenv
+      shell: /bin/bash -lc "anyenv install -s pyenv"
 
-    # - name: install pyenv-plugins
-    #   git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
-    #   with_items: '{{pyenv_plugins}}'
+    - name: install pyenv-plugins
+      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
+      with_items: '{{pyenv_plugins}}'
 
-    # # 2.7.x install
-    # - name: install python {{ python2_version }} with pyenv
-    #   shell: /bin/bash -lc "pyenv install {{ python2_version }}"
+    # 2.7.x install
+    - name: install python {{ python2_version }} with pyenv
+      shell: /bin/bash -lc "CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib -L$(brew --prefix sqlite3)/lib\" CPPFLAGS=\"-I$(brew --prefix sqlite3)/include\" pyenv install {{ python2_version }}"
 
-    # # 3.x.x install
-    # - name: install python {{ python3_version }} with pyenv
-    #   shell: /bin/bash -lc "pyenv install {{ python3_version }}"
+    # 3.x.x install
+    - name: install python {{ python3_version }} with pyenv
+      shell: /bin/bash -lc "CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib -L$(brew --prefix sqlite3)/lib\" CPPFLAGS=\"-I$(brew --prefix sqlite3)/include\" pyenv install {{ python3_version }}"
 
-    # # anaconda install
-    # - name: install python {{ python_anaconda_version }} with pyenv
-    #   shell: /bin/bash -lc "pyenv install {{ python_anaconda_version }}"
+    # anaconda install
+    - name: install python {{ python_anaconda_version }} with pyenv
+      shell: /bin/bash -lc "CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib -L$(brew --prefix sqlite3)/lib\" CPPFLAGS=\"-I$(brew --prefix sqlite3)/include\" pyenv install {{ python_anaconda_version }}"
 
-    # # global set
-    # - name: set python version global
-    #   shell: /bin/bash -lc "pyenv global {{ python2_version }} {{ python3_version }}"
+    # global set
+    - name: set python version global
+      shell: /bin/bash -lc "pyenv global {{ python2_version }} {{ python3_version }}"
 
-    # - name: pyenv rehash
-    #   shell: /bin/bash -lc "pyenv rehash"
+    - name: pyenv rehash
+      shell: /bin/bash -lc "pyenv rehash"
 
     - name: install pips(2)
       shell: pip2 install {{ item }}

@@ -4,14 +4,14 @@
   become: no
   vars:
     ruby_version: 2.4.2
-    nodejs_version: v6.11.3
+    nodejs_version: v8.9.1
     python2_version: 2.7.14
     python3_version: 3.6.2
     python_anaconda_version: anaconda3-5.0.0
-    go_version: 1.9.1
+    go_version: 1.9.2
     erlang_version: 20.1
     elixir_version: 1.5.2
-    php_version: 7.1.9
+    php_version: 7.1.11
     home_dir: "{{ lookup('env','HOME') }}/"
 
     app_setting_links:
@@ -101,6 +101,7 @@
       - { name: diffmerge }
       - { name: docker }
       # - { name: eclipse-ide }
+      - { name: emacs }
       # - { name: genymotion }
       - { name: imageoptim }
       - { name: iterm2 }
@@ -193,10 +194,16 @@
       - powerline-status
       - psutil
       - pylint
-
+      - yapf
+    pip3s:
+      - mypy
     composer_modules:
       - squizlabs/php_codesniffer=*
       - phpmd/phpmd=*
+    stack_modules:
+      - "hoogle --install-ghc"
+      - hspec
+      - stylish-haskell
     vagrant_plugins:
       - sahara
       - dotenv
@@ -341,6 +348,10 @@
       shell: pip3 install {{ item }}
       with_items: '{{pips}}'
 
+    - name: install pips(only 3)
+      shell: pip3 install {{ item }}
+      with_items: '{{pip3s}}'
+
     # go
     - name: install goenv
       shell: /bin/bash -lc "anyenv install -s goenv"
@@ -403,6 +414,23 @@
     - name: install global composer modules
       shell: /bin/bash -lc 'composer global require "{{ item }}"'
       with_items: '{{composer_modules}}'
+
+    # Haskell (WIP)
+    - name: setup stack
+      shell: stack setup
+
+    - name: install stack modules
+      shell: stack install "{{ item }}"
+      with_items: '{{stack_modules}}'
+
+    - name: build hoogle db
+      shell: hoogle generate
+
+    - name: get haskell-ide-engine
+      git: repo=https://github.com/haskell/haskell-ide-engine dest={{ home_dir }}Tools/haskell-ide-engine
+
+    - name: install haskell-ide-engine
+      shell: cd {{ home_dir }}Tools/haskell-ide-engine && stack install
 
     # Vagrant
     - name: install vagrant plugins

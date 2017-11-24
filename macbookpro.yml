@@ -105,6 +105,7 @@
       # - { name: genymotion }
       - { name: imageoptim }
       - { name: iterm2 }
+      - { name: ngrok }
       # - { name: macvim-kaoriya }
       - { name: vimr }
       - { name: pgadmin3 }

@@ -108,6 +108,7 @@
       - { name: ngrok }
       # - { name: macvim-kaoriya }
       - { name: vimr }
+      - { name: postman }
       - { name: pgadmin3 }
       - { name: rdm }
       - { name: robo-3t }

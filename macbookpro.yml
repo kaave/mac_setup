@@ -146,6 +146,7 @@
       - { name: vlc }
       # - { name: teamviewer }
       - { name: zoomus }
+      - { name: discord }
 
       # for home machine
       - { name: lastfm }

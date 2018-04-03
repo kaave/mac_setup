@@ -3,15 +3,14 @@
   gather_facts: no
   become: no
   vars:
-    ruby_version: 2.4.2
-    nodejs_version: v8.9.1
+    ruby_version: 2.5.1
+    nodejs_version: v8.11.1
     python2_version: 2.7.14
-    python3_version: 3.6.2
-    python_anaconda_version: anaconda3-5.0.0
-    go_version: 1.9.2
+    python3_version: 3.6.5
+    go_version: 1.10.0
     erlang_version: 20.1
     elixir_version: 1.5.2
-    php_version: 7.1.11
+    php_version: 7.2.4
     home_dir: "{{ lookup('env','HOME') }}/"
 
     app_setting_links:
@@ -79,6 +78,7 @@
       - { name: libxml2, state: linked, install_options: force }
       - { name: libxslt }
       - { name: libiconv }
+      - { name: libpng }
       - { name: vim }
       - { name: neovim }
       - { name: autoconf }
@@ -187,7 +187,7 @@
       - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
       - { name: rkh/rbenv-update.git, path: rbenv-update }
     pyenv_plugins:
-      - { name: yyuu/pyenv-virtualenv.git, path: pyenv-virtualenv }
+      - { name: pyenv/pyenv-virtualenv.git, path: pyenv-virtualenv }
       - { name: pyenv/pyenv-update.git, path: pyenv-update }
       - { name: jawshooah/pyenv-default-packages.git, path: pyenv-default-packages }
     pips:
@@ -332,13 +332,9 @@
     - name: install python {{ python3_version }} with pyenv
       shell: /bin/bash -lc "CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib -L$(brew --prefix sqlite3)/lib\" CPPFLAGS=\"-I$(brew --prefix sqlite3)/include\" pyenv install {{ python3_version }}"
 
-    # anaconda install
-    - name: install python {{ python_anaconda_version }} with pyenv
-      shell: /bin/bash -lc "CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib -L$(brew --prefix sqlite3)/lib\" CPPFLAGS=\"-I$(brew --prefix sqlite3)/include\" pyenv install {{ python_anaconda_version }}"
-
     # global set
     - name: set python version global
-      shell: /bin/bash -lc "pyenv global {{ python2_version }} {{ python3_version }}"
+      shell: /bin/bash -lc "pyenv global {{ python3_version }} {{ python2_version }}"
 
     - name: pyenv rehash
       shell: /bin/bash -lc "pyenv rehash"
@@ -368,35 +364,35 @@
     - name: goenv rehash
       shell: /bin/bash -lc "goenv rehash"
 
-    # Erlang
-    - name: install erlenv
-      shell: /bin/bash -lc "anyenv install -s erlenv"
+    # # Erlang
+    # - name: install erlenv
+    #   shell: /bin/bash -lc "anyenv install -s erlenv"
 
-    - name: download Erlang source
-      get_url: url=http://www.erlang.org/download/otp_src_{{ erlang_version }}.tar.gz dest=/tmp/{{ erlang_version }}.tar.gz
+    # - name: download Erlang source
+    #   get_url: url=http://www.erlang.org/download/otp_src_{{ erlang_version }}.tar.gz dest=/tmp/{{ erlang_version }}.tar.gz
 
-    - name: extract Erlang source
-      # unarchiveでやると文字コードの都合かエラーになるのでshell
-      shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz && rm -rf {{ erlang_version }}.tar.gz
+    # - name: extract Erlang source
+    #   # unarchiveでやると文字コードの都合かエラーになるのでshell
+    #   shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz && rm -rf {{ erlang_version }}.tar.gz
 
-    - name: install Erlang
-      shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --with-ssl=$(brew --prefix openssl) --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }} && make && make install
+    # - name: install Erlang
+    #   shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --with-ssl=$(brew --prefix openssl) --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }} && make && make install
 
-    - name: set Erlang version global
-      shell: /bin/bash -lc "erlenv global {{ erlang_version }}"
+    # - name: set Erlang version global
+    #   shell: /bin/bash -lc "erlenv global {{ erlang_version }}"
 
-    # Elixir
-    - name: install exenv
-      shell: /bin/bash -lc "anyenv install -s exenv"
+    # # Elixir
+    # - name: install exenv
+    #   shell: /bin/bash -lc "anyenv install -s exenv"
 
-    - name: install Elixir with Homebrew
-      homebrew: name=elixir state='latest'
+    # - name: install Elixir with Homebrew
+    #   homebrew: name=elixir state='latest'
 
-    - name: install Elixir with exenv
-      shell: /bin/bash -lc "exenv install {{ elixir_version }}"
+    # - name: install Elixir with exenv
+    #   shell: /bin/bash -lc "exenv install {{ elixir_version }}"
 
-    - name: set Elixir version global
-      shell: /bin/bash -lc "exenv global {{ elixir_version }}"
+    # - name: set Elixir version global
+    #   shell: /bin/bash -lc "exenv global {{ elixir_version }}"
 
     # PHP
     - name: install phpenv

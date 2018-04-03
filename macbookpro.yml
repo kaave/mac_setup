@@ -22,7 +22,6 @@
       - caskroom/fonts
       - neovim/neovim
       - homebrew/dupes
-      - homebrew/science
       - laurent22/massren
     brew_cask_priority_high:
       - { name: java }

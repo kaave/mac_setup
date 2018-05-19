@@ -39,6 +39,7 @@
       - { name: direnv }
       - { name: fswatch }
       - { name: gnu-sed }
+      - { name: google-cloud-sdk }
       # - { name: qt5 } # can't install 10.12
       - { name: wget }
       - { name: openssl }

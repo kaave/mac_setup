@@ -58,6 +58,7 @@
       - { name: shellcheck }
       - { name: readline }
       - { name: nginx }
+      - { name: fping }
       - { name: htop }
       - { name: rsync }
       - { name: unison }

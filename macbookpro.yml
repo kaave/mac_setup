@@ -68,6 +68,7 @@
       - { name: ctags }
       - { name: figlet }
       - { name: jq }
+      - { name: jid }
       - { name: massren }
       - { name: gdb }
       - { name: rmtrash }

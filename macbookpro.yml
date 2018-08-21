@@ -57,6 +57,7 @@
       - { name: tig }
       - { name: shellcheck }
       - { name: readline }
+      - { name: ghostscript }
       - { name: nginx }
       - { name: fping }
       - { name: htop }

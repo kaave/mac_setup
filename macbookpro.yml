@@ -48,6 +48,9 @@
       - { name: terminal-notifier }
       - { name: tree }
       - { name: exa }
+      - { name: fd }
+      - { name: bat }
+      - { name: ripgrep }
       - { name: tmux }
       - { name: peco }
       - { name: reattach-to-user-namespace }

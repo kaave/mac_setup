@@ -85,6 +85,8 @@
       - { name: libxslt }
       - { name: libiconv }
       - { name: libpng }
+      - { name: glslang }
+      - { name: clang-format }
       - { name: vim }
       - { name: neovim }
       - { name: autoconf }

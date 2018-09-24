@@ -78,7 +78,7 @@
       - { name: libiconv }
       - { name: libpng }
       - { name: glslang }
-      - { name: clang-format }
+      # - { name: clang-format }
       - { name: vim }
       - { name: neovim }
       - { name: autoconf }

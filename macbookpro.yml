@@ -3,14 +3,6 @@
   gather_facts: no
   become: no
   vars:
-    ruby_version: 2.5.1
-    nodejs_version: v8.11.1
-    python2_version: 2.7.14
-    python3_version: 3.6.5
-    go_version: 1.10.0
-    erlang_version: 20.1
-    elixir_version: 1.5.2
-    php_version: 7.2.4
     home_dir: "{{ lookup('env','HOME') }}/"
 
     app_setting_links:
@@ -111,7 +103,6 @@
       # - { name: eclipse-ide }
       - { name: emacs }
       # - { name: genymotion }
-      - { name: imageoptim }
       - { name: iterm2 }
       - { name: ngrok }
       # - { name: macvim-kaoriya }
@@ -155,12 +146,8 @@
       # - { name: teamviewer }
       - { name: zoomus }
       - { name: discord }
-
-      # for home machine
       - { name: lastfm }
       - { name: xld }
-      # - { name: soundflower }
-      # - { name: pd-extended }
 
       # shareware
       # - { name: parallels-desktop }
@@ -187,30 +174,6 @@
       - { name: quicknfo }
       - { name: scriptql }
       - { name: webpquicklook }
-    anyenv_plugins:
-      - { name: znz/anyenv-update.git, path: anyenv-update }
-      - { name: aereal/anyenv-exec.git, path: anyenv-exec }
-    rbenv_plugins:
-      - { name: sstephenson/rbenv-default-gems.git, path: rbenv-default-gems }
-      - { name: sstephenson/rbenv-gem-rehash.git, path: rbenv-gem-rehash }
-      - { name: rkh/rbenv-update.git, path: rbenv-update }
-    pyenv_plugins:
-      - { name: pyenv/pyenv-virtualenv.git, path: pyenv-virtualenv }
-      - { name: pyenv/pyenv-update.git, path: pyenv-update }
-      - { name: jawshooah/pyenv-default-packages.git, path: pyenv-default-packages }
-    pips:
-      - neovim
-      - flake8
-      - jedi
-      - powerline-status
-      - psutil
-      - pylint
-      - yapf
-    pip3s:
-      - mypy
-    composer_modules:
-      - squizlabs/php_codesniffer=*
-      - phpmd/phpmd=*
     stack_modules:
       - "hoogle --install-ghc"
       - hspec
@@ -254,7 +217,7 @@
 
     # sym links -------------------------------------------------
     - name: install links & some plugins
-      shell: "{{ home_dir }}/dotfiles/_setup.zsh"
+      shell: "{{ home_dir }}/dotfiles/_setup.py"
 
     # - name: install /usr/include links
     #   shell: ln -sf $(xcrun --show-sdk-path)/usr/include/ /usr/include
@@ -274,182 +237,7 @@
         - zsh
         - fish
 
-    # anyenv
-    - name: install anyenv
-      git: repo=https://github.com/riywo/anyenv dest={{ home_dir }}.anyenv/
-
-    - name: install anyenv-plugins
-      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/plugins/{{ item.path }}
-      with_items: '{{anyenv_plugins}}'
-
-    # Ruby
-    - name: install rbenv
-      shell: /bin/bash -lc "anyenv install -s rbenv"
-
-    - name: install rbenv-plugins
-      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/rbenv/plugins/{{ item.path }}
-      with_items: '{{rbenv_plugins}}'
-
-    - name: mod default gem list
-      file: src={{ home_dir }}dotfiles/default_libraries/default-gems dest={{ home_dir }}.anyenv/envs/rbenv/default-gems state=link force=yes
-
-    - name: install ruby with rbenv
-      shell: /bin/bash -lc "rbenv install {{ ruby_version }}"
-
-    - name: set ruby version global
-      shell: /bin/bash -lc "rbenv global {{ ruby_version }}"
-
-    - name: install bitclust
-      shell: /bin/bash -lc "rbenv rehash && bitclust setup"
-
-    # Node.js
-    - name: install ndenv
-      shell: /bin/bash -lc "anyenv install -s ndenv"
-
-    - name: install ndenv-plugins
-      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/ndenv/plugins/{{ item.path }}
-      with_items:
-        - { name: 'kaave/ndenv-default-npms.git', path: 'ndenv-default-npms' }
-
-    - name: mod default npm list
-      file: src={{ home_dir }}dotfiles/default_libraries/default-npms dest={{ home_dir }}.anyenv/envs/ndenv/default-npms state=link force=yes
-
-    - name: install node.js with ndenv
-      shell: /bin/bash -lc "ndenv install {{ nodejs_version }}"
-
-    - name: set node version global
-      shell: /bin/bash -lc "ndenv global {{ nodejs_version }}"
-
-    - name: ndenv rehash
-      shell: /bin/bash -lc "ndenv rehash"
-
-    # Python
-    # use homebrew packages
-    - name: install pyenv
-      shell: /bin/bash -lc "anyenv install -s pyenv"
-
-    - name: install pyenv-plugins
-      git: repo=https://github.com/{{ item.name }} dest={{ home_dir }}.anyenv/envs/pyenv/plugins/{{ item.path }}
-      with_items: '{{pyenv_plugins}}'
-
-    # 2.7.x install
-    - name: install python {{ python2_version }} with pyenv
-      shell: /bin/bash -lc "CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib -L$(brew --prefix sqlite3)/lib\" CPPFLAGS=\"-I$(brew --prefix sqlite3)/include\" pyenv install {{ python2_version }}"
-
-    # 3.x.x install
-    - name: install python {{ python3_version }} with pyenv
-      shell: /bin/bash -lc "CFLAGS=\"-I$(brew --prefix openssl)/include\" LDFLAGS=\"-L$(brew --prefix openssl)/lib -L$(brew --prefix sqlite3)/lib\" CPPFLAGS=\"-I$(brew --prefix sqlite3)/include\" pyenv install {{ python3_version }}"
-
-    # global set
-    - name: set python version global
-      shell: /bin/bash -lc "pyenv global {{ python3_version }} {{ python2_version }}"
-
-    - name: pyenv rehash
-      shell: /bin/bash -lc "pyenv rehash"
-
-    - name: install pips(2)
-      shell: pip2 install {{ item }}
-      with_items: '{{pips}}'
-
-    - name: install pips(3)
-      shell: pip3 install {{ item }}
-      with_items: '{{pips}}'
-
-    - name: install pips(only 3)
-      shell: pip3 install {{ item }}
-      with_items: '{{pip3s}}'
-
-    # go
-    - name: install goenv
-      shell: /bin/bash -lc "anyenv install -s goenv"
-
-    - name: install golang with goenv
-      shell: /bin/bash -lc "goenv install {{ go_version }}"
-
-    - name: set golang version global
-      shell: /bin/bash -lc "goenv global {{ go_version }}"
-
-    - name: goenv rehash
-      shell: /bin/bash -lc "goenv rehash"
-
-    # # Erlang
-    # - name: install erlenv
-    #   shell: /bin/bash -lc "anyenv install -s erlenv"
-
-    # - name: download Erlang source
-    #   get_url: url=http://www.erlang.org/download/otp_src_{{ erlang_version }}.tar.gz dest=/tmp/{{ erlang_version }}.tar.gz
-
-    # - name: extract Erlang source
-    #   # unarchiveでやると文字コードの都合かエラーになるのでshell
-    #   shell: cd /tmp/ && tar xfvz {{ erlang_version }}.tar.gz && rm -rf {{ erlang_version }}.tar.gz
-
-    # - name: install Erlang
-    #   shell: cd /tmp/otp_src_{{ erlang_version }} && export ERL_TOP=`pwd` && ./configure --with-ssl=$(brew --prefix openssl) --prefix={{ home_dir }}.anyenv/envs/erlenv/releases/{{ erlang_version }} && make && make install
-
-    # - name: set Erlang version global
-    #   shell: /bin/bash -lc "erlenv global {{ erlang_version }}"
-
-    # # Elixir
-    # - name: install exenv
-    #   shell: /bin/bash -lc "anyenv install -s exenv"
-
-    # - name: install Elixir with Homebrew
-    #   homebrew: name=elixir state='latest'
-
-    # - name: install Elixir with exenv
-    #   shell: /bin/bash -lc "exenv install {{ elixir_version }}"
-
-    # - name: set Elixir version global
-    #   shell: /bin/bash -lc "exenv global {{ elixir_version }}"
-
-    # PHP
-    - name: install phpenv
-      shell: /bin/bash -lc "anyenv install -s phpenv"
-
-    - name: fix default install option
-      lineinfile: dest={{ home_dir }}.anyenv/envs/phpenv/plugins/php-build/share/php-build/default_configure_options regexp=^--with-mysql=.* line=
-
-    - name: install PHP with phpenv
-      shell: /bin/bash -lc "PHP_BUILD_CONFIGURE_OPTS=\"--with-openssl=$(brew --prefix openssl) --with-libxml-dir=$(brew --prefix libxml2)\" LDFLAGS=-L$(brew --prefix icu4c)/lib CPPFLAGS=-I$(brew --prefix icu4c)/include phpenv install {{ php_version }}"
-
-    - name: set php version global
-      shell: /bin/bash -lc "phpenv global {{ php_version }}"
-
-    - name: rehash PHP
-      shell: /bin/bash -lc "phpenv rehash"
-
-    - name: install global composer modules
-      shell: /bin/bash -lc 'composer global require "{{ item }}"'
-      with_items: '{{composer_modules}}'
-
-    # Haskell (WIP)
-    - name: setup stack
-      shell: stack setup
-
-    - name: install stack modules
-      shell: stack install "{{ item }}"
-      with_items: '{{stack_modules}}'
-
-    - name: build hoogle db
-      shell: hoogle generate
-
-    - name: get haskell-ide-engine
-      git: repo=https://github.com/haskell/haskell-ide-engine dest={{ home_dir }}Tools/haskell-ide-engine
-
-    - name: install haskell-ide-engine
-      shell: cd {{ home_dir }}Tools/haskell-ide-engine && stack install
-
     # Vagrant
     - name: install vagrant plugins
       command: vagrant plugin install {{ item }}
       with_items: '{{vagrant_plugins}}'
-
-    # nginx
-    # - name: set nginx plist
-    #   shell: cp /usr/local/opt/nginx/*.plist /Library/LaunchDaemons
-    #   become: yes
-    #
-    # - name: set nginx plist
-    #   shell: launchctl load -w /Library/LaunchDaemons/homebrew.mxcl.nginx.plist
-    #   become: yes
-

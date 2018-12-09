@@ -122,7 +122,6 @@
       - { name: appcleaner }
       - { name: bettertouchtool }
       - { name: caffeine }
-      - { name: cmd-eikana }
       - { name: cooviewer }
       - { name: diskmaker-x }
       - { name: diskwave }
@@ -130,7 +129,7 @@
       - { name: flux }
       - { name: google-japanese-ime }
       # - { name: hosts }
-      # - { name: karabiner }
+      - { name: karabiner-elements }
       - { name: keka }
       - { name: kindle }
       - { name: itsycal }

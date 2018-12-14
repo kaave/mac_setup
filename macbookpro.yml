@@ -91,6 +91,7 @@
       - { name: slack-beta }
 
       # development
+      - { name: alacritty }
       - { name: android-studio }
       - { name: atom }
       - { name: cool-retro-term }

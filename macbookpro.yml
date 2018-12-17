@@ -26,6 +26,7 @@
       - { name: curl }
       - { name: direnv }
       - { name: fswatch }
+      - { name: gpg }
       - { name: gnu-sed }
       # - { name: google-cloud-sdk }
       # - { name: qt5 } # can't install 10.12

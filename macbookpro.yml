@@ -187,9 +187,6 @@
     # - name: preview text copy
     #   osx_defaults: domain=com.apple.finder key=QLEnableTextSelection type=bool value=true
 
-    - name: don't write DS_Store files on Network stores
-      osx_defaults: domain=com.apple.desktopservices key=DSDontWriteNetworkStores type=bool value=true
-
     - name: stop Automatic Capitalization
       osx_defaults: domain=NSGlobalDomain key=NSAutomaticCapitalizationEnabled type=bool value=false
 
@@ -205,7 +202,35 @@
     - name: set dock large-tilesize
       osx_defaults: domain=com.apple.dock key=largesize type=float value=50
 
+    - name: don't write DS_Store files on Network stores
+      osx_defaults: domain=com.apple.desktopservices key=DSDontWriteNetworkStores type=bool value=true
 
+    - name: don't write DS_Store files on Network stores
+      osx_defaults: domain=com.apple.desktopservices key=DSDontWriteUSBStores type=bool value=true
+
+    - name: show all filename extensions
+      osx_defaults: domain=NSGlobalDomain key=AppleShowAllExtensions type=bool value=false
+
+    - name: show status bar
+      osx_defaults: domain=com.apple.finder key=ShowStatusBar type=bool value=true
+
+    - name: show path bar
+      osx_defaults: domain=com.apple.finder key=ShowPathBar type=bool value=true
+
+    - name: keep folders on top when sorting by name
+      osx_defaults: domain=com.apple.finder key=_FXSortFoldersFirst type=bool value=true
+
+    - name: stop extension change warning
+      osx_defaults: domain=com.apple.finder key=FXEnableExtensionChangeWarning type=bool value=true
+
+    - name: stop empty trash warning
+      osx_defaults: domain=com.apple.finder key=WarnOnEmptyTrash type=bool value=true
+
+    - name: set Key Repeat Speed
+      osx_defaults: domain="Apple Global Domain" key=KeyRepeat type=int value=2
+
+    - name: set Initial Key Repeat Speed
+      osx_defaults: domain="Apple Global Domain" key=KeyRepeat type=int value=15
 
     # homebrew -------------------------------------------------
     - name: tap repositries

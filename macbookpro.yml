@@ -187,6 +187,10 @@
     # - name: preview text copy
     #   osx_defaults: domain=com.apple.finder key=QLEnableTextSelection type=bool value=true
 
+    - name: set Dark mode
+      osx_defaults: domain="Apple Global Domain" key=AppleInterfaceStyle type=string value="Dark"
+
+
     - name: stop Automatic Capitalization
       osx_defaults: domain=NSGlobalDomain key=NSAutomaticCapitalizationEnabled type=bool value=false
 

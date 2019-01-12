@@ -42,6 +42,7 @@
       - { name: ripgrep }
       - { name: tmux }
       - { name: peco }
+      - { name: fzf }
       - { name: reattach-to-user-namespace }
       - { name: git }
       - { name: git-flow }

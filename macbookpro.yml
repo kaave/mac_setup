@@ -11,6 +11,8 @@
     brew_taps:
       - neovim/neovim
       - laurent22/massren
+      - heroku/brew
+
     brew_cask_priority_high:
       - { name: java }
       - { name: xquartz }
@@ -104,6 +106,7 @@
       # - { name: eclipse-ide }
       - { name: emacs }
       # - { name: genymotion }
+      # brew install heroku/brew/heroku
       - { name: iterm2 }
       - { name: ngrok }
       # - { name: macvim-kaoriya }
@@ -132,6 +135,8 @@
       - { name: dropbox }
       - { name: flux }
       - { name: google-japanese-ime }
+      - { name: heroku }
+
       # - { name: hosts }
       - { name: karabiner-elements }
       - { name: keka }

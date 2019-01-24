@@ -101,6 +101,7 @@
       - { name: atom }
       - { name: cool-retro-term }
       # - { name: dash }
+      - { name: db-browser-for-sqlite }
       - { name: diffmerge }
       - { name: docker }
       # - { name: eclipse-ide }

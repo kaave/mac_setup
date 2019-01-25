@@ -97,7 +97,6 @@
       # development
       - { name: alacritty }
       - { name: ammonite-repl }
-      - { name: android-studio }
       - { name: atom }
       - { name: cool-retro-term }
       # - { name: dash }

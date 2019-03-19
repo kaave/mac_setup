@@ -190,6 +190,7 @@
       - dotenv
       - vagrant-vbguest
       - vagrant-vbox-snapshot
+      - vagrant-parallels
   tasks:
     # Mac setting
     # - name: preview text copy

@@ -122,6 +122,7 @@
       # - { name: virtualbox }
       - { name: visual-studio-code }
       - { name: wireshark }
+      - { name: yarn, install_options: ignore-dependencies }
 
       # utility
       - { name: alfred }

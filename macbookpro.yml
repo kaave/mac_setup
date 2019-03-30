@@ -156,6 +156,7 @@
       - { name: discord }
       - { name: lastfm }
       - { name: xld }
+      - { name: skyfonts }
 
       # shareware
       # - { name: parallels-desktop }
@@ -192,6 +193,7 @@
       - vagrant-vbguest
       - vagrant-vbox-snapshot
       - vagrant-parallels
+      - vagrant-hostsupdater
   tasks:
     # Mac setting
     # - name: preview text copy

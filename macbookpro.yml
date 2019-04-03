@@ -68,7 +68,8 @@
       - { name: massren }
       - { name: gdb }
       - { name: rmtrash }
-      - { name: gnu-tar, install_options: default-names }
+      # - { name: gnu-tar, install_options: default-names }
+      - { name: gnu-tar }
       - { name: mcrypt }
       - { name: re2c }
       - { name: jpeg }
@@ -130,7 +131,7 @@
       - { name: appcleaner }
       - { name: bettertouchtool }
       - { name: caffeine }
-      - { name: cooviewer }
+      # - { name: cooviewer }
       - { name: diskmaker-x }
       - { name: diskwave }
       - { name: dropbox }

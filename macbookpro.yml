@@ -119,6 +119,7 @@
       - { name: sequel-pro }
       - { name: sourcetree }
       # - { name: swiftybeaver }
+      - { name: switchhosts }
       - { name: vagrant }
       # - { name: virtualbox }
       - { name: visual-studio-code }

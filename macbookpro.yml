@@ -24,6 +24,7 @@
       - { name: python3 }
       - { name: ansible }
       - { name: carthage }
+      - { name: sbt }
       - { name: haskell-stack }
       - { name: curl }
       - { name: direnv }
@@ -106,7 +107,6 @@
       - { name: docker }
       # - { name: eclipse-ide }
       - { name: emacs }
-      # - { name: genymotion }
       # brew install heroku/brew/heroku
       - { name: iterm2 }
       - { name: ngrok }

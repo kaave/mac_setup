@@ -147,6 +147,7 @@
       - { name: itsycal }
       - { name: path-finder }
       # - { name: seil }
+      - { name: station }
       # - { name: totalspaces }
       # - { name: libreoffice }
       # - { name: onyx }

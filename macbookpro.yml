@@ -148,6 +148,7 @@
       - { name: path-finder }
       # - { name: seil }
       - { name: station }
+      - { name: toggl }
       # - { name: totalspaces }
       # - { name: libreoffice }
       # - { name: onyx }

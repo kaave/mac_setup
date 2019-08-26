@@ -47,6 +47,7 @@
       - { name: peco }
       - { name: fzf }
       - { name: reattach-to-user-namespace }
+      - { name: bitwarden-cli }
       - { name: git }
       - { name: git-flow }
       - { name: hub }
@@ -131,6 +132,7 @@
       - { name: anki }
       - { name: appcleaner }
       - { name: bettertouchtool }
+      - { name: bitwarden }
       - { name: caffeine }
       # - { name: cooviewer }
       - { name: diskmaker-x }

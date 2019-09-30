@@ -10,6 +10,15 @@
 
 🔑
 
+#### ...or generate and set to GitHub
+
+```bash
+ssh-keygen -b 4096 -t rsa -C 'junkjunctions@gmail.com'
+# copy public key to clipboard
+pbcopy < ~/.ssh/id_rsa.pub
+open https://github.com/settings/keys
+```
+
 ### through input pass on sudo
 
 ```bash
@@ -80,60 +89,54 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
 
 #### after ansible
 
-- manual install homebrew cask (Private)
-    - libreoffice
-    - parallels-desktop
-
-- manual install homebrew cask (Work)
-    - adobe-creative-cloud
-    - owncloud
-    - microsoft-office
-    - virtualbox
+- manual install homebrew cask
+  - parallels-desktop
+  - microsoft-office
+  - virtualbox
+  - libreoffice
 
 - install other apps
-    - [Duet display](http://www.duetdisplay.com/jp/)
-    - [HHKB Driver](http://www.pfu.fujitsu.com/hhkeyboard/macdownload.html)
-    - [MOTU Audio driver](http://motu.com/download)
-    - [Google Chrome](https://www.google.co.jp/chrome/browser/desktop/)
-    - [Google Chrome Canary](https://www.google.co.jp/chrome/browser/canary.html)
-    - [Firefox](https://www.mozilla.org/ja/firefox/new/)
-    - [Firefox Developer Edition](https://www.mozilla.org/ja/firefox/developer/)
-    - [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
-    - [WebKit Nightly](https://webkit.org/downloads/)
-    - [Vivaldi](https://vivaldi.com/download/?lang=ja_JP)
+  - [Duet display](http://www.duetdisplay.com/jp/)
+  - [HHKB Driver](http://www.pfu.fujitsu.com/hhkeyboard/macdownload.html)
+  - [MOTU Audio driver](http://motu.com/download)
+  - [Google Chrome](https://www.google.co.jp/chrome/browser/desktop/)
+  - [Google Chrome Canary](https://www.google.co.jp/chrome/browser/canary.html)
+  - [Firefox](https://www.mozilla.org/ja/firefox/new/)
+  - [Firefox Developer Edition](https://www.mozilla.org/ja/firefox/developer/)
+  - [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
+  - [WebKit Nightly](https://webkit.org/downloads/)
+  - [Vivaldi](https://vivaldi.com/download/?lang=ja_JP)
 
 - commandline
-    - install `tpm` packages: `run tmux & prefix + I`
+  - install `tpm` packages: `run tmux & prefix + I`
 
 - key settings on web service
-    - GitHub
-    - Bitbucket
-    - Office tools
+  - GitHub
+  - Bitbucket
+  - Office tools
 
 - atom
-    - install `sync-settings`
-    - Syncronize settings > Recover
-        - GistID: [7c9a416cb1934c28a453](https://gist.github.com/kaave/7c9a416cb1934c28a453)
+  - install `sync-settings`
+  - Syncronize settings > Recover
+    - GistID: [7c9a416cb1934c28a453](https://gist.github.com/kaave/7c9a416cb1934c28a453)
 
 - visual-studio-code
-    - install `Visual Studio Code Settings Sync`
-    - `cmd + p` > `Sync: Download`
-        - GistID: [9f4a74a7c814a9036fb1db5a5d70e04d](https://gist.github.com/kaave/9f4a74a7c814a9036fb1db5a5d70e04d)
+  - install `Visual Studio Code Settings Sync`
+  - `cmd + p` > `Sync: Download`
+    - GistID: [9f4a74a7c814a9036fb1db5a5d70e04d](https://gist.github.com/kaave/9f4a74a7c814a9036fb1db5a5d70e04d)
 
 - Setup Xcode
-    - CocoaPods setup: `pod setup`
-    - Unsigned Xcode: `update_xcode_plugins --unsign`
-    - Install Alcatraz: `curl -fsSL https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh | sh`
-    - Install [XVim2](https://github.com/XVimProject/XVim2)
-    - Add UUID to Alcatraz: `update_xcode_plugins`
+  - CocoaPods setup: `pod setup`
+  - Unsigned Xcode: `update_xcode_plugins --unsign`
+  - Install Alcatraz: `curl -fsSL https://raw.githubusercontent.com/supermarin/Alcatraz/deploy/Scripts/install.sh | sh`
+  - Install [XVim2](https://github.com/XVimProject/XVim2)
+  - Add UUID to Alcatraz & XVim2: `update_xcode_plugins`
 
 - install emulators
-    - iOS
-        - run Xcode and install Simulator
-            - 10.3.1
-            - 11.4
-    - Android
-        - run Androud Studio and setup Android SDK
+  - iOS
+    - run Xcode and install Simulator
+  - Android
+    - run Androud Studio and setup Android SDK
 
 - Windows
-    - add [virtual machines](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/) to VirtualBox
+  - add [virtual machines](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/)

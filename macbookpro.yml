@@ -11,6 +11,7 @@
       - neovim/neovim
       - laurent22/massren
       - heroku/brew
+      - homebrew/cask-versions
 
     brew_cask_priority_high:
       - { name: java }
@@ -36,6 +37,7 @@
       - { name: openssl }
       # - { name: openssl, state: linked, install_options: force }  # can't make link with brew's openssl
       - { name: icdiff }
+      - { name: ammonite-repl }
       - { name: terminal-notifier }
       - { name: tree }
       - { name: exa }
@@ -98,7 +100,6 @@
 
       # development
       - { name: alacritty }
-      - { name: ammonite-repl }
       - { name: atom }
       - { name: db-browser-for-sqlite }
       - { name: diffmerge }
@@ -107,7 +108,8 @@
       - { name: ngrok }
       - { name: postman }
       - { name: teamsql }
-      - { name: rdm }
+      # - { name: rdm }
+      - { name: another-redis-desktop-manager }
       - { name: robo-3t }
       - { name: sequel-pro }
       - { name: sourcetree }
@@ -116,7 +118,6 @@
       - { name: vagrant }
       - { name: visual-studio-code }
       - { name: wireshark }
-      - { name: yarn, install_options: ignore-dependencies }
 
       # utility
       - { name: alfred }
@@ -132,7 +133,7 @@
       - { name: dozer }
       - { name: flux }
       - { name: google-japanese-ime }
-      - { name: heroku }
+      - { name: heroku/brew/heroku }
       - { name: karabiner-elements }
       - { name: keka }
       - { name: kindle }
@@ -158,8 +159,7 @@
       - { name: adobe-creative-cloud }
 
       # QuickLook
-      - { name: betterzipql }
-      - { name: emin-webpquicklook }
+      # - { name: betterzipql }
       - { name: epubquicklook }
       - { name: qlcolorcode }
       #- { name: qldds }    # sha256 error

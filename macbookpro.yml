@@ -10,7 +10,6 @@
     brew_taps:
       - neovim/neovim
       - laurent22/massren
-      - heroku/brew
       - homebrew/cask-versions
 
     brew_cask_priority_high:
@@ -48,7 +47,6 @@
       - { name: peco }
       - { name: fzf }
       - { name: reattach-to-user-namespace }
-      - { name: bitwarden-cli }
       - { name: git }
       - { name: git-flow }
       - { name: hub }
@@ -63,7 +61,11 @@
       - { name: unison }
       - { name: ag }
       - { name: bison }
+      - { name: coreutils }
       - { name: icu4c }
+      - { name: libtool }
+      - { name: unixodbc }
+      - { name: unzip }
       - { name: ctags }
       - { name: figlet }
       - { name: jq }
@@ -73,7 +75,6 @@
       - { name: rmtrash }
       - { name: gnu-tar }
       - { name: highlight }
-      # - { name: gnu-tar, install_options: default-names }
       - { name: mcrypt }
       - { name: re2c }
       - { name: jpeg }
@@ -94,9 +95,14 @@
 
     brew_cask_priority_normal:
       # browser, mailer, and apps for web services
+      - { name: google-chrome }
+      - { name: google-chrome-canary }
+      - { name: firefox }
+      - { name: firefox-developer-edition }
+      - { name: brave-browser }
+      - { name: safari-technology-preview }
       - { name: bathyscaphe }
       - { name: skype }
-      - { name: slack-beta }
 
       # development
       - { name: alacritty }
@@ -113,7 +119,6 @@
       - { name: robo-3t }
       - { name: sequel-pro }
       - { name: sourcetree }
-      # - { name: swiftybeaver }
       - { name: switchhosts }
       - { name: vagrant }
       - { name: visual-studio-code }
@@ -126,28 +131,24 @@
       - { name: bettertouchtool }
       - { name: bitwarden }
       - { name: caffeine }
-      # - { name: cooviewer }
       - { name: diskmaker-x }
       - { name: diskwave }
       - { name: dropbox }
       - { name: dozer }
+      - { name: duet }
       - { name: flux }
+      - { name: google-backup-and-sync }
       - { name: google-japanese-ime }
-      - { name: heroku/brew/heroku }
       - { name: karabiner-elements }
       - { name: keka }
       - { name: kindle }
-      - { name: itsycal }
       - { name: path-finder }
       - { name: station }
       - { name: toggl }
-      - { name: ticktick }
       # - { name: totalspaces }
-      # - { name: onyx }
       - { name: teensy }
       - { name: tweet-tray }
       - { name: iina }
-      # - { name: teamviewer }
       - { name: zoomus }
       - { name: discord }
       - { name: lastfm }
@@ -190,9 +191,6 @@
 
     - name: stop Automatic Capitalization
       osx_defaults: domain=NSGlobalDomain key=NSAutomaticCapitalizationEnabled type=bool value=false
-
-    - name: cleanup Dock icons
-      osx_defaults: domain=com.apple.dock key=persistent-apps type=array
 
     - name: minimize to application icon
       osx_defaults: domain=com.apple.dock key=minimize-to-application type=bool value=true

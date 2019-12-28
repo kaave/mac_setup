@@ -96,16 +96,9 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
   - libreoffice
 
 - install other apps
-  - [Duet display](http://www.duetdisplay.com/jp/)
   - [HHKB Driver](http://www.pfu.fujitsu.com/hhkeyboard/macdownload.html)
   - [MOTU Audio driver](http://motu.com/download)
-  - [Google Chrome](https://www.google.co.jp/chrome/browser/desktop/)
-  - [Google Chrome Canary](https://www.google.co.jp/chrome/browser/canary.html)
-  - [Firefox](https://www.mozilla.org/ja/firefox/new/)
-  - [Firefox Developer Edition](https://www.mozilla.org/ja/firefox/developer/)
-  - [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
   - [WebKit Nightly](https://webkit.org/downloads/)
-  - [Vivaldi](https://vivaldi.com/download/?lang=ja_JP)
 
 - commandline
   - install `tpm` packages: `run tmux & prefix + I`
@@ -121,7 +114,8 @@ ansible-playbook -i ~/mac_setup/hosts -vv ~/mac_setup/macbookpro.yml
     - GistID: [7c9a416cb1934c28a453](https://gist.github.com/kaave/7c9a416cb1934c28a453)
 
 - visual-studio-code
-  - install `Visual Studio Code Settings Sync`
+  - install `Settings Sync`
+  - setup plugin
   - `cmd + p` > `Sync: Download`
     - GistID: [9f4a74a7c814a9036fb1db5a5d70e04d](https://gist.github.com/kaave/9f4a74a7c814a9036fb1db5a5d70e04d)
 

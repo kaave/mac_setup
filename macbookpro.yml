@@ -11,6 +11,7 @@
       - neovim/neovim
       - laurent22/massren
       - homebrew/cask-versions
+      - github/gh
 
     brew_cask_priority_high:
       - { name: java }
@@ -50,6 +51,7 @@
       - { name: git }
       - { name: git-flow }
       - { name: hub }
+      - { name: gh }
       - { name: tig }
       - { name: shellcheck }
       - { name: readline }

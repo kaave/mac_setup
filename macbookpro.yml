@@ -20,6 +20,7 @@
       - { name: bash }
       - { name: zsh }
       - { name: fish }
+      - { name: bash-completion@2 }
       - { name: python }
       - { name: python3 }
       - { name: ansible }

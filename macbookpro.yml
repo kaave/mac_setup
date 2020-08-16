@@ -33,7 +33,6 @@
       - { name: gpg }
       - { name: gnu-sed }
       # - { name: google-cloud-sdk }
-      # - { name: qt5 } # can't install 10.12
       - { name: wget }
       - { name: openssl }
       # - { name: openssl, state: linked, install_options: force }  # can't make link with brew's openssl
@@ -44,10 +43,9 @@
       - { name: exa }
       - { name: fd }
       - { name: bat }
+      - { name: fzf }
       - { name: ripgrep }
       - { name: tmux }
-      - { name: peco }
-      - { name: fzf }
       - { name: reattach-to-user-namespace }
       - { name: git }
       - { name: git-flow }
@@ -105,21 +103,19 @@
       - { name: firefox-developer-edition }
       - { name: brave-browser }
       - { name: safari-technology-preview }
-      - { name: bathyscaphe }
       - { name: skype }
 
       # development
       - { name: alacritty }
+      - { name: another-redis-desktop-manager }
       - { name: atom }
       - { name: db-browser-for-sqlite }
       - { name: diffmerge }
       - { name: docker }
-      # - { name: emacs }
+      - { name: gitup }
+      # - { name: iterm2 }
       - { name: ngrok }
       - { name: postman }
-      # - { name: teamsql }
-      # - { name: rdm }
-      - { name: another-redis-desktop-manager }
       - { name: robo-3t }
       - { name: sequel-pro }
       - { name: sourcetree }
@@ -133,14 +129,12 @@
       - { name: anki }
       - { name: appcleaner }
       - { name: bettertouchtool }
-      # - { name: bitwarden } install from app store
-      - { name: caffeine }
       - { name: diskmaker-x }
       - { name: diskwave }
       - { name: dropbox }
       - { name: duet }
       - { name: flux }
-      - { name: google-backup-and-sync }
+      - { name: google-backup-and-sync } # google drive client
       - { name: google-japanese-ime }
       - { name: karabiner-elements }
       - { name: keka }
@@ -148,9 +142,7 @@
       - { name: path-finder }
       - { name: station }
       - { name: toggl }
-      # - { name: totalspaces }
       - { name: teensy }
-      - { name: tweet-tray }
       - { name: iina }
       - { name: vlc }
       - { name: zoomus }
@@ -164,10 +156,9 @@
       - { name: adobe-creative-cloud }
 
       # QuickLook
-      # - { name: betterzipql }
       - { name: epubquicklook }
       - { name: qlcolorcode }
-      #- { name: qldds }    # sha256 error
+      - { name: qldds }    # sha256 error
       - { name: qlimagesize }
       - { name: qlmarkdown }
       - { name: qlnetcdf }
@@ -181,13 +172,6 @@
       - { name: quicknfo }
       - { name: scriptql }
       - { name: webpquicklook }
-    vagrant_plugins:
-      - sahara
-      - dotenv
-      - vagrant-vbguest
-      - vagrant-vbox-snapshot
-      - vagrant-parallels
-      - vagrant-hostsupdater
   tasks:
     # Mac setting
     # - name: preview text copy
@@ -236,7 +220,7 @@
       osx_defaults: domain="Apple Global Domain" key=KeyRepeat type=int value=15
 
     # homebrew -------------------------------------------------
-    - name: tap repositries
+    - name: tap repositories
       homebrew_tap: tap={{ item }} state=present
       with_items: '{{brew_taps}}'
 
@@ -275,9 +259,3 @@
     # add key
     - name: add key for sbt
       shell: "gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv 99E82A75642AC823"
-
-    # Vagrant
-    - name: install vagrant plugins
-      command: vagrant plugin install {{ item }}
-      with_items: '{{vagrant_plugins}}'
-

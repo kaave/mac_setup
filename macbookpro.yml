@@ -112,6 +112,7 @@
       - { name: db-browser-for-sqlite }
       - { name: diffmerge }
       - { name: docker }
+      - { name: dotnet-sdk }
       - { name: gitup }
       # - { name: iterm2 }
       - { name: ngrok }

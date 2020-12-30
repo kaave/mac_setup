@@ -134,6 +134,7 @@
       - { name: diskwave }
       - { name: dropbox }
       - { name: duet }
+      - { name: editaro }
       - { name: flux }
       - { name: google-backup-and-sync } # google drive client
       - { name: google-japanese-ime }
@@ -148,7 +149,6 @@
       - { name: vlc }
       - { name: zoomus }
       - { name: discord }
-      - { name: lastfm }
       - { name: xld }
       - { name: skyfonts }
 

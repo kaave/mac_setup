@@ -142,7 +142,7 @@
       - { name: keka }
       - { name: kindle }
       - { name: path-finder }
-      - { name: station }
+      - { name: pushplaylabs-sidekick }
       - { name: toggl }
       - { name: teensy }
       - { name: iina }

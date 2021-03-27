@@ -106,7 +106,7 @@
       - { name: skype }
 
       # development
-      - { name: alacritty }
+      # - { name: alacritty }
       - { name: another-redis-desktop-manager }
       - { name: atom }
       - { name: db-browser-for-sqlite }
@@ -114,7 +114,7 @@
       - { name: docker }
       - { name: dotnet-sdk }
       - { name: gitup }
-      # - { name: iterm2 }
+      - { name: iterm2 }
       - { name: ngrok }
       - { name: postman }
       - { name: robo-3t }

@@ -141,6 +141,7 @@
       - { name: karabiner-elements }
       - { name: keka }
       - { name: kindle }
+      - { name: obsidian }
       - { name: path-finder }
       - { name: pushplaylabs-sidekick }
       - { name: toggl }

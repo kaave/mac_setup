@@ -135,7 +135,6 @@
       - { name: dropbox }
       - { name: duet }
       - { name: editaro }
-      - { name: flux }
       - { name: google-backup-and-sync } # google drive client
       - { name: google-japanese-ime }
       - { name: karabiner-elements }
@@ -144,6 +143,7 @@
       - { name: obsidian }
       - { name: path-finder }
       - { name: pushplaylabs-sidekick }
+      - { name: shifty }
       - { name: toggl }
       - { name: teensy }
       - { name: iina }

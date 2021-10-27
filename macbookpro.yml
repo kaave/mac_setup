@@ -135,7 +135,7 @@
       - { name: dropbox }
       - { name: duet }
       - { name: editaro }
-      - { name: google-backup-and-sync } # google drive client
+      - { name: google-drive }
       - { name: google-japanese-ime }
       - { name: karabiner-elements }
       - { name: keka }

@@ -74,7 +74,7 @@
       - { name: jid }
       - { name: massren }
       - { name: gdb }
-      - { name: rmtrash }
+      - { name: trash }
       - { name: gnu-tar }
       - { name: highlight }
       - { name: mcrypt }
@@ -101,7 +101,7 @@
       - { name: google-chrome-canary }
       - { name: firefox }
       - { name: firefox-developer-edition }
-      - { name: brave-browser }
+      # - { name: brave-browser }
       - { name: safari-technology-preview }
       - { name: skype }
 
@@ -143,11 +143,11 @@
       - { name: obsidian }
       - { name: pushplaylabs-sidekick }
       - { name: shifty }
-      - { name: toggl }
+      # - { name: toggl }
       - { name: teensy }
       - { name: iina }
       - { name: vlc }
-      - { name: zoomus }
+      # - { name: zoomus }
       - { name: discord }
       - { name: xld }
 
@@ -156,7 +156,7 @@
       - { name: adobe-creative-cloud }
 
       # QuickLook
-      - { name: epubquicklook }
+      # - { name: epubquicklook }
       - { name: qlcolorcode }
       - { name: qldds }
       - { name: qlimagesize }

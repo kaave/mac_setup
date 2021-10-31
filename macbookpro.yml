@@ -129,6 +129,7 @@
       - { name: alfred }
       - { name: anki }
       - { name: appcleaner }
+      - { name: authy }
       - { name: bettertouchtool }
       - { name: diskmaker-x }
       - { name: diskwave }

@@ -14,13 +14,13 @@
       - github/gh
 
     brew_cask_priority_high:
-      - { name: java }
       - { name: xquartz }
     brew_priority_high:
       - { name: bash }
       - { name: zsh }
       - { name: fish }
       - { name: bash-completion@2 }
+      - { name: java }
       - { name: python }
       - { name: python3 }
       - { name: ansible }
@@ -73,7 +73,6 @@
       - { name: jq }
       - { name: jid }
       - { name: massren }
-      - { name: gdb }
       - { name: trash }
       - { name: gnu-tar }
       - { name: highlight }
@@ -112,7 +111,7 @@
       - { name: db-browser-for-sqlite }
       - { name: diffmerge }
       - { name: docker }
-      - { name: dotnet-sdk }
+      - { name: dotnet }
       - { name: gitup }
       - { name: iterm2 }
       - { name: ngrok }

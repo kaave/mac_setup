@@ -43,10 +43,8 @@ System configuration > Low energy
 reboot with pressing `⌘ + r` keys, and run terminal.
 
 ```bash
-# current ver. (>= 11.0)
-csrutil disable --with kext --with dtrace --with nvram --with basesystem
-# legacy ver.
 csrutil enable --without debug
+# memo https://gist.github.com/darwin/8e9192f0f2996b0f77c103e6bade1d9f
 ```
 
 #### authorize XCode

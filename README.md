@@ -43,6 +43,9 @@ System configuration > Low energy
 reboot with pressing `⌘ + r` keys, and run terminal.
 
 ```bash
+# current ver. (>= 11.0)
+csrutil disable --with kext --with dtrace --with nvram --with basesystem
+# legacy ver.
 csrutil enable --without debug
 ```
 

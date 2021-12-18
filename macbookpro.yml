@@ -11,6 +11,7 @@
       - neovim/neovim
       - laurent22/massren
       - homebrew/cask-versions
+      - homebrew/cask-fonts
       - github/gh
 
     brew_cask_priority_high:
@@ -174,6 +175,33 @@
       - { name: webpquicklook }
       - { name: apparency }
       - { name: quicklookase }
+
+      # fonts
+      - { name: font-sf-arabic }
+      - { name: font-sf-mono-for-powerline }
+      - { name: font-sf-compact }
+      - { name: font-sf-pro }
+      - { name: font-sf-mono }
+      - { name: font-new-york }
+      - { name: font-hackgen }
+      - { name: font-hackgen-nerd }
+      - { name: font-noto-mono }
+      - { name: font-noto-mono-for-powerline }
+      - { name: font-noto-sans }
+      - { name: font-noto-serif }
+      - { name: font-ubuntu }
+      - { name: font-ubuntu-mono }
+      - { name: font-ubuntu-mono-nerd-font }
+      - { name: font-ubuntu-condensed }
+      - { name: font-ubuntu-mono-derivative-powerline }
+      - { name: font-ubuntu-nerd-font }
+      - { name: font-roboto }
+      - { name: font-roboto-slab }
+      - { name: font-roboto-mono }
+      - { name: font-roboto-mono-nerd-font }
+      - { name: font-roboto-mono-for-powerline }
+      - { name: font-montserrat }
+
   tasks:
     # Mac setting
 
@@ -273,3 +301,7 @@
     # add key
     - name: add key for sbt
       shell: "gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv 99E82A75642AC823"
+
+
+
+

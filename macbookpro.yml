@@ -185,10 +185,16 @@
       - { name: font-new-york }
       - { name: font-hackgen }
       - { name: font-hackgen-nerd }
+      - { name: font-udev-gothic }
+      - { name: font-udev-gothic-nf }
       - { name: font-noto-mono }
       - { name: font-noto-mono-for-powerline }
       - { name: font-noto-sans }
       - { name: font-noto-serif }
+      - { name: font-biz-udgothic }
+      - { name: font-biz-udmincho }
+      - { name: font-biz-udpgothic }
+      - { name: font-biz-udpmincho }
       - { name: font-ubuntu }
       - { name: font-ubuntu-mono }
       - { name: font-ubuntu-mono-nerd-font }

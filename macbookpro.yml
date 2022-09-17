@@ -12,6 +12,7 @@
       - laurent22/massren
       - homebrew/cask-versions
       - homebrew/cask-fonts
+      - hashicorp/tap
       - github/gh
 
     brew_cask_priority_high:
@@ -92,6 +93,7 @@
       - { name: neovim }
       - { name: autoconf }
       - { name: automake }
+      - { name: terraform }
     brew_priority_normal:
       - { name: ffmpeg }
 

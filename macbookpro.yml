@@ -23,7 +23,6 @@
       - { name: fish }
       - { name: bash-completion@2 }
       - { name: java }
-      - { name: python }
       - { name: python3 }
       - { name: ansible }
       - { name: carthage }
@@ -93,6 +92,7 @@
       - { name: neovim }
       - { name: autoconf }
       - { name: automake }
+      - { name: bazel }
       - { name: terraform }
     brew_priority_normal:
       - { name: ffmpeg }

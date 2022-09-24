@@ -92,8 +92,10 @@
       - { name: neovim }
       - { name: autoconf }
       - { name: automake }
-      - { name: bazel }
-      - { name: terraform }
+      # - { name: bazel }
+      - { name: bazelisk }
+      - { name: buildifier }
+      - { name: lefthook }
     brew_priority_normal:
       - { name: ffmpeg }
 

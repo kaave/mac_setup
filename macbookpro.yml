@@ -33,7 +33,6 @@
       - { name: fswatch }
       - { name: gpg }
       - { name: gnu-sed }
-      # - { name: google-cloud-sdk }
       - { name: wget }
       - { name: openssl }
       # - { name: openssl, state: linked, install_options: force }  # can't make link with brew's openssl
@@ -92,6 +91,8 @@
       - { name: neovim }
       - { name: autoconf }
       - { name: automake }
+      - { name: awscli }
+      - { name: google-cloud-sdk }
       # - { name: bazel }
       - { name: bazelisk }
       - { name: buildifier }

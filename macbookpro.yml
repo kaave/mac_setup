@@ -37,7 +37,6 @@
       - { name: openssl }
       # - { name: openssl, state: linked, install_options: force }  # can't make link with brew's openssl
       - { name: icdiff }
-      - { name: ammonite-repl }
       - { name: terminal-notifier }
       - { name: tree }
       - { name: exa }
@@ -120,6 +119,7 @@
       - { name: dotnet }
       - { name: gitup }
       # - { name: iterm2 }
+      - { name: mark-text }
       - { name: ngrok }
       - { name: postman }
       - { name: robo-3t }

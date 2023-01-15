@@ -119,13 +119,13 @@
       - { name: dotnet }
       - { name: gitup }
       # - { name: iterm2 }
-      - { name: mark-text }
       - { name: ngrok }
       - { name: postman }
       - { name: robo-3t }
       - { name: sequel-pro }
       - { name: sourcetree }
       - { name: switchhosts }
+      - { name: typora }
       - { name: vagrant }
       - { name: visual-studio-code }
       - { name: wireshark }

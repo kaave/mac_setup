@@ -155,6 +155,7 @@
       - { name: vlc }
       # - { name: zoomus }
       - { name: discord }
+      - { name: xbar }
       - { name: xld }
 
       # shareware

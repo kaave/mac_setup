@@ -24,6 +24,7 @@
       - { name: bash-completion@2 }
       - { name: java }
       - { name: python3 }
+      - { name: go }
       - { name: ansible }
       - { name: carthage }
       - { name: sbt }

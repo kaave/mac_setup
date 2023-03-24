@@ -118,6 +118,7 @@
       - { name: diffmerge }
       - { name: docker }
       - { name: dotnet }
+      - { name: figma }
       - { name: gitup }
       # - { name: iterm2 }
       - { name: ngrok }
@@ -161,7 +162,7 @@
 
       # shareware
       - { name: jetbrains-toolbox }
-      - { name: adobe-creative-cloud }
+      # - { name: adobe-creative-cloud }
 
       # QuickLook
       # - { name: epubquicklook }

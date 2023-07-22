@@ -301,7 +301,7 @@
 
     # add shell
     - name: add shells path
-      lineinfile: path=/etc/shells line=/usr/local/bin/{{ item }}
+      lineinfile: path=/etc/shells line=/opt/homebrew/bin/{{ item }}
       become: yes
       with_items:
         - bash

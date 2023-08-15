@@ -14,6 +14,7 @@
       - homebrew/cask-fonts
       - hashicorp/tap
       - github/gh
+      - daipeihust/tap
 
     brew_cask_priority_high:
       - { name: xquartz }
@@ -53,6 +54,7 @@
       - { name: git-delta }
       - { name: gh }
       - { name: tig }
+      - { name: im-select } # For VS Code's VIM extension
       - { name: shellcheck }
       - { name: readline }
       - { name: ghostscript }

@@ -43,7 +43,7 @@ apps=(
   icdiff
   terminal-notifier
   tree
-  exa
+  lsd
   fd
   bat
   fzf
@@ -149,6 +149,7 @@ cask_apps=(
   diskmaker-x
   diskwave
   dropbox
+  deepl
   duet
   editaro
   google-drive

@@ -185,12 +185,13 @@ cask_apps=(
   quicklookase   # support .ase
 
   # fonts
-  font-sf-arabic
-  font-sf-mono-for-powerline
-  font-sf-compact
-  font-sf-pro
-  font-sf-mono
-  font-new-york
+  font-sf-pro                # San Francisco Pro
+  font-sf-compact            # San Francisco Compact
+  font-sf-mono               # San Francisco Mono
+  font-sf-mono-for-powerline # San Francisco Mono
+  font-new-york              # San Francisco New York
+  font-sf-arabic             # San Francisco Arabic
+  font-genjyuugothic
   font-hackgen
   font-hackgen-nerd
   font-udev-gothic
@@ -215,6 +216,8 @@ cask_apps=(
   font-roboto-mono-nerd-font
   font-roboto-mono-for-powerline
   font-montserrat
+  font-source-code-pro
+  font-source-code-pro-for-powerline
 )
 
 arranges() {

@@ -218,6 +218,8 @@ cask_apps=(
   font-montserrat
   font-source-code-pro
   font-source-code-pro-for-powerline
+  font-jetbrains-mono
+  font-jetbrains-mono-nerd-font
 )
 
 arranges() {

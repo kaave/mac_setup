@@ -100,6 +100,8 @@ apps=(
   bazelisk
   buildifier
   lefthook
+  koekeishiya/formulae/yabai
+  koekeishiya/formulae/skhd
 
   ffmpeg # Note: To be placed at the end.
 )
@@ -134,7 +136,6 @@ cask_apps=(
   postman
   robo-3t
   sequel-pro
-  # sourcetree
   switchhosts
   typora
   vagrant
@@ -146,6 +147,7 @@ cask_apps=(
   appcleaner
   authy
   bettertouchtool
+  clipy
   diskmaker-x
   diskwave
   dropbox

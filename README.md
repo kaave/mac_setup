@@ -42,11 +42,10 @@ git clone git@github.com:kaave/mac_setup.git ~/mac_setup
 
 - manual install packages: `brew --cask`:
   - parallels-desktop
-  - libreoffice
   - ableton-live-suite
   - ilok-license-manager
   - microsoft-office
-  - virtualbox
+  - libreoffice
 
 - install other apps:
   - [HHKB Driver](http://www.pfu.fujitsu.com/hhkeyboard/macdownload.html)

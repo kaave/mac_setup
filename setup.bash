@@ -24,14 +24,14 @@ apps=(
   bash
   zsh
   fish
-  bash-completion@2
-  java
-  python3
-  go
-  ansible
+  # bash-completion@2
+  # java
+  # python3
+  # go
+  # ansible
   carthage
-  sbt
-  haskell-stack
+  # sbt
+  # haskell-stack
   curl
   direnv
   fswatch
@@ -50,17 +50,17 @@ apps=(
   ripgrep
   tmux
   reattach-to-user-namespace
-  git
-  git-flow
-  hub
-  git-delta
-  gh
-  tig
+  # git
+  # git-flow
+  # hub
+  # git-delta
+  # gh
+  # tig
   daipeihust/tap/im-select # For VS Code's VIM extension
-  shellcheck
+  # shellcheck
   readline
-  ghostscript
-  nginx
+  # ghostscript
+  # nginx
   fping
   htop
   rsync
@@ -82,15 +82,15 @@ apps=(
   highlight
   mcrypt
   re2c
-  jpeg
-  libxml2
+  # jpeg
+  # libxml2
   # libxml2, state: linked, install_options: force }
-  libxslt
-  libiconv
-  libpng
+  # libxslt
+  # libiconv
+  # libpng
   giflib
-  webp
-  glslang
+  # webp
+  # glslang
   vim
   neovim/neovim/neovim
   autoconf
@@ -99,7 +99,7 @@ apps=(
   google-cloud-sdk
   bazelisk
   buildifier
-  lefthook
+  # lefthook
   koekeishiya/formulae/yabai
   koekeishiya/formulae/skhd
 

@@ -13,12 +13,6 @@ set -euxo pipefail
 mail_address=junkjunctions@gmail.com
 dotfiles_path=kaave/dotfiles.git
 
-# brew taps
-taps=(
-  homebrew/cask-versions
-  homebrew/cask-fonts
-)
-
 # brew apps
 apps=(
   bash
@@ -74,9 +68,10 @@ apps=(
   unzip
   ctags
   figlet
+  screenfetch
   jq
   jid
-  laurent22/massren/massren
+  massren
   trash
   gnu-tar
   highlight
@@ -113,9 +108,9 @@ cask_apps=(
 
   # browser, mailer, and apps for web services
   google-chrome
-  google-chrome-canary
+  google-chrome@canary
   firefox
-  firefox-developer-edition
+  firefox@developer-edition
   # brave-browser
   safari-technology-preview
   arc
@@ -135,32 +130,25 @@ cask_apps=(
   ngrok
   postman
   robo-3t
-  sequel-pro
   switchhosts
   typora
   vagrant
   visual-studio-code
+  visual-studio-code@insiders
   wireshark
 
   # utility
   anki
   appcleaner
-  authy
   bettertouchtool
   clipy
-  diskmaker-x
-  diskwave
-  dropbox
+  # diskwave
   deepl
-  duet
-  editaro
-  google-drive
   google-japanese-ime
   karabiner-elements
   keka
   kindle
   obsidian
-  pushplaylabs-sidekick
   raycast
   shifty
   teensy
@@ -176,7 +164,7 @@ cask_apps=(
   qlprettypatch  # support .patch
   qlmarkdown     # support .md
   qlswift        # support .swift
-  qlrest         # support ReStructuredText files
+  # qlrest         # support ReStructuredText files
   qlstephen      # support some PlainText files
   qlvideo        # support some video files
   quicklook-csv  # support .csv
@@ -228,7 +216,7 @@ arranges() {
   # Generate SSH key
   echo "🗣️ Creating an SSH key..."
 
-  ssh-keygen -t ed21159 -C $mail_address
+  ssh-keygen -t ed25519 -C $mail_address
   pbcopy < ~/.ssh/id_ed25519.pub
   echo "🗣️ Copied pub key to clipboard, please add to GitHub \n"
   open https://github.com/settings/keys
@@ -243,6 +231,8 @@ arranges() {
   echo "🗣️ Installing xcode-stuff"
   xcode-select --install
 
+  echo "🗣️ Installing Rosetta"
+  sudo softwareupdate --install-rosetta
   cd ~
 }
 
@@ -334,17 +324,12 @@ homebrew() {
   if type brew >/dev/null 2>&1; then
     echo "🗣️ Installing homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
 
   # Update homebrew recipes
   echo "🗣️ Updating homebrew..."
   brew update
-
-  echo "🗣️ Installing taps..."
-  for tap in "${taps[@]}"
-  do
-      brew tap "$tap"
-  done
 
   echo "🗣️ Installing brew apps..."
   brew install "${apps[@]}"
@@ -361,6 +346,10 @@ homebrew() {
 user_setup() {
   echo "🗣️ Copying dotfiles from Github"
   git clone "git@github.com:$dotfiles_path" ~/dotfiles
+
+  echo "🗣️ Start some services"
+  yabai --start-service
+  skhd --start-service
 
   cd ~
 }

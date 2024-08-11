@@ -40,17 +40,19 @@ git clone git@github.com:kaave/mac_setup.git ~/mac_setup
 
 ## after ansible
 
-- manual install packages: `brew --cask`:
-  - parallels-desktop
-  - ableton-live-suite
+- some hobby packages:
+  - ableton-live-suite@11
   - ilok-license-manager
   - microsoft-office
   - libreoffice
+  - swinsian
 
 - install other apps:
+  - [Parallels Desktop](https://my.parallels.com/dashboard)
   - [HHKB Driver](http://www.pfu.fujitsu.com/hhkeyboard/macdownload.html)
   - [RME Driver](https://synthax.jp/drivers-fireface-mac.html)
-  - [WebKit Nightly](https://webkit.org/downloads/)
+  - [cooViewer](https://coo-ona.github.io/cooViewer/)
+  - [Morisawa Desktop Manager](https://morisawafonts.com/mypage/dm/)
 
 - command line:
   - install `tpm` packages: `run tmux & prefix + I`

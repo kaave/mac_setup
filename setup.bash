@@ -129,7 +129,7 @@ cask_apps=(
   jetbrains-toolbox
   ngrok
   postman
-  robo-3t
+  # robo-3t
   switchhosts
   typora
   vagrant
@@ -148,6 +148,7 @@ cask_apps=(
   karabiner-elements
   keka
   kindle
+  notion
   obsidian
   raycast
   shifty

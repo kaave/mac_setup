@@ -27,6 +27,7 @@ apps=(
   # sbt
   # haskell-stack
   curl
+  mise
   direnv
   fswatch
   gpg

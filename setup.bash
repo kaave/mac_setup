@@ -47,10 +47,8 @@ apps=(
   reattach-to-user-namespace
   # git
   # git-flow
-  # hub
-  # git-delta
-  # gh
-  # tig
+  git-delta
+  gh
   daipeihust/tap/im-select # For VS Code's VIM extension
   # shellcheck
   readline
@@ -92,7 +90,7 @@ apps=(
   autoconf
   automake
   awscli
-  google-cloud-sdk
+  gcloud-cli
   bazelisk
   buildifier
   # lefthook
@@ -118,14 +116,19 @@ cask_apps=(
   skype
 
   # development
-  alacritty
   another-redis-desktop-manager
+  antigravity
   apparency
+  claude
+  claude-code
+  codex
+  cursor
   db-browser-for-sqlite
   diffmerge
   docker
   # dotnet
   figma
+  ghostty
   gitup
   jetbrains-toolbox
   ngrok
@@ -145,6 +148,7 @@ cask_apps=(
   clipy
   # diskwave
   deepl
+  google-drive
   google-japanese-ime
   karabiner-elements
   keka
@@ -154,6 +158,7 @@ cask_apps=(
   raycast
   shifty
   teensy
+  todoist-app
   iina
   vlc
   discord

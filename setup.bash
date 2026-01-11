@@ -43,7 +43,7 @@ apps=(
   bat
   fzf
   ripgrep
-  tmux
+  # tmux
   reattach-to-user-namespace
   # git
   # git-flow
@@ -74,7 +74,6 @@ apps=(
   trash
   gnu-tar
   highlight
-  mcrypt
   re2c
   # jpeg
   # libxml2
@@ -93,9 +92,6 @@ apps=(
   gcloud-cli
   bazelisk
   buildifier
-  # lefthook
-  koekeishiya/formulae/yabai
-  koekeishiya/formulae/skhd
 
   ffmpeg # Note: To be placed at the end.
 )
@@ -110,10 +106,9 @@ cask_apps=(
   google-chrome@canary
   firefox
   firefox@developer-edition
-  # brave-browser
+  brave-browser
   safari-technology-preview
   arc
-  skype
 
   # development
   another-redis-desktop-manager
@@ -152,7 +147,6 @@ cask_apps=(
   google-japanese-ime
   karabiner-elements
   keka
-  kindle
   notion
   obsidian
   raycast
@@ -167,15 +161,12 @@ cask_apps=(
 
   # QuickLook
   qlcolorcode    # support Syntax highlighting
-  # qlimagesize  # Note: This plugin is not working on macOS Catalina.
   qlprettypatch  # support .patch
   qlmarkdown     # support .md
   qlswift        # support .swift
-  # qlrest         # support ReStructuredText files
   qlstephen      # support some PlainText files
   qlvideo        # support some video files
   quicklook-csv  # support .csv
-  quicklook-json # support .json
   scriptql       # support AppleScript
   webpquicklook  # support .webp
   avifquicklook  # support .avif
@@ -232,8 +223,8 @@ arranges() {
   echo "🗣️ Kill low power mode"
   sudo pmset -a lowpowermode 0
 
-  echo "🗣️ Kill gatekipper"
-  sudo spctl --master-disable
+  # echo "🗣️ Kill gatekipper"
+  # sudo spctl --master-disable
 
   echo "🗣️ Installing xcode-stuff"
   xcode-select --install
@@ -334,7 +325,7 @@ homebrew() {
     eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
 
-  # Update homebrew recipes
+  Update homebrew recipes
   echo "🗣️ Updating homebrew..."
   brew update
 
@@ -355,13 +346,12 @@ user_setup() {
   git clone "git@github.com:$dotfiles_path" ~/dotfiles
 
   echo "🗣️ Start some services"
-  yabai --start-service
-  skhd --start-service
 
   cd ~
 }
 
 main() {
+  # eval "$(/opt/homebrew/bin/brew shellenv)"
   arranges
   macos_configs
   homebrew

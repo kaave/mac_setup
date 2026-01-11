@@ -22,10 +22,6 @@ sudo visudo
 [USER_NAME] ALL = (ALL) NOPASSWD: ALL
 ```
 
-## kill sleep
-
-System settings > Battery > Low power mode: `Never`
-
 ## authorize XCode
 
 ```bash
@@ -50,7 +46,7 @@ git clone git@github.com:kaave/mac_setup.git ~/mac_setup
 - install other apps:
   - [Parallels Desktop](https://my.parallels.com/dashboard)
   - [HHKB Driver](http://www.pfu.fujitsu.com/hhkeyboard/macdownload.html)
-  - [RME Driver](https://synthax.jp/drivers-fireface-mac.html)
+  - [RME Babyface Pro FS Driver](https://rme-audio.jp/?s=download&search_type=download&product_id=748)
   - [cooViewer](https://coo-ona.github.io/cooViewer/)
   - [Morisawa Desktop Manager](https://morisawafonts.com/mypage/dm/)
 

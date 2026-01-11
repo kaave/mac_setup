@@ -212,13 +212,22 @@ cask_apps=(
 
 arranges() {
   # Generate SSH key
-  echo "🗣️ Creating an SSH key..."
 
-  ssh-keygen -t ed25519 -C $mail_address
-  pbcopy < ~/.ssh/id_ed25519.pub
-  echo "🗣️ Copied pub key to clipboard, please add to GitHub \n"
-  open https://github.com/settings/keys
-  read -p "Press [Enter] key after add key..."
+  # 公開鍵ファイルのパスを変数に定義
+  SSH_KEY_FILE="$HOME/.ssh/id_ed25519.pub"
+
+  # ファイルが存在しない (!) 場合にのみ実行
+  if [ ! -f "$SSH_KEY_FILE" ]; then
+    echo "🗣️ Creating an SSH key..."
+
+    ssh-keygen -t ed25519 -C $mail_address
+    pbcopy < "$SSH_KEY_FILE"
+    echo "🗣️ Copied pub key to clipboard, please add to GitHub \n"
+    open https://github.com/settings/keys
+    read -p "Press [Enter] key after add key..."
+  else
+    echo "ℹ️ SSH key already exists. Skipping generation."
+  fi
 
   echo "🗣️ Kill low power mode"
   sudo pmset -a lowpowermode 0
@@ -319,11 +328,12 @@ macos_configs() {
 }
 
 homebrew() {
-  if type brew >/dev/null 2>&1; then
+  if ! type brew >/dev/null 2>&1; then
     echo "🗣️ Installing homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
+
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 
   Update homebrew recipes
   echo "🗣️ Updating homebrew..."

@@ -50,7 +50,7 @@ apps=(
   git-delta
   gh
   daipeihust/tap/im-select # For VS Code's VIM extension
-  # shellcheck
+  shellcheck
   readline
   # ghostscript
   # nginx
@@ -125,7 +125,8 @@ cask_apps=(
   figma
   ghostty
   gitup
-  jetbrains-toolbox
+  # jetbrains-toolbox
+  kubernetes-cli
   ngrok
   postman
   # robo-3t
@@ -139,6 +140,7 @@ cask_apps=(
   # utility
   anki
   appcleaner
+  bettermouse
   bettertouchtool
   clipy
   # diskwave

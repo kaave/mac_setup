@@ -117,12 +117,13 @@ cask_apps=(
   claude
   claude-code
   codex
-  cursor
+  # cursor
   db-browser-for-sqlite
   diffmerge
   docker
   # dotnet
   figma
+  gcloud-cli
   ghostty
   gitup
   # jetbrains-toolbox

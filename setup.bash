@@ -43,7 +43,7 @@ apps=(
   bat
   fzf
   ripgrep
-  # tmux
+  tmux
   reattach-to-user-namespace
   # git
   # git-flow
@@ -112,11 +112,13 @@ cask_apps=(
 
   # development
   another-redis-desktop-manager
-  antigravity
+  # antigravity
   apparency
+  chatgpt
   claude
   claude-code
   codex
+  codex-app
   # cursor
   db-browser-for-sqlite
   diffmerge

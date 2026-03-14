@@ -260,6 +260,8 @@ macos_configs() {
   # enabling full keyboard access for all controls (e.g. enable Tab in modal dialogs)
   defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
+  defaults write -g ApplePressAndHoldEnabled -bool false
+
   # expanding the save panel by default
   defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
   defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
